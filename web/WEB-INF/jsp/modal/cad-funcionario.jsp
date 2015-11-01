@@ -10,7 +10,7 @@
                 <h4 class="modal-title">Cadastrar Funcionário</h4>
             </div>
             <div class="modal-body">
-                <div>
+                <form id="frmCad" name="frmCad" method="post" action="salva-funcionario">
                     <div>        
                         <input type="hidden" name="id" value="${funcionario.id}">
                     </div>
@@ -34,10 +34,11 @@
                         <input type="text" id="password" name="password" value="${funcionario.password}">
                     </div>
                     <br>
-                </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" onclick="salva()" id="btnSalvar" >Salvar</button> &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" id="btnFechar" data-dismiss="modal">Fechar</button>
             </div>
         </div>
 

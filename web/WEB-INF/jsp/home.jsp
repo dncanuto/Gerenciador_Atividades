@@ -25,6 +25,6 @@
             <%@include file="modal/cad-funcionario.jsp" %>        
         </div>
         
-        <a href="javascript:preencheFuncionario()">Recarregar com ajax! </a>
+        <a href="javascript:preencheFuncionario()" id="linkTeste">Recarregar com ajax! </a>
     </body>
 </html>
