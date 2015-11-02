@@ -1,27 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 01/11/2015 22:01:29 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="VO.Dados.FuncionarioVO" table="FUNCIONARIO" schema="dbo"
-         catalog="ADS5"/>
-  
-    <id name="id" type="int">
-        <column name="ID" />
-        <generator class="identity" />
-    </id>
-    
-    <property name="nome" type="string">
-        <column name="NOME" length="200" not-null="true"/>
-    </property>
-        
-    <property name="sobrenome" type="string">
-        <column name="SOBRENOME" length="200" />
-    </property>
-		
-    <property name="email" type="string">
-        <column name="EMAIL" length="200" />
-    </property>
-    
-    <property name="password" type="string">
-        <column name="PASSWORD" length="10" />
-    </property>
+    <class name="VO.Dados.Funcionario" table="FUNCIONARIO" schema="dbo" catalog="ADS5" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="nome" type="string">
+            <column name="NOME" length="200" />
+        </property>
+        <property name="sobrenome" type="string">
+            <column name="SOBRENOME" length="200" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="200" />
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" length="10" />
+        </property>
+        <property name="dtcriacao" type="date">
+            <column name="DTCRIACAO" length="10" />
+        </property>
+        <property name="isAtivo" type="java.lang.Boolean">
+            <column name="IS_ATIVO" />
+        </property>
+    </class>
 </hibernate-mapping>

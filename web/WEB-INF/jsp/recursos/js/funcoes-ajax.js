@@ -2,7 +2,7 @@ function preencheFuncionario()
 {
     $.ajax({
         type: "POST",
-        url: "dados-funcionario",    
+        url: "dados-funcionario",
         success: function (data) {
 
             var div = $("#div-modal-funcionario");
@@ -24,7 +24,10 @@ function salva()
         success: function (dados) {
             if (dados.sucesso) {
                 $("#btnFechar").click();
-                $("#linkTeste").click();
+
+                $('#frmCad').each(function () {
+                    this.reset();
+                });
             }
             else {
 

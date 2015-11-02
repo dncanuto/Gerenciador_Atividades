@@ -5,8 +5,8 @@
  */
 package Controladores;
 
-import Hibernate.Dados.FuncionarioDAO;
-import VO.Dados.FuncionarioVO;
+import DAO.Dados.FuncionarioDAO;
+import VO.Dados.Funcionario;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -33,7 +33,7 @@ public class controladorteste {
 
     @RequestMapping(value = "dados-funcionario")
     public ModelAndView dadosFuncionario() {
-        FuncionarioVO f = new FuncionarioVO();
+        Funcionario f = new Funcionario();
         
         ModelAndView mv = new ModelAndView("modal/cad-funcionario");
         mv.addObject("funcionario", f);
@@ -43,7 +43,7 @@ public class controladorteste {
     @RequestMapping(value = "salva-funcionario", produces = "text/html; charset=UTF-8")
     @ResponseBody
     public String salvaFuncionario(
-            FuncionarioVO funcionario,
+            Funcionario funcionario,
             BindingResult result) {
 
         try{
