@@ -11,6 +11,20 @@ function preencheFuncionario()
     });
 }
 
+function alterar(id)
+{
+    $.ajax({
+        type: "POST",
+        url: "altera-funcionario",
+        data: "id" + id,
+        success: function (data) {
+
+            var div = $("#frmCad");
+            div.html(data);
+        }
+    });
+}
+
 function salva()
 {
     //o código abaixo é para enviar TODO o form para o controller (servidor)

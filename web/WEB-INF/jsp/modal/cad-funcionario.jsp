@@ -16,7 +16,7 @@
                     </div>
                     <div>
                         <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="nome" value="${funcionario.getNome()}">
+                        <input type="text" id="nome" name="nome" value="${funcionario.nome}">
                     </div>
                     <br>
                     <div>

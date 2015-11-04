@@ -23,20 +23,19 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Daniel
  */
 @Controller
-public class controladorteste {
+public class controladorFuncionario {
 
     @RequestMapping("/index")
     public ModelAndView minhaHome() throws SQLException {
-        ModelAndView mv = new ModelAndView("home"); // abrir a home        
+        ModelAndView mv = new ModelAndView("home"); // abrir a home 
+        mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
         return mv;
-    }
-
-    @RequestMapping(value = "dados-funcionario")
-    public ModelAndView dadosFuncionario() {
-        Funcionario f = new Funcionario();
-        
-        ModelAndView mv = new ModelAndView("modal/cad-funcionario");
-        mv.addObject("funcionario", f);
+    }    
+    
+    @RequestMapping("altera-funcionario")
+    public ModelAndView alterarFuncionario(int id){
+        ModelAndView mv = new ModelAndView("modal/cad-funcionario"); // abrir a home 
+        mv.addObject("funcionario", FuncionarioDAO.pesquisaFuncionario(id));
         return mv;
     }
 

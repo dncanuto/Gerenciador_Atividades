@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,6 +26,21 @@
             <%@include file="modal/cad-funcionario.jsp" %>        
         </div>
         
-        <a href="javascript:preencheFuncionario()" id="linkTeste">Recarregar com ajax! </a>
+        <table id="tbFuncionario">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Opções</th>
+            </tr>
+            <c:forEach items="${lista}" var="f">
+                <tr>
+                    <td>${f.id}</td>
+                    <td>${f.nome}</td>
+                    <td>
+                        <a href="javascript:alterar(${f.id})" data-toggle="modal" data-target="#myModal">Alterar</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
     </body>
 </html>
