@@ -32,6 +32,13 @@ public class controladorFuncionario {
         return mv;
     }    
     
+    @RequestMapping("lista-funcionario")
+    public ModelAndView listaFuncionario() throws SQLException {
+        ModelAndView mv = new ModelAndView("gridFuncionario"); // abrir a home 
+        mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
+        return mv;
+    }   
+    
     @RequestMapping("altera-funcionario")
     public ModelAndView alterarFuncionario(int id){
         ModelAndView mv = new ModelAndView("modal/cad-funcionario"); // abrir a home 
@@ -74,6 +81,9 @@ public class controladorFuncionario {
             myObj.addProperty("sucesso", erros.isEmpty());
             JsonElement objetoErrosEmJson = gson.toJsonTree(erros);
             myObj.add("erros", objetoErrosEmJson);
+            
+            /*JsonElement listaFuncionariosEmJson = gson.toJsonTree(FuncionarioDAO.listarFuncionarios());
+            myObj.add("lista", listaFuncionariosEmJson);*/
             
             return myObj.toString();
         }

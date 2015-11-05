@@ -26,21 +26,8 @@
             <%@include file="modal/cad-funcionario.jsp" %>        
         </div>
         
-        <table id="tbFuncionario">
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Opções</th>
-            </tr>
-            <c:forEach items="${lista}" var="f">
-                <tr>
-                    <td>${f.id}</td>
-                    <td>${f.nome}</td>
-                    <td>
-                        <a href="javascript:alterar(${f.id})" data-toggle="modal" data-target="#myModal">Alterar</a>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
+        <div id="tbFuncionario">
+            <%@include file="gridFuncionario.jsp" %>  
+        </div>
     </body>
 </html>

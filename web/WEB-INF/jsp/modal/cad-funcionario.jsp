@@ -38,7 +38,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="salva()" id="btnSalvar" >Salvar</button> &nbsp;&nbsp;&nbsp;
-                <button type="button" class="btn btn-default" id="btnFechar" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-default" onclick='formReset("#frmCad")' id="btnFechar" data-dismiss="modal">Fechar</button>
             </div>
         </div>
 
