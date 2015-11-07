@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 01/11/2015 22:01:29 by Hibernate Tools 4.3.1 -->
+<!-- Generated 07/11/2015 19:10:53 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="VO.Dados.Funcionario" table="FUNCIONARIO" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
@@ -26,5 +26,29 @@
         <property name="isAtivo" type="java.lang.Boolean">
             <column name="IS_ATIVO" />
         </property>
+        <set name="atividadehistoricos" table="ATIVIDADEHISTORICO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USERALTERACAOID" />
+            </key>
+            <one-to-many class="VO.Dados.Atividadehistorico" />
+        </set>
+        <set name="funcionariocargos" table="FUNCIONARIOCARGO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FUNCIONARIOID" not-null="true" />
+            </key>
+            <one-to-many class="VO.Dados.Funcionariocargo" />
+        </set>
+        <set name="funcionarioprojetos" table="FUNCIONARIOPROJETO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FUNCIONARIOID" not-null="true" />
+            </key>
+            <one-to-many class="VO.Dados.Funcionarioprojeto" />
+        </set>
+        <set name="atividadefuncionarios" table="ATIVIDADEFUNCIONARIO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FUNCIONARIOID" />
+            </key>
+            <one-to-many class="VO.Dados.Atividadefuncionario" />
+        </set>
     </class>
 </hibernate-mapping>

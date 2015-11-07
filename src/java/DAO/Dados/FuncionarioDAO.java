@@ -27,7 +27,7 @@ public class FuncionarioDAO {
         try {
             Session sessao = HibernateUtility.getSession();
             transaction = sessao.beginTransaction();
-
+            
             sessao.saveOrUpdate(funcionario);
 
             transaction.commit();

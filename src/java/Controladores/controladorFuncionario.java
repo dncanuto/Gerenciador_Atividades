@@ -30,18 +30,25 @@ public class controladorFuncionario {
         ModelAndView mv = new ModelAndView("home"); // abrir a home 
         mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
         return mv;
-    }    
-    
+    }
+
     @RequestMapping("lista-funcionario")
     public ModelAndView listaFuncionario() throws SQLException {
-        ModelAndView mv = new ModelAndView("gridFuncionario"); // abrir a home 
+        ModelAndView mv = new ModelAndView("gridFuncionario"); 
         mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
         return mv;
-    }   
+    }
     
+    @RequestMapping("novo-funcionario")
+    public ModelAndView novoFuncionario() {
+        ModelAndView mv = new ModelAndView("modal/cad-funcionario");
+        mv.addObject("funcionario", null);
+        return mv;
+    }
+
     @RequestMapping("altera-funcionario")
-    public ModelAndView alterarFuncionario(int id){
-        ModelAndView mv = new ModelAndView("modal/cad-funcionario"); // abrir a home 
+    public ModelAndView alterarFuncionario(int id) {
+        ModelAndView mv = new ModelAndView("modal/cad-funcionario");
         mv.addObject("funcionario", FuncionarioDAO.pesquisaFuncionario(id));
         return mv;
     }
@@ -52,42 +59,40 @@ public class controladorFuncionario {
             Funcionario funcionario,
             BindingResult result) {
 
-        try{
+        try {
             HashMap<String, String> erros = new HashMap<String, String>();
-                        
-            if(funcionario.getNome().trim().length() == 0){
+
+            if (funcionario.getNome().trim().length() == 0) {
                 erros.put("erronome", null);
             }
-            
-            if(funcionario.getSobrenome().trim().length() == 0){
+
+            if (funcionario.getSobrenome().trim().length() == 0) {
                 erros.put("errosobrenome", null);
             }
-            
-            if(funcionario.getEmail().trim().length() == 0){
+
+            if (funcionario.getEmail().trim().length() == 0) {
                 erros.put("erroemail", null);
             }
-            
-            if(funcionario.getPassword().trim().length() == 0){
+
+            if (funcionario.getPassword().trim().length() == 0) {
                 erros.put("erropassword", null);
-            }
-            
-            if(erros.isEmpty()){
-                FuncionarioDAO.criaFuncionario(funcionario);
             }
 
             Gson gson = new Gson();
             JsonObject myObj = new JsonObject();
 
+            if (erros.isEmpty()) {
+                FuncionarioDAO.criaFuncionario(funcionario);                
+            }
+
             myObj.addProperty("sucesso", erros.isEmpty());
             JsonElement objetoErrosEmJson = gson.toJsonTree(erros);
             myObj.add("erros", objetoErrosEmJson);
-            
+
             /*JsonElement listaFuncionariosEmJson = gson.toJsonTree(FuncionarioDAO.listarFuncionarios());
-            myObj.add("lista", listaFuncionariosEmJson);*/
-            
+             myObj.add("lista", listaFuncionariosEmJson);*/
             return myObj.toString();
-        }
-        catch(Exception erro){
+        } catch (Exception erro) {
             return null;
         }
     }

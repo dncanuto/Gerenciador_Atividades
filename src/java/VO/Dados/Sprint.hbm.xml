@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/11/2015 19:10:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="VO.Dados.Sprint" table="SPRINT" schema="dbo" catalog="ADS5" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="projeto" class="VO.Dados.Projeto" fetch="select">
+            <column name="PROJETOID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sitsprint" class="VO.Dados.Sitsprint" fetch="select">
+            <column name="SITSPRINTID" />
+        </many-to-one>
+        <property name="nome" type="string">
+            <column name="NOME" length="200" />
+        </property>
+        <property name="descricao" type="string">
+            <column name="DESCRICAO" length="1000" />
+        </property>
+        <property name="dtcriacao" type="date">
+            <column name="DTCRIACAO" length="10" />
+        </property>
+        <property name="dtalteracao" type="serializable">
+            <column name="DTALTERACAO" />
+        </property>
+        <set name="atividades" table="ATIVIDADE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SPRINTID" not-null="true" />
+            </key>
+            <one-to-many class="VO.Dados.Atividade" />
+        </set>
+    </class>
+</hibernate-mapping>

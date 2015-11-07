@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 07/11/2015 19:10:53 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="VO.Dados.Funcionarioprojeto" table="FUNCIONARIOPROJETO" schema="dbo" catalog="ADS5" optimistic-lock="version">
+        <composite-id name="id" class="VO.Dados.FuncionarioprojetoId">
+            <key-property name="id" type="int">
+                <column name="ID" />
+            </key-property>
+            <key-property name="funcionarioid" type="int">
+                <column name="FUNCIONARIOID" />
+            </key-property>
+            <key-property name="projetoid" type="int">
+                <column name="PROJETOID" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="funcionario" class="VO.Dados.Funcionario" update="false" insert="false" fetch="select">
+            <column name="FUNCIONARIOID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="projeto" class="VO.Dados.Projeto" update="false" insert="false" fetch="select">
+            <column name="PROJETOID" not-null="true" />
+        </many-to-one>
+        <property name="isAdm" type="java.lang.Boolean">
+            <column name="IS_ADM" />
+        </property>
+        <property name="dtcriacao" type="date">
+            <column name="DTCRIACAO" length="10" />
+        </property>
+        <property name="dtalteracao" type="date">
+            <column name="DTALTERACAO" length="10" />
+        </property>
+        <property name="isAtivo" type="java.lang.Boolean">
+            <column name="IS_ATIVO" />
+        </property>
+    </class>
+</hibernate-mapping>

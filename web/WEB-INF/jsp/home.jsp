@@ -20,7 +20,7 @@
     <body>
         <h1>Funcionou!</h1>        
         
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Novo Funcionário</button>
+        <button type="button" class="btn btn-info btn-lg" onclick="novoFuncionario()">Novo Funcionário</button>
         
         <div id="div-modal-funcionario">            
             <%@include file="modal/cad-funcionario.jsp" %>        

@@ -1,4 +1,4 @@
-function alterar(id)
+function alterarFuncionario(id)
 {
     $.ajax({
         type: "POST",
@@ -11,20 +11,28 @@ function alterar(id)
     });
 }
 
-function refreshFuncionarioGrid(){
+function novoFuncionario()
+{
+    $.ajax({
+        type: "POST",
+        url: "novo-funcionario",
+        success: function (data) {
+            var div = $("#div-modal-funcionario");
+            div.html(data);
+            $("#myModal").modal("show");
+        }
+    });
+}
+
+function refreshFuncionarioGrid() {
     $.ajax({
         type: "POST",
         url: "lista-funcionario",
         success: function (data) {
             var div = $("#tbFuncionario");
-            div.html(data);            
+            div.html(data);
         }
     });
-    //window.location.reload();
-}
-
-function formReset(form) {
-    $(form).trigger('reset');
 }
 
 function salva()
@@ -38,12 +46,10 @@ function salva()
         dataType: "json",
         success: function (dados) {
             if (dados.sucesso) {
-                $("#myModal").modal("hide");   debugger             
-                $("#frmCad").trigger('reset');               
-                 
+
+
             }
             else {
-
                 //limpa os erros    
                 $("span").each(function () {
                     $(this).html("");
@@ -66,6 +72,8 @@ function salva()
         complete: function () {
             $('#btnSalvar').attr("disabled", false);
             $("#status").html("");
+            $("#myModal").modal("hide");            
+
             refreshFuncionarioGrid();
         }
 
