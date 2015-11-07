@@ -5,13 +5,16 @@
  */
 package Controladores;
 
+import DAO.Dados.DicionarioDAO;
 import DAO.Dados.FuncionarioDAO;
 import VO.Dados.Funcionario;
+import VO.Dados.Tpcargo;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.sql.SQLException;
 import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,30 +37,46 @@ public class controladorFuncionario {
 
     @RequestMapping("lista-funcionario")
     public ModelAndView listaFuncionario() throws SQLException {
-        ModelAndView mv = new ModelAndView("gridFuncionario"); 
+        ModelAndView mv = new ModelAndView("gridFuncionario");
         mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
         return mv;
     }
-    
+
     @RequestMapping("novo-funcionario")
     public ModelAndView novoFuncionario() {
-        ModelAndView mv = new ModelAndView("modal/cad-funcionario");
-        mv.addObject("funcionario", null);
-        return mv;
+        return modalCadFuncionario(null, "I");
     }
-
+    
     @RequestMapping("altera-funcionario")
     public ModelAndView alterarFuncionario(int id) {
-        ModelAndView mv = new ModelAndView("modal/cad-funcionario");
-        mv.addObject("funcionario", FuncionarioDAO.pesquisaFuncionario(id));
-        return mv;
+        try {
+            Funcionario f = FuncionarioDAO.pesquisaFuncionario(id);
+            return modalCadFuncionario(f, "A");
+        } catch (Exception erro) {
+            return null;
+        }
     }
 
+    private ModelAndView modalCadFuncionario(Funcionario f, String operacao) {
+
+        try {
+            ModelAndView mv = new ModelAndView("modal/cad-funcionario");
+            mv.addObject("funcionario", f);
+            mv.addObject("operacao", operacao);
+            mv.addObject("Cargos", DicionarioDAO.listarCargos());
+            return mv;
+        } catch (Exception erro) {
+            return null;
+        }
+    }
+    
     @RequestMapping(value = "salva-funcionario", produces = "text/html; charset=UTF-8")
     @ResponseBody
     public String salvaFuncionario(
-            Funcionario funcionario,
-            BindingResult result) {
+            Funcionario funcionario,            
+            BindingResult result, 
+            HttpServletRequest request, 
+            String operacao) {
 
         try {
             HashMap<String, String> erros = new HashMap<String, String>();
@@ -78,12 +97,18 @@ public class controladorFuncionario {
                 erros.put("erropassword", null);
             }
 
-            Gson gson = new Gson();
-            JsonObject myObj = new JsonObject();
+            String Tpcargo = request.getParameter("tpcargo");
+            
+            Tpcargo cargo = new Tpcargo();
+            
+            cargo.setId(Integer.parseInt(Tpcargo));            
 
             if (erros.isEmpty()) {
-                FuncionarioDAO.criaFuncionario(funcionario);                
+                FuncionarioDAO.salvarFuncionario(funcionario, cargo);
             }
+            
+            Gson gson = new Gson();
+            JsonObject myObj = new JsonObject();
 
             myObj.addProperty("sucesso", erros.isEmpty());
             JsonElement objetoErrosEmJson = gson.toJsonTree(erros);

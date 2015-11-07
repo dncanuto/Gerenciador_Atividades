@@ -12,7 +12,7 @@
             <column name="LABEL" length="200" />
         </property>
         <property name="order" type="java.lang.Integer">
-            <column name="ORDER" />
+            <column name="[ORDER]" />
         </property>
         <property name="isAtivo" type="java.lang.Boolean">
             <column name="IS_ATIVO" />

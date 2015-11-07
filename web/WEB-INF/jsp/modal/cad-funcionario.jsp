@@ -34,6 +34,16 @@
                         <input type="text" id="password" name="password" value="${funcionario.password}">
                     </div>
                     <br>
+                    <div>
+                        <label for="tpcargo">Cargo</label>
+                        <select name="tpcargo" class="form-control" id="tpcargo">
+                            <option></option>
+                            <c:forEach items="${Cargos}" var="cargo">
+                                <option value="${cargo.id}">${cargo.label}</option>
+                            </c:forEach> 
+                        </select>
+                        <br>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

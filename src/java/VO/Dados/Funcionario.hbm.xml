@@ -32,7 +32,7 @@
             </key>
             <one-to-many class="VO.Dados.Atividadehistorico" />
         </set>
-        <set name="funcionariocargos" table="FUNCIONARIOCARGO" inverse="true" lazy="true" fetch="select">
+        <set name="funcionariocargos" table="FUNCIONARIOCARGO" inverse="true" lazy="true" fetch="select" cascade="all">
             <key>
                 <column name="FUNCIONARIOID" not-null="true" />
             </key>
