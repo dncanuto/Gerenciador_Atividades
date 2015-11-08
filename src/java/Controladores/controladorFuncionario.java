@@ -46,7 +46,7 @@ public class controladorFuncionario {
     public ModelAndView novoFuncionario() {
         return modalCadFuncionario(null, "I");
     }
-    
+
     @RequestMapping("altera-funcionario")
     public ModelAndView alterarFuncionario(int id) {
         try {
@@ -69,13 +69,13 @@ public class controladorFuncionario {
             return null;
         }
     }
-    
+
     @RequestMapping(value = "salva-funcionario", produces = "text/html; charset=UTF-8")
     @ResponseBody
     public String salvaFuncionario(
-            Funcionario funcionario,            
-            BindingResult result, 
-            HttpServletRequest request, 
+            Funcionario funcionario,
+            BindingResult result,
+            HttpServletRequest request,
             String operacao) {
 
         try {
@@ -97,16 +97,19 @@ public class controladorFuncionario {
                 erros.put("erropassword", null);
             }
 
-            String Tpcargo = request.getParameter("tpcargo");
-            
-            Tpcargo cargo = new Tpcargo();
-            
-            cargo.setId(Integer.parseInt(Tpcargo));            
+            String cargoSelecionado = request.getParameter("tpcargo");
+            funcionario.setTpcargo(new Tpcargo());
+
+            if (cargoSelecionado.equalsIgnoreCase("")) {
+                erros.put("erropassword", null);
+            } else {
+                funcionario.getTpcargo().setId(Integer.parseInt(cargoSelecionado));
+            }
 
             if (erros.isEmpty()) {
-                FuncionarioDAO.salvarFuncionario(funcionario, cargo, operacao);
+                FuncionarioDAO.salvarFuncionario(funcionario, operacao);
             }
-            
+
             Gson gson = new Gson();
             JsonObject myObj = new JsonObject();
 

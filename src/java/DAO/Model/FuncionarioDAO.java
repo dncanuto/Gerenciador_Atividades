@@ -22,7 +22,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class FuncionarioDAO {
 
-    public static void salvarFuncionario(Funcionario funcionario, Tpcargo tpcargo, String operacao) {
+    public static void salvarFuncionario(Funcionario funcionario, String operacao) {
 
         Transaction transaction = null;
 
@@ -34,9 +34,8 @@ public class FuncionarioDAO {
             if (operacao.equalsIgnoreCase("I")) {
                 funcionario.setDtcriacao(new Date());
                 funcionario.setIsAtivo(Boolean.TRUE);
-            }
+            }            
             
-            funcionario.setTpcargo(tpcargo);
             sessao.saveOrUpdate(funcionario);
 
             transaction.commit();
