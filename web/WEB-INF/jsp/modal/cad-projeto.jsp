@@ -22,7 +22,12 @@
                     </div>
                     <div id="autocomplete" class="form-group">
                         <label for="nome">Nome</label>
-                        <input type="text" id="nome" name="nome" class="typeahead form-control" placeholder="Digite o nome do funcionário">
+                        <input type="text" id="w-input-search" name="nome" class="typeahead form-control" placeholder="Digite o nome do funcionário">
+                        <div class="autocomplete-suggestions">
+                            <div class="autocomplete-suggestion autocomplete-selected">...</div>
+                            <div class="autocomplete-suggestion">...</div>
+                            <div class="autocomplete-suggestion">...</div>
+                        </div>
                     </div>
                     <br>                    
                 </form>

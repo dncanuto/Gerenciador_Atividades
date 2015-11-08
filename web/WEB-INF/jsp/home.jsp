@@ -11,17 +11,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script src="recursos/js/jquery-1.11.2.js" type="text/javascript"></script>
+       
+        <script src="recursos/js/jquery-2.1.1.js" type="text/javascript"></script>
+        <script src="recursos/autocomplete/jquery.autocomplete.js" type="text/javascript"></script>
         
-        <script src="recursos/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-        <script src="recursos/typeahead/typeahead.bundle.js" type="text/javascript"></script>
+        <script src="recursos/bootstrap/js/bootstrap.js" type="text/javascript"></script>        
         
         <script src="recursos/js/ajax-funcionario.js" type="text/javascript"></script>
         <script src="recursos/js/ajax-projeto.js" type="text/javascript"></script>        
-                       
+        
         <link href="recursos/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="recursos/bootstrap/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
-        <link href="recursos/typeahead/typeahead-css.css" rel="stylesheet" type="text/css"/>
+        <link href="recursos/autocomplete/auto-complete-style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <h1>Funcionou!</h1>        

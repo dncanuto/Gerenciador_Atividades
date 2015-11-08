@@ -6,7 +6,6 @@
 package DAO.Model;
 
 import VO.Model.Funcionario;
-import VO.Model.Tpcargo;
 import br.com.configuration.HibernateUtility;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,6 +65,6 @@ public class FuncionarioDAO {
         } catch (Exception erro) {
             return lista;
         }
-    }   
+    }      
     
 }
