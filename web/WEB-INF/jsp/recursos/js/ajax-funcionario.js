@@ -6,7 +6,7 @@ function alterarFuncionario(id)
         success: function (data) {
             var div = $("#div-modal-funcionario");
             div.html(data);
-            $("#myModal").modal("show");
+            $("#modalCadFuncionario").modal("show");
         }
     });
 }
@@ -19,7 +19,7 @@ function novoFuncionario()
         success: function (data) {
             var div = $("#div-modal-funcionario");
             div.html(data);
-            $("#myModal").modal("show");
+            $("#modalCadFuncionario").modal("show");
         }
     });
 }
@@ -35,7 +35,7 @@ function refreshFuncionarioGrid() {
     });
 }
 
-function salva()
+function salvarFuncionario()
 {
     //o código abaixo é para enviar TODO o form para o controller (servidor)
     var dataString = $("#frmCad").serialize();
@@ -46,20 +46,13 @@ function salva()
         dataType: "json",
         success: function (dados) {
             if (dados.sucesso) {
-
-
+                $("#modalCadFuncionario").modal("hide");
             }
             else {
                 //limpa os erros    
-                $("span").each(function () {
-                    $(this).html("");
-                });
+                limpaErros();
                 //preenche automaticamente os erros com os dados retorndos pelo controller    
-                $.each(dados.erros,
-                        function (key, value)
-                        {
-                            $("#" + key).html(value);
-                        });
+                exibeErros(dados);
             }
         },
         error: function () {
@@ -72,7 +65,6 @@ function salva()
         complete: function () {
             $('#btnSalvar').attr("disabled", false);
             $("#status").html("");
-            $("#myModal").modal("hide");            
 
             refreshFuncionarioGrid();
         }
