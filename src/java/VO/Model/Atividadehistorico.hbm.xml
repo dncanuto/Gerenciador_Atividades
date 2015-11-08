@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 07/11/2015 19:10:53 by Hibernate Tools 4.3.1 -->
+<!-- Generated 07/11/2015 23:58:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="VO.Dados.Atividadehistorico" table="ATIVIDADEHISTORICO" schema="dbo" catalog="ADS5" optimistic-lock="version">
+    <class name="VO.Model.Atividadehistorico" table="ATIVIDADEHISTORICO" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="atividade" class="VO.Dados.Atividade" fetch="select">
+        <many-to-one name="atividade" class="VO.Model.Atividade" fetch="select">
             <column name="ATIVIDADEID" />
         </many-to-one>
-        <many-to-one name="funcionario" class="VO.Dados.Funcionario" fetch="select">
+        <many-to-one name="funcionario" class="VO.Model.Funcionario" fetch="select">
             <column name="USERALTERACAOID" />
         </many-to-one>
-        <many-to-one name="sitatividade" class="VO.Dados.Sitatividade" fetch="select">
+        <many-to-one name="sitatividade" class="VO.Model.Sitatividade" fetch="select">
             <column name="SITATIVIDADE" />
         </many-to-one>
         <property name="descricao" type="string">

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO.Dados;
+package DAO.Model;
 
-import VO.Dados.Tpcargo;
+import VO.Model.Tpcargo;
 import br.com.configuration.HibernateUtility;
 import java.util.List;
 import org.hibernate.Criteria;

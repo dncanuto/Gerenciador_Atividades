@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 07/11/2015 19:10:53 by Hibernate Tools 4.3.1 -->
+<!-- Generated 07/11/2015 23:58:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="VO.Dados.Sitatividade" table="SITATIVIDADE" schema="dbo" catalog="ADS5" optimistic-lock="version">
+    <class name="VO.Model.Tpcargo" table="TPCARGO" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="assigned" />
@@ -12,16 +12,16 @@
             <column name="LABEL" length="200" />
         </property>
         <property name="order" type="java.lang.Integer">
-            <column name="ORDER" />
+            <column name="[ORDER]" />
         </property>
         <property name="isAtivo" type="java.lang.Boolean">
             <column name="IS_ATIVO" />
         </property>
-        <set name="atividadehistoricos" table="ATIVIDADEHISTORICO" inverse="true" lazy="true" fetch="select">
+        <set name="funcionarios" table="FUNCIONARIO" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="SITATIVIDADE" />
+                <column name="TPCARGOID" />
             </key>
-            <one-to-many class="VO.Dados.Atividadehistorico" />
+            <one-to-many class="VO.Model.Funcionario" />
         </set>
     </class>
 </hibernate-mapping>

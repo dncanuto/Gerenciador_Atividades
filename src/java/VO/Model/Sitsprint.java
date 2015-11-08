@@ -1,5 +1,5 @@
-package VO.Dados;
-// Generated 07/11/2015 19:10:52 by Hibernate Tools 4.3.1
+package VO.Model;
+// Generated 07/11/2015 23:58:18 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;

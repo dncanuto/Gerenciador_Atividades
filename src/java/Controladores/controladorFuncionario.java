@@ -5,10 +5,10 @@
  */
 package Controladores;
 
-import DAO.Dados.DicionarioDAO;
-import DAO.Dados.FuncionarioDAO;
-import VO.Dados.Funcionario;
-import VO.Dados.Tpcargo;
+import DAO.Model.DicionarioDAO;
+import DAO.Model.FuncionarioDAO;
+import VO.Model.Funcionario;
+import VO.Model.Tpcargo;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -104,7 +104,7 @@ public class controladorFuncionario {
             cargo.setId(Integer.parseInt(Tpcargo));            
 
             if (erros.isEmpty()) {
-                FuncionarioDAO.salvarFuncionario(funcionario, cargo);
+                FuncionarioDAO.salvarFuncionario(funcionario, cargo, operacao);
             }
             
             Gson gson = new Gson();

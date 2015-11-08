@@ -12,6 +12,7 @@
             <div class="modal-body">
                 <form id="frmCad" name="frmCad" method="post" action="salva-funcionario">
                     <div>        
+                        <input type="hidden" name="operacao" value="${operacao}">
                         <input type="hidden" name="id" value="${funcionario.id}">
                     </div>
                     <div>
@@ -39,7 +40,7 @@
                         <select name="tpcargo" class="form-control" id="tpcargo">
                             <option></option>
                             <c:forEach items="${Cargos}" var="cargo">
-                                <option value="${cargo.id}">${cargo.label}</option>
+                                <option value="${cargo.id}" ${cargo.id == funcionario.tpcargo.id ? "selected" : ""}>${cargo.label}</option>
                             </c:forEach> 
                         </select>
                         <br>

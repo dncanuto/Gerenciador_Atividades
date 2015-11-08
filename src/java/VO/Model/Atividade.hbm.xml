@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 07/11/2015 19:10:53 by Hibernate Tools 4.3.1 -->
+<!-- Generated 07/11/2015 23:58:20 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="VO.Dados.Atividade" table="ATIVIDADE" schema="dbo" catalog="ADS5" optimistic-lock="version">
+    <class name="VO.Model.Atividade" table="ATIVIDADE" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
-        <many-to-one name="sprint" class="VO.Dados.Sprint" fetch="select">
+        <many-to-one name="sprint" class="VO.Model.Sprint" fetch="select">
             <column name="SPRINTID" not-null="true" />
         </many-to-one>
-        <many-to-one name="tpprioridade" class="VO.Dados.Tpprioridade" fetch="select">
+        <many-to-one name="tpprioridade" class="VO.Model.Tpprioridade" fetch="select">
             <column name="TPPRIORIDADE" />
         </many-to-one>
         <property name="nome" type="string">
@@ -24,13 +24,13 @@
             <key>
                 <column name="ATIVIDADEID" />
             </key>
-            <one-to-many class="VO.Dados.Atividadehistorico" />
+            <one-to-many class="VO.Model.Atividadehistorico" />
         </set>
         <set name="atividadefuncionarios" table="ATIVIDADEFUNCIONARIO" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="ATIVIDADEID" />
             </key>
-            <one-to-many class="VO.Dados.Atividadefuncionario" />
+            <one-to-many class="VO.Model.Atividadefuncionario" />
         </set>
     </class>
 </hibernate-mapping>

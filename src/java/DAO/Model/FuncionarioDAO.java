@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO.Dados;
+package DAO.Model;
 
-import VO.Dados.Funcionario;
-import VO.Dados.Funcionariocargo;
-import VO.Dados.Tpcargo;
+import VO.Model.Funcionario;
+import VO.Model.Tpcargo;
 import br.com.configuration.HibernateUtility;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -25,7 +22,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class FuncionarioDAO {
 
-    public static void salvarFuncionario(Funcionario funcionario, Tpcargo tpcargo) {
+    public static void salvarFuncionario(Funcionario funcionario, Tpcargo tpcargo, String operacao) {
 
         Transaction transaction = null;
 
@@ -34,42 +31,12 @@ public class FuncionarioDAO {
             transaction = sessao.beginTransaction();
 
             //Se o usuário não existe, seta data de criação e isAtivo...
-            if (funcionario.getDtcriacao() == null) {
+            if (operacao.equalsIgnoreCase("I")) {
                 funcionario.setDtcriacao(new Date());
                 funcionario.setIsAtivo(Boolean.TRUE);
             }
-
-            Criteria cargoAtivo = sessao.createCriteria(Funcionariocargo.class);
             
-            //Retorna os cargos do funcionario que estão ativos...
-            cargoAtivo.add(Restrictions.eq("funcionario", funcionario));
-            cargoAtivo.add(Restrictions.eq("isAtual", Boolean.TRUE));
-
-            if (!cargoAtivo.list().isEmpty()) {
-
-                List<Funcionariocargo> lista = cargoAtivo.list();
-                
-                //Desativa os atuais cargos dos funcionario...
-                for (Funcionariocargo c : lista) {
-                    c.setIsAtual(Boolean.FALSE);
-                    sessao.saveOrUpdate(c);
-                }
-            } 
-            
-            tpcargo = DicionarioDAO.pesquisarCargo(tpcargo.getId());
-            
-            Funcionariocargo fcargo = new Funcionariocargo();
-            fcargo.setFuncionario(funcionario);
-            fcargo.setTpcargo(tpcargo);
-            fcargo.setIsAtual(Boolean.TRUE);
-            fcargo.setDtcriacao(new Date());
-            
-            Set cargos = new HashSet();
-            
-            cargos.add(fcargo);
-            
-            funcionario.setFuncionariocargos(cargos);
-            
+            funcionario.setTpcargo(tpcargo);
             sessao.saveOrUpdate(funcionario);
 
             transaction.commit();

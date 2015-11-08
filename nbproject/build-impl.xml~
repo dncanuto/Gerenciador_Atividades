@@ -1031,6 +1031,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.eclipselink.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.hibernate4-support.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.jpa2-persistence.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+        
         <copyfiles files="${libs.Hibernate.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.GSON.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>

@@ -1,5 +1,5 @@
-package VO.Dados;
-// Generated 07/11/2015 19:10:52 by Hibernate Tools 4.3.1
+package VO.Model;
+// Generated 07/11/2015 23:58:18 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,6 +13,7 @@ public class Funcionario  implements java.io.Serializable {
 
 
      private int id;
+     private Tpcargo tpcargo;
      private String nome;
      private String sobrenome;
      private String email;
@@ -20,7 +21,6 @@ public class Funcionario  implements java.io.Serializable {
      private Date dtcriacao;
      private Boolean isAtivo;
      private Set atividadehistoricos = new HashSet(0);
-     private Set funcionariocargos = new HashSet(0);
      private Set funcionarioprojetos = new HashSet(0);
      private Set atividadefuncionarios = new HashSet(0);
 
@@ -31,8 +31,9 @@ public class Funcionario  implements java.io.Serializable {
     public Funcionario(int id) {
         this.id = id;
     }
-    public Funcionario(int id, String nome, String sobrenome, String email, String password, Date dtcriacao, Boolean isAtivo, Set atividadehistoricos, Set funcionariocargos, Set funcionarioprojetos, Set atividadefuncionarios) {
+    public Funcionario(int id, Tpcargo tpcargo, String nome, String sobrenome, String email, String password, Date dtcriacao, Boolean isAtivo, Set atividadehistoricos, Set funcionarioprojetos, Set atividadefuncionarios) {
        this.id = id;
+       this.tpcargo = tpcargo;
        this.nome = nome;
        this.sobrenome = sobrenome;
        this.email = email;
@@ -40,7 +41,6 @@ public class Funcionario  implements java.io.Serializable {
        this.dtcriacao = dtcriacao;
        this.isAtivo = isAtivo;
        this.atividadehistoricos = atividadehistoricos;
-       this.funcionariocargos = funcionariocargos;
        this.funcionarioprojetos = funcionarioprojetos;
        this.atividadefuncionarios = atividadefuncionarios;
     }
@@ -51,6 +51,13 @@ public class Funcionario  implements java.io.Serializable {
     
     public void setId(int id) {
         this.id = id;
+    }
+    public Tpcargo getTpcargo() {
+        return this.tpcargo;
+    }
+    
+    public void setTpcargo(Tpcargo tpcargo) {
+        this.tpcargo = tpcargo;
     }
     public String getNome() {
         return this.nome;
@@ -100,13 +107,6 @@ public class Funcionario  implements java.io.Serializable {
     
     public void setAtividadehistoricos(Set atividadehistoricos) {
         this.atividadehistoricos = atividadehistoricos;
-    }
-    public Set getFuncionariocargos() {
-        return this.funcionariocargos;
-    }
-    
-    public void setFuncionariocargos(Set funcionariocargos) {
-        this.funcionariocargos = funcionariocargos;
     }
     public Set getFuncionarioprojetos() {
         return this.funcionarioprojetos;
