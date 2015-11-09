@@ -13,6 +13,7 @@
         <title>JSP Page</title>
        
         <script src="recursos/js/jquery-2.1.1.js" type="text/javascript"></script>
+        
         <script src="recursos/autocomplete/jquery.autocomplete.js" type="text/javascript"></script>
         
         <script src="recursos/bootstrap/js/bootstrap.js" type="text/javascript"></script>        
@@ -22,7 +23,7 @@
         
         <link href="recursos/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="recursos/bootstrap/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
-        <link href="recursos/autocomplete/auto-complete-style.css" rel="stylesheet" type="text/css"/>
+        <link href="recursos/autocomplete/main.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <h1>Funcionou!</h1>        

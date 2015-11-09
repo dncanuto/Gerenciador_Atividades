@@ -6,6 +6,7 @@
 package DAO.Model;
 
 import VO.Model.Funcionario;
+import VO.Model.Tag;
 import br.com.configuration.HibernateUtility;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,8 +34,8 @@ public class FuncionarioDAO {
             if (operacao.equalsIgnoreCase("I")) {
                 funcionario.setDtcriacao(new Date());
                 funcionario.setIsAtivo(Boolean.TRUE);
-            }            
-            
+            }
+
             sessao.saveOrUpdate(funcionario);
 
             transaction.commit();
@@ -65,6 +66,29 @@ public class FuncionarioDAO {
         } catch (Exception erro) {
             return lista;
         }
-    }      
-    
+    }
+
+    public static List<Tag> getFuncionarios(String dados) {
+        
+        List<Tag> lista = new ArrayList<Tag>();
+
+        Session sessao = HibernateUtility.getSession();
+        Criteria cri = sessao.createCriteria(Funcionario.class);
+
+        List<Funcionario> data = cri.list();
+        
+        String aux = "";
+        
+        for (Funcionario f : data) {
+            
+            aux = f.getNome() + " " + f.getSobrenome();
+            
+            if (aux.contains(dados)) {
+                
+                lista.add(new Tag(f.getId(), aux));
+            }
+        }
+        
+        return lista;
+    }
 }

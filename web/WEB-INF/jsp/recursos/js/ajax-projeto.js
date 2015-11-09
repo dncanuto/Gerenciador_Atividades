@@ -12,12 +12,15 @@ function novoProjeto()
         }
     });
 }
+
+
 function teste() {
     $('#w-input-search').autocomplete({
         serviceUrl: 'getTags',
         paramName: "tagName", // ?tagName='user input'
         delimiter: ",",
-        transformResult: function (response) {debugger
+        transformResult: function (response) {
+            debugger
 
             return {
                 suggestions: $.map($.parseJSON(response), function (item) {

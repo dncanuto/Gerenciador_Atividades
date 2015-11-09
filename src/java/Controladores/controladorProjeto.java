@@ -5,11 +5,10 @@
  */
 package Controladores;
 
+import DAO.Model.FuncionarioDAO;
 import VO.Model.Projeto;
 import VO.Model.Tag;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Controller;
@@ -68,12 +67,15 @@ public class controladorProjeto {
     public @ResponseBody
     String getTags(@RequestParam String tagName) {
 
-        Gson gson = new Gson();
-        JsonObject myObj = new JsonObject();
+        String searchList = new Gson().toJson(FuncionarioDAO.getFuncionarios(tagName));
+        return searchList;
 
-        JsonElement listaFuncionariosEmJson = gson.toJsonTree(simulateSearchResult(tagName));
-        myObj.add("lista", listaFuncionariosEmJson);
-        return myObj.toString();
+        /*Gson gson = new Gson();
+         JsonObject myObj = new JsonObject();
+
+         JsonElement listaFuncionariosEmJson = gson.toJsonTree(simulateSearchResult(tagName));
+         myObj.add("lista", listaFuncionariosEmJson);
+         return myObj.toString();*/
     }
 
     private List<Tag> simulateSearchResult(String tagName) {
