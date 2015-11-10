@@ -7,6 +7,7 @@ package Controladores;
 
 import DAO.Model.DicionarioDAO;
 import DAO.Model.FuncionarioDAO;
+import DAO.Model.ProjetoDAO;
 import VO.Model.Funcionario;
 import VO.Model.Tpcargo;
 import com.google.gson.Gson;
@@ -29,9 +30,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class controladorFuncionario {
 
     @RequestMapping("/index")
-    public ModelAndView minhaHome() throws SQLException {
+    public ModelAndView minhaHome() throws SQLException, Exception {
         ModelAndView mv = new ModelAndView("home"); // abrir a home 
         mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
+        mv.addObject("listaProjeto", ProjetoDAO.listarProjetos());
         return mv;
     }
 

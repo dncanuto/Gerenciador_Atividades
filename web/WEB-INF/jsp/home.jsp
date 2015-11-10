@@ -44,5 +44,10 @@
             <%@include file="modal/cad-projeto.jsp" %>        
         </div>
         <br>
+        
+        <div id="tbProjeto">
+            <%@include file="gridProjeto.jsp" %>  
+        </div>
+        <br>
     </body>
 </html>

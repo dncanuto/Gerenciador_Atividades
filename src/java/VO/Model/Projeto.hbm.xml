@@ -27,9 +27,9 @@
             <key>
                 <column name="PROJETOID" not-null="true" />
             </key>
-            <one-to-many class="VO.Model.Funcionarioprojeto"  />
+            <one-to-many class="VO.Model.Funcionarioprojeto" />
         </set>
-        <set name="sprints" table="SPRINT" inverse="true" lazy="true" fetch="join">
+        <set name="sprints" table="SPRINT">
             <key>
                 <column name="PROJETOID" not-null="true" />
             </key>

@@ -13,6 +13,21 @@ function novoProjeto()
     });
 }
 
+function alterarProjeto(id)
+{
+    $.ajax({
+        type: "POST",
+        url: "alterar-projeto?id=" + id,
+        success: function (data) {
+            var div = $("#div-modal-projeto");
+            div.html(data);
+            $("#modalCadProjeto").modal("show");
+
+            runAutocomplete();
+        }
+    });
+}
+
 function addFuncToProjeto()
 {
     var tagId = $("#tagId").val();

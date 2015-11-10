@@ -9,13 +9,14 @@ import DAO.Model.FuncionarioDAO;
 import DAO.Model.ProjetoDAO;
 import VO.Model.Projeto;
 import VO.Model.Tag;
+import VO.Model.Funcionarioprojeto;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -40,9 +41,10 @@ public class controladorProjeto {
     }
 
     @RequestMapping("alterar-projeto")
-    public ModelAndView alterarProjeto(int id) {
-        try {
-            Projeto p = null;
+    public ModelAndView alterarProjeto(int id, HttpServletRequest request) {
+        try {            
+            Projeto p = ProjetoDAO.pesquisaProjeto(id);
+            funcionariosSalvos(request.getSession(), (HashSet<Funcionarioprojeto>)p.getFuncionarioprojetos());
             return modalCadProjeto(p, "A");
         } catch (Exception erro) {
             return null;
@@ -67,6 +69,20 @@ public class controladorProjeto {
 
         String searchList = new Gson().toJson(FuncionarioDAO.getFuncionarios(tagName));
         return searchList;
+    }
+    
+    private void funcionariosSalvos(HttpSession sessao, HashSet<Funcionarioprojeto> lista){
+        ArrayList<Tag> funcProjeto = funcionariosProjeto(sessao);
+        
+        String aux = "";
+        
+        for(Funcionarioprojeto funcionario : lista){
+            aux = funcionario.getFuncionario().getNome() + " " +
+                    funcionario.getFuncionario().getSobrenome();
+            
+            funcProjeto.add(new Tag(
+                funcionario.getFuncionario().getId(), aux));
+        }
     }
 
     private ModelAndView listFuncProjeto(ArrayList<Tag> funcProjeto) {
