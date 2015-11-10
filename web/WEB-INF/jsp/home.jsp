@@ -12,12 +12,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
        
-        <script src="recursos/js/jquery-2.1.1.js" type="text/javascript"></script>
-        
-        <script src="recursos/autocomplete/jquery.autocomplete.js" type="text/javascript"></script>
-        
+        <script src="recursos/js/jquery-2.1.1.js" type="text/javascript"></script>        
+        <script src="recursos/autocomplete/jquery.autocomplete.js" type="text/javascript"></script>        
         <script src="recursos/bootstrap/js/bootstrap.js" type="text/javascript"></script>        
         
+        <script src="recursos/js/funcoes-globais.js" type="text/javascript"></script>
         <script src="recursos/js/ajax-funcionario.js" type="text/javascript"></script>
         <script src="recursos/js/ajax-projeto.js" type="text/javascript"></script>        
         

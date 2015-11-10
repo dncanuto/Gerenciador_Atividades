@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 07/11/2015 23:58:20 by Hibernate Tools 4.3.1 -->
+<!-- Generated 10/11/2015 14:22:57 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="VO.Model.Projeto" table="PROJETO" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="sitprojeto" class="VO.Model.Sitprojeto" fetch="select">
+        <many-to-one name="sitprojeto" class="VO.Model.Sitprojeto" fetch="join">
             <column name="SITPROJETOID" />
         </many-to-one>
         <property name="nome" type="string">
@@ -23,13 +23,13 @@
         <property name="dtalteracao" type="date">
             <column name="DTALTERACAO" length="10" />
         </property>
-        <set name="funcionarioprojetos" table="FUNCIONARIOPROJETO" inverse="true" lazy="true" fetch="select">
+        <set name="funcionarioprojetos" table="FUNCIONARIOPROJETO" fetch="join" cascade="all">
             <key>
                 <column name="PROJETOID" not-null="true" />
             </key>
-            <one-to-many class="VO.Model.Funcionarioprojeto" />
+            <one-to-many class="VO.Model.Funcionarioprojeto"  />
         </set>
-        <set name="sprints" table="SPRINT" inverse="true" lazy="true" fetch="select">
+        <set name="sprints" table="SPRINT" inverse="true" lazy="true" fetch="join">
             <key>
                 <column name="PROJETOID" not-null="true" />
             </key>

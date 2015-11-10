@@ -1,5 +1,5 @@
 package VO.Model;
-// Generated 07/11/2015 23:58:18 by Hibernate Tools 4.3.1
+// Generated 10/11/2015 14:22:55 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -10,7 +10,7 @@ import java.util.Date;
 public class Funcionarioprojeto  implements java.io.Serializable {
 
 
-     private FuncionarioprojetoId id;
+     private int id;
      private Funcionario funcionario;
      private Projeto projeto;
      private Boolean isAdm;
@@ -22,12 +22,12 @@ public class Funcionarioprojeto  implements java.io.Serializable {
     }
 
 	
-    public Funcionarioprojeto(FuncionarioprojetoId id, Funcionario funcionario, Projeto projeto) {
+    public Funcionarioprojeto(int id, Funcionario funcionario, Projeto projeto) {
         this.id = id;
         this.funcionario = funcionario;
         this.projeto = projeto;
     }
-    public Funcionarioprojeto(FuncionarioprojetoId id, Funcionario funcionario, Projeto projeto, Boolean isAdm, Date dtcriacao, Date dtalteracao, Boolean isAtivo) {
+    public Funcionarioprojeto(int id, Funcionario funcionario, Projeto projeto, Boolean isAdm, Date dtcriacao, Date dtalteracao, Boolean isAtivo) {
        this.id = id;
        this.funcionario = funcionario;
        this.projeto = projeto;
@@ -37,11 +37,11 @@ public class Funcionarioprojeto  implements java.io.Serializable {
        this.isAtivo = isAtivo;
     }
    
-    public FuncionarioprojetoId getId() {
+    public int getId() {
         return this.id;
     }
     
-    public void setId(FuncionarioprojetoId id) {
+    public void setId(int id) {
         this.id = id;
     }
     public Funcionario getFuncionario() {

@@ -20,15 +20,40 @@
                         <input type="hidden" name="operacao" value="${operacao}">
                         <input type="hidden" name="id" value="${projeto.id}">
                     </div>
-                    <div id="autocomplete" class="form-group">
-                        <label for="nome">Nome</label>
-                        <input type="text" id="w-input-search" name="nome" class="form-control" placeholder="Digite o nome do funcionário">                        
+
+                    <div class="form-group">
+                        <label class="control-label" for="nome">Nome do Projeto</label>
+                        <input id="nome" name="nome" class="form-control" value="${projeto.nome}">
                     </div>
-                    <br>                    
+                    
+                    <div class="form-group">
+                        <label class="control-label" for="descricao">Descrição</label>
+                        <textarea id="descricao" name="descricao" class="form-control" rows="5" maxlength="1000">
+                            ${projeto.descricao}
+                        </textarea>
+                    </div>
+
+                    <div id="autocomplete" class="form-group">
+                        <label class="control-label" for="nome">Funcionário(s):</label>
+                        <div class="form-inline">
+                            <input id="tagId" type="hidden" value="">
+                            <input type="text" id="w-input-search" name="tagName" class="form-control" placeholder="Digite o nome do funcionário">
+                            <button id="addFunc" type="button" class="btn btn-info btn-sm" onclick="addFuncToProjeto()" disabled>
+                                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                                Adicionar Funcionário
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="list-funcionario-projeto">
+                        <%@include file="listFuncionarioProjeto.jsp" %>
+                    </div>
+                    <br>  
+
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="salvarFuncionario()" id="btnSalvar" >Salvar</button> &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" onclick="salvarProjeto()" id="btnSalvar" >Salvar</button> &nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-default" id="btnFechar" data-dismiss="modal">Fechar</button>
             </div>
         </div>

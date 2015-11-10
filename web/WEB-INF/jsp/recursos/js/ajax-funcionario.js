@@ -37,7 +37,6 @@ function refreshFuncionarioGrid() {
 
 function salvarFuncionario()
 {
-    //o código abaixo é para enviar TODO o form para o controller (servidor)
     var dataString = $("#frmCad").serialize();
     $.ajax({
         type: "POST",

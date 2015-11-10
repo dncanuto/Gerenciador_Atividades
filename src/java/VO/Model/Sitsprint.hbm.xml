@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 07/11/2015 23:58:20 by Hibernate Tools 4.3.1 -->
+<!-- Generated 10/11/2015 14:22:57 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="VO.Model.Sitsprint" table="SITSPRINT" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="label" type="string">
             <column name="LABEL" length="200" />
         </property>
         <property name="order" type="java.lang.Integer">
-            <column name="ORDER" />
+            <column name="[ORDER]" />
         </property>
         <property name="isAtivo" type="java.lang.Boolean">
             <column name="IS_ATIVO" />
         </property>
-        <set name="sprints" table="SPRINT" inverse="true" lazy="true" fetch="select">
+        <set name="sprints" table="SPRINT" inverse="true" lazy="true" fetch="join">
             <key>
                 <column name="SITSPRINTID" />
             </key>

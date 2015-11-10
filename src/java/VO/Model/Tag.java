@@ -11,12 +11,12 @@ package VO.Model;
  */
 public class Tag {
 
-    private int id;
+    private int tagId;
     private String tagName;
 
 	//getter and setter methods
-    public Tag(int id, String tagName) {
-        this.id = id;
+    public Tag(int tagId, String tagName) {
+        this.tagId = tagId;
         this.tagName = tagName;
     }
 
@@ -28,11 +28,11 @@ public class Tag {
         this.tagName = tagName;
     }
 
-    public int getId() {
-        return id;
+    public int getTagId() {
+        return tagId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 }

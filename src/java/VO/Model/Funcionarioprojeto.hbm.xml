@@ -1,24 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 07/11/2015 23:58:20 by Hibernate Tools 4.3.1 -->
+<!-- Generated 10/11/2015 14:22:57 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="VO.Model.Funcionarioprojeto" table="FUNCIONARIOPROJETO" schema="dbo" catalog="ADS5" optimistic-lock="version">
-        <composite-id name="id" class="VO.Model.FuncionarioprojetoId">
-            <key-property name="id" type="int">
-                <column name="ID" />
-            </key-property>
-            <key-property name="funcionarioid" type="int">
-                <column name="FUNCIONARIOID" />
-            </key-property>
-            <key-property name="projetoid" type="int">
-                <column name="PROJETOID" />
-            </key-property>
-        </composite-id>
-        <many-to-one name="funcionario" class="VO.Model.Funcionario" update="false" insert="false" fetch="select">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="funcionario" class="VO.Model.Funcionario" fetch="join">
             <column name="FUNCIONARIOID" not-null="true" />
         </many-to-one>
-        <many-to-one name="projeto" class="VO.Model.Projeto" update="false" insert="false" fetch="select">
+        <many-to-one name="projeto" class="VO.Model.Projeto" fetch="join">
             <column name="PROJETOID" not-null="true" />
         </many-to-one>
         <property name="isAdm" type="java.lang.Boolean">
