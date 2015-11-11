@@ -6,7 +6,7 @@
 
         <li>
             <a href="#">${f.tagName}</a>
-            <a href="javascript:removeFuncDoProjeto(${f.tagId})" style="margin-left: 5px">
+            <a href="javascript:removeFuncDoProjeto(${f.tagId}, ${projeto.id})" style="margin-left: 5px">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </a>
         </li>      

@@ -7,16 +7,16 @@ package Controladores;
 
 import DAO.Model.FuncionarioDAO;
 import DAO.Model.ProjetoDAO;
+import VO.Model.Funcionario;
 import VO.Model.Projeto;
 import VO.Model.Tag;
-import VO.Model.Funcionarioprojeto;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -42,10 +42,14 @@ public class controladorProjeto {
 
     @RequestMapping("alterar-projeto")
     public ModelAndView alterarProjeto(int id, HttpServletRequest request) {
-        try {            
+        try {          
+            limpaSessaoFuncProjeto(request.getSession());
             Projeto p = ProjetoDAO.pesquisaProjeto(id);
-            funcionariosSalvos(request.getSession(), (HashSet<Funcionarioprojeto>)p.getFuncionarioprojetos());
-            return modalCadProjeto(p, "A");
+            ArrayList<Tag> funcProjeto = ProjetoDAO.getFuncSalvoToTag(p);
+            request.getSession().setAttribute("funcProjeto", funcProjeto);
+            ModelAndView mv = modalCadProjeto(p, "A");            
+            mv.addObject("listaFuncProjeto", funcProjeto);            
+            return mv;
         } catch (Exception erro) {
             return null;
         }
@@ -55,8 +59,9 @@ public class controladorProjeto {
 
         try {
             ModelAndView mv = new ModelAndView("modal/cad-projeto");
-            mv.addObject("projeto", p);
+            mv.addObject("projeto", p);            
             mv.addObject("operacao", operacao);
+            
             return mv;
         } catch (Exception erro) {
             return null;
@@ -69,21 +74,7 @@ public class controladorProjeto {
 
         String searchList = new Gson().toJson(FuncionarioDAO.getFuncionarios(tagName));
         return searchList;
-    }
-    
-    private void funcionariosSalvos(HttpSession sessao, HashSet<Funcionarioprojeto> lista){
-        ArrayList<Tag> funcProjeto = funcionariosProjeto(sessao);
-        
-        String aux = "";
-        
-        for(Funcionarioprojeto funcionario : lista){
-            aux = funcionario.getFuncionario().getNome() + " " +
-                    funcionario.getFuncionario().getSobrenome();
-            
-            funcProjeto.add(new Tag(
-                funcionario.getFuncionario().getId(), aux));
-        }
-    }
+    }   
 
     private ModelAndView listFuncProjeto(ArrayList<Tag> funcProjeto) {
         ModelAndView mv = new ModelAndView("modal/listFuncionarioProjeto");
@@ -140,13 +131,18 @@ public class controladorProjeto {
     }
 
     @RequestMapping("remove-func-projeto")
-    public ModelAndView removeFuncProjeto(int id, HttpSession sessao, HttpServletRequest request) {
+    public ModelAndView removeFuncProjeto(int id, int projetoId, HttpSession sessao, HttpServletRequest request) throws Exception {
 
         ArrayList<Tag> funcProjeto = funcionariosProjeto(sessao);
-        Tag f = pesquisaFuncionarioNoProjeto(id, funcProjeto);
+        Tag g = pesquisaFuncionarioNoProjeto(id, funcProjeto);
+        
+        Funcionario f = FuncionarioDAO.pesquisaFuncionario(id);
+        Projeto p = ProjetoDAO.pesquisaProjeto(projetoId);
 
-        if (f != null) {
-            funcProjeto.remove(f);
+        if (g != null) {
+            if(g.isIsExisteBD())
+                ProjetoDAO.desabilitaFuncionarioProjeto(f, p);
+            funcProjeto.remove(g);
         }
 
         return listFuncProjeto(funcProjeto);

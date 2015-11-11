@@ -23,7 +23,7 @@
         <property name="dtalteracao" type="date">
             <column name="DTALTERACAO" length="10" />
         </property>
-        <set name="funcionarioprojetos" table="FUNCIONARIOPROJETO" fetch="join" cascade="all">
+        <set name="funcionarioprojetos" table="FUNCIONARIOPROJETO" fetch="select" cascade="all">
             <key>
                 <column name="PROJETOID" not-null="true" />
             </key>

@@ -13,12 +13,15 @@ public class Tag {
 
     private int tagId;
     private String tagName;
+    private boolean isExisteBD;
 
 	//getter and setter methods
     public Tag(int tagId, String tagName) {
         this.tagId = tagId;
-        this.tagName = tagName;
+        this.tagName = tagName;        
     }
+    
+    public Tag(){}
 
     public String getTagName() {
         return tagName;
@@ -34,5 +37,13 @@ public class Tag {
 
     public void setTagId(int tagId) {
         this.tagId = tagId;
+    }
+
+    public boolean isIsExisteBD() {
+        return isExisteBD;
+    }
+
+    public void setIsExisteBD(boolean isExisteBD) {
+        this.isExisteBD = isExisteBD;
     }
 }

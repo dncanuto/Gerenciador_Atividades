@@ -43,11 +43,11 @@ function addFuncToProjeto()
     });
 }
 
-function removeFuncDoProjeto(id)
+function removeFuncDoProjeto(funcionarioId, projetoId)
 {
     $.ajax({
         type: "POST",
-        url: "remove-func-projeto?id=" + id,
+        url: "remove-func-projeto?id=" + funcionarioId + "&projetoId=" + projetoId,
         success: function (data) {
             $("#list-funcionario-projeto").html(data);
             $("#autocomplete input:text").val("");

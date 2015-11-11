@@ -95,4 +95,55 @@ public class ProjetoDAO {
         return cri.list();
 
     }
+    
+    public static void desabilitaFuncionarioProjeto(Funcionario f, Projeto p){
+        
+        Funcionarioprojeto fprojeto = funcionarioProjetoSalvo(f, p);
+        
+        Session sessao = HibernateUtility.getSession();
+        Transaction transaction = sessao.beginTransaction();
+        
+        fprojeto.setDtalteracao(new Date());
+        fprojeto.setIsAtivo(Boolean.FALSE);
+        
+        sessao.update(fprojeto);
+        
+        transaction.commit();
+        sessao.close();        
+    }
+    
+    private static Funcionarioprojeto funcionarioProjetoSalvo(Funcionario f, Projeto p){
+        Session sessao = HibernateUtility.getSession();
+        Criteria cri = sessao.createCriteria(Funcionarioprojeto.class);
+        cri.add(Restrictions.eq("funcionario", f));
+        cri.add(Restrictions.eq("projeto", p));
+        
+        return (Funcionarioprojeto)cri.uniqueResult();
+    }
+    
+    public static ArrayList<Tag> getFuncSalvoToTag(Projeto p) throws Exception{
+        
+        Session sessao = HibernateUtility.getSession();
+        Criteria cri = sessao.createCriteria(Funcionarioprojeto.class);
+        
+        cri.add(Restrictions.eq("projeto", p)); 
+        cri.add(Restrictions.eq("isAtivo", Boolean.TRUE));
+        
+        ArrayList<Tag> tags = new ArrayList<Tag>();
+        Tag tag = new Tag();
+        String aux = "";    
+       
+        for(Funcionarioprojeto fprojeto : (List<Funcionarioprojeto>)cri.list()){
+            aux = fprojeto.getFuncionario().getNome() + " " +
+                    fprojeto.getFuncionario().getSobrenome();
+            
+            tag.setTagId(fprojeto.getFuncionario().getId());
+            tag.setTagName(aux);
+            tag.setIsExisteBD(true);
+            
+            tags.add(tag);
+        }
+        
+        return tags;
+    }
 }
