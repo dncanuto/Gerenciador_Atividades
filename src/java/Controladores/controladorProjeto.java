@@ -178,7 +178,7 @@ public class controladorProjeto {
                     projeto.setDtalteracao(new Date());
                 }
                 
-                ProjetoDAO.salvarProjeto(projeto, funcProjeto);
+                ProjetoDAO.salvarProjeto(projeto, funcProjeto, operacao);
             }
 
             Gson gson = new Gson();
