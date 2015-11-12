@@ -1,17 +1,15 @@
 <%-- 
-    Document   : home
-    Created on : 31/10/2015, 14:21:09
-    Author     : Daniel
+    Document   : usuarios
+    Created on : 12/11/2015, 16:22:27
+    Author     : William
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home</title>
-
+        <title>Usuários</title>
         <script src="recursos/js/jquery-2.1.1.js" type="text/javascript"></script>        
         <script src="recursos/autocomplete/jquery.autocomplete.js" type="text/javascript"></script>        
         <script src="recursos/bootstrap/js/bootstrap.js" type="text/javascript"></script>        
@@ -28,43 +26,16 @@
     </head>
     <body>
         <header>
-            <%@include file="header.jsp" %>  
+            <%@include file="header.jsp" %> 
         </header>
-        <div style="width: auto; margin-top: 100px;">
-            <a href="javascript:novoFuncionario()">Novo Funcionario</a>
-            <br>
-            <section id="tbFuncionario">
-                <%@include file="gridFuncionario.jsp"%>
-            </section>
-            <br>
-
-            <a href="javascript:novoProjeto()">Novo Projeto</a>
-            <br>
-            <div id="tbProjeto">
-                <%@include file="gridProjeto.jsp" %>  
-            </div>
-            <br>
-
-            <div id="tbSprint">
-                <%@include file="gridSprint.jsp" %>  
-            </div>
-            <br>
-        </div>
-
-        <div id="div-modal-sprint">            
-            <%@include file="modal/cad-sprint.jsp" %>        
-        </div>
-        <br>
-
-        <div id="div-modal-funcionario">
+        
+        <h1>Tabela de usuários</h1>
+        <section>
             <%@include file="modal/cad-funcionario.jsp" %>      
-        </div>
-        <br>
-
-        <div id="div-modal-projeto">            
-            <%@include file="modal/cad-projeto.jsp" %>        
-        </div>
-
-
+        </section>
+        <section>
+            <%@include file="gridFuncionario.jsp"%>
+        </section>
+        
     </body>
 </html>

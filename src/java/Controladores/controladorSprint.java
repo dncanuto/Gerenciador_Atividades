@@ -32,12 +32,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class controladorSprint {
     
-    @RequestMapping("novo-sprint")
+    @RequestMapping("novo-sprint-restrito")
     public ModelAndView novoSprint(int projetoId) throws Exception{
         return modalCadSprint(null, "I", projetoId);
     }
     
-    @RequestMapping("alterar-sprint")
+    @RequestMapping("alterar-sprint-restrito")
     public ModelAndView alterarSprint(int sprintId, int projetoId) throws Exception{
         Sprint s = SprintDAO.pesquisaSprint(sprintId);
         return modalCadSprint(s, "A", projetoId);
@@ -52,14 +52,14 @@ public class controladorSprint {
         return mv;
     }
     
-    @RequestMapping("lista-sprint")
+    @RequestMapping("lista-sprint-restrito")
     public ModelAndView listaFuncionario() throws SQLException {
         ModelAndView mv = new ModelAndView("gridSprint");
         mv.addObject("listaSprint", SprintDAO.listarSprints());
         return mv;
     }
     
-    @RequestMapping(value = "salvar-sprint", produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = "salvar-sprint-restrito", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String salvarSprint(
             Sprint sprint,  

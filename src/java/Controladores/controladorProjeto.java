@@ -34,13 +34,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class controladorProjeto {
 
-    @RequestMapping("novo-projeto")
+    @RequestMapping("novo-projeto-restrito")
     public ModelAndView novoProjeto(HttpServletRequest request) {
         limpaSessaoFuncProjeto(request.getSession());
         return modalCadProjeto(null, "I");
     }
 
-    @RequestMapping("alterar-projeto")
+    @RequestMapping("alterar-projeto-restrito")
     public ModelAndView alterarProjeto(int id, HttpServletRequest request) {
         try {          
             limpaSessaoFuncProjeto(request.getSession());
@@ -53,6 +53,13 @@ public class controladorProjeto {
         } catch (Exception erro) {
             return null;
         }
+    }
+    
+    @RequestMapping("lista-projeto-restrito")
+    public ModelAndView pagListaProjeto() throws Exception{
+        ModelAndView mv = new ModelAndView("gridProjeto");
+        mv.addObject("listaProjeto", ProjetoDAO.listarProjetos());
+        return mv;
     }
 
     private ModelAndView modalCadProjeto(Projeto p, String operacao) {
@@ -82,7 +89,7 @@ public class controladorProjeto {
         return mv;
     }
 
-    @RequestMapping("add-func-projeto")
+    @RequestMapping("add-func-projeto-restrito")
     public ModelAndView addFuncionarioToProjeto(
             int tagId,
             String tagName,
@@ -130,7 +137,7 @@ public class controladorProjeto {
         return null;
     }
 
-    @RequestMapping("remove-func-projeto")
+    @RequestMapping("remove-func-projeto-restrito")
     public ModelAndView removeFuncProjeto(int id, int projetoId, HttpSession sessao, HttpServletRequest request) throws Exception {
 
         ArrayList<Tag> funcProjeto = funcionariosProjeto(sessao);
@@ -148,7 +155,7 @@ public class controladorProjeto {
         return listFuncProjeto(funcProjeto);
     }
 
-    @RequestMapping(value = "salvar-projeto", produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "salvar-projeto-restrito", produces = "text/html; charset=UTF-8")
     @ResponseBody
     public String salvarProjeto(
             Projeto projeto,

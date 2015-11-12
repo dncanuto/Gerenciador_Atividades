@@ -7,7 +7,7 @@
 
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<table>
+<table class="table-bordered table-condensed table-responsive">
     <tr>
         <th>ID</th>
         <th>Nome do Sprint</th>       
@@ -22,7 +22,7 @@
             <td>${s.sitsprint.label}</td>
             <td>${s.projeto.nome}</td>
             <td>
-                <a href="javascript:alterarSprint(${s.id}, ${s.projeto.id})">Alterar</a>                
+                <a href="javascript:alterarSprint(${s.id}, ${s.projeto.id})"><span class="glyphicon-edit"></span></a>                
             </td>
         </tr>
     </c:forEach>

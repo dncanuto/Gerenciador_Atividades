@@ -2,7 +2,7 @@ function alterarFuncionario(id)
 {
     $.ajax({
         type: "POST",
-        url: "altera-funcionario?id=" + id,
+        url: "altera-funcionario-restrito?id=" + id,
         success: function (data) {
             var div = $("#div-modal-funcionario");
             div.html(data);
@@ -15,7 +15,7 @@ function novoFuncionario()
 {
     $.ajax({
         type: "POST",
-        url: "novo-funcionario",
+        url: "novo-funcionario-restrito",
         success: function (data) {
             var div = $("#div-modal-funcionario");
             div.html(data);
@@ -27,7 +27,7 @@ function novoFuncionario()
 function refreshFuncionarioGrid() {
     $.ajax({
         type: "POST",
-        url: "lista-funcionario",
+        url: "lista-funcionario-restrito",
         success: function (data) {
             var div = $("#tbFuncionario");
             div.html(data);
@@ -40,7 +40,7 @@ function salvarFuncionario()
     var dataString = $("#frmCad").serialize();
     $.ajax({
         type: "POST",
-        url: "salva-funcionario",
+        url: "salva-funcionario-restrito",
         data: dataString,
         dataType: "json",
         success: function (dados) {
@@ -66,8 +66,12 @@ function salvarFuncionario()
             $("#status").html("");
 
             refreshFuncionarioGrid();
+           
         }
 
     });
 }
+
+
+
 

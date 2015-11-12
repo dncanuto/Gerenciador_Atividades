@@ -16,12 +16,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.sql.SQLException;
 import java.util.HashMap;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -31,27 +33,39 @@ import org.springframework.web.servlet.ModelAndView;
 public class controladorFuncionario {
 
     @RequestMapping("/index")
-    public ModelAndView minhaHome() throws SQLException, Exception {
-        ModelAndView mv = new ModelAndView("home"); // abrir a home 
-        mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
-        mv.addObject("listaProjeto", ProjetoDAO.listarProjetos());
-        mv.addObject("listaSprint", SprintDAO.listarSprints());
-        return mv;
+    public ModelAndView minhaHome(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, Exception {
+        
+        ModelAndView mv;
+        
+        if (request.getSession().getAttribute("logado") == null
+                || (boolean) request.getSession().getAttribute("logado") == false) {
+
+            mv = new ModelAndView("login");
+            return mv;
+        } else {
+
+            mv = new ModelAndView("home");
+            mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
+            mv.addObject("listaProjeto", ProjetoDAO.listarProjetos());
+            mv.addObject("listaSprint", SprintDAO.listarSprints());
+            return mv;
+        }
     }
 
-    @RequestMapping("lista-funcionario")
+    @RequestMapping("lista-funcionario-restrito")
     public ModelAndView listaFuncionario() throws SQLException {
         ModelAndView mv = new ModelAndView("gridFuncionario");
         mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
         return mv;
     }
 
-    @RequestMapping("novo-funcionario")
+    @RequestMapping("novo-funcionario-restrito")
     public ModelAndView novoFuncionario() {
-        return modalCadFuncionario(null, "I");
+        return modalCadFuncionario(new Funcionario(), "I");
     }
 
-    @RequestMapping("altera-funcionario")
+    @RequestMapping("altera-funcionario-restrito")
     public ModelAndView alterarFuncionario(int id) {
         try {
             Funcionario f = FuncionarioDAO.pesquisaFuncionario(id);
@@ -74,7 +88,7 @@ public class controladorFuncionario {
         }
     }
 
-    @RequestMapping(value = "salva-funcionario", produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "salva-funcionario-restrito", produces = "text/html; charset=UTF-8")
     @ResponseBody
     public String salvaFuncionario(
             Funcionario funcionario,
@@ -125,6 +139,16 @@ public class controladorFuncionario {
              myObj.add("lista", listaFuncionariosEmJson);*/
             return myObj.toString();
         } catch (Exception erro) {
+            return null;
+        }
+    }
+    
+    @RequestMapping("tabela-funcionarios-restrito")
+    public ModelAndView tabelaFuncionario() {
+        try{
+            ModelAndView mv = new ModelAndView("usuarios");
+            return mv;
+        }catch(Exception erro) {
             return null;
         }
     }

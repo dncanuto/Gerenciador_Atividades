@@ -22,6 +22,10 @@
      <mvc:annotation-driven />
      <context:annotation-config />     
      
+     <mvc:interceptors>
+            <bean class="Controladores.AutorizadorAcesso"/>
+     </mvc:interceptors>
+     
     
     
     <!--bean id="propertyConfigurer"

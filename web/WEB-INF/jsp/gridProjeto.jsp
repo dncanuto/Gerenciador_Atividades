@@ -6,7 +6,7 @@
 
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<table>
+<table class="table-bordered table-condensed table-responsive">
     <tr>
         <th>ID</th>
         <th>Nome do Projeto</th>        
@@ -17,9 +17,9 @@
             <td>${p.id}</td>
             <td>${p.nome}</td>            
             <td>
-                <a href="javascript:alterarProjeto(${p.id})">Alterar</a>
+                <a href="javascript:alterarProjeto(${p.id})"><span class="glyphicon-edit"></span>
                 &nbsp;&nbsp;&nbsp;
-                <a href="javascript:novoSprint(${p.id})">Adicionar Sprint</a>
+                <a href="javascript:novoSprint(${p.id})"><span class="glyphicon-save-file"></span></a>
             </td>
         </tr>
     </c:forEach>

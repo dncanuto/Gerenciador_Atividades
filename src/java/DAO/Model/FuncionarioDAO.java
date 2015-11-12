@@ -55,6 +55,19 @@ public class FuncionarioDAO {
             return null;
         }
     }
+    
+    public static Funcionario autenticacaoLogin(String email, String senha){
+        try{
+            Session sessao = HibernateUtility.getSession();
+            Criteria cri = sessao.createCriteria(Funcionario.class).add(Restrictions.eq("email", email));
+            
+            cri.add(Restrictions.eq("password", senha));
+            
+            return (Funcionario) cri.uniqueResult();
+        }catch(Exception erro){
+            return null;
+        }
+    }
 
     public static List<Funcionario> listarFuncionarios() {
         List<Funcionario> lista = new ArrayList<Funcionario>();

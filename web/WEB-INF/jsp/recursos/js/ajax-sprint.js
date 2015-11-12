@@ -21,7 +21,7 @@ function novoSprint(projetoId)
 {
     $.ajax({
         type: "POST",
-        url: "novo-sprint?projetoId=" + projetoId,
+        url: "novo-sprint-restrito?projetoId=" + projetoId,
         success: function (data) {
             $("#div-modal-sprint").html(data);            
             $("#modalCadSprint").modal("show");
@@ -33,7 +33,7 @@ function alterarSprint(sprintId, projetoId)
 {
     $.ajax({
         type: "POST",
-        url: "alterar-sprint?sprintId=" + sprintId + "&projetoId=" + projetoId,
+        url: "alterar-sprint-restrito?sprintId=" + sprintId + "&projetoId=" + projetoId,
         success: function (data) {
             $("#div-modal-sprint").html(data);            
             $("#modalCadSprint").modal("show");
@@ -44,7 +44,7 @@ function alterarSprint(sprintId, projetoId)
 function refreshSprintGrid() {
     $.ajax({
         type: "POST",
-        url: "lista-sprint",
+        url: "lista-sprint-restrito",
         success: function (data) {
             var div = $("#tbSprint");
             div.html(data);
@@ -72,7 +72,7 @@ function salvarSprint()
 
     $.ajax({
         type: "POST",
-        url: "salvar-sprint",
+        url: "salvar-sprint-restrito",
         data: dataForm,
         dataType: "json",
         success: function (dados) {

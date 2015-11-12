@@ -25,7 +25,7 @@
                         <label class="control-label" for="nome">Nome do Projeto</label>
                         <input id="nome" name="nome" class="form-control" value="${projeto.nome}">
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label" for="descricao">Descrição</label>
                         <textarea id="descricao" name="descricao" class="form-control" rows="5" maxlength="1000">
@@ -52,7 +52,9 @@
 
                 </form>
             </div>
-            <div class="modal-footer">
+            <br>
+
+            <div class="modal-footer" style="margin-top: 50px;">
                 <button type="button" class="btn btn-primary" onclick="salvarProjeto()" id="btnSalvar" >Salvar</button> &nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-default" id="btnFechar" data-dismiss="modal">Fechar</button>
             </div>
