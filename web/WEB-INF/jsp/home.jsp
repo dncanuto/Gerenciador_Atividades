@@ -18,7 +18,8 @@
         
         <script src="recursos/js/funcoes-globais.js" type="text/javascript"></script>
         <script src="recursos/js/ajax-funcionario.js" type="text/javascript"></script>
-        <script src="recursos/js/ajax-projeto.js" type="text/javascript"></script>        
+        <script src="recursos/js/ajax-projeto.js" type="text/javascript"></script>   
+        <script src="recursos/js/ajax-sprint.js" type="text/javascript"></script>
         
         <link href="recursos/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="recursos/bootstrap/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
@@ -47,6 +48,17 @@
         
         <div id="tbProjeto">
             <%@include file="gridProjeto.jsp" %>  
+        </div>
+        <br>
+        
+        
+        <div id="div-modal-sprint">            
+            <%@include file="modal/cad-sprint.jsp" %>        
+        </div>
+        <br>
+        
+        <div id="tbSprint">
+            <%@include file="gridSprint.jsp" %>  
         </div>
         <br>
     </body>

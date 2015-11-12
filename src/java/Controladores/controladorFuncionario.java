@@ -8,6 +8,7 @@ package Controladores;
 import DAO.Model.DicionarioDAO;
 import DAO.Model.FuncionarioDAO;
 import DAO.Model.ProjetoDAO;
+import DAO.Model.SprintDAO;
 import VO.Model.Funcionario;
 import VO.Model.Tpcargo;
 import com.google.gson.Gson;
@@ -34,6 +35,7 @@ public class controladorFuncionario {
         ModelAndView mv = new ModelAndView("home"); // abrir a home 
         mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
         mv.addObject("listaProjeto", ProjetoDAO.listarProjetos());
+        mv.addObject("listaSprint", SprintDAO.listarSprints());
         return mv;
     }
 

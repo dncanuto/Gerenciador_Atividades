@@ -19,7 +19,7 @@ public class Sprint  implements java.io.Serializable {
      private String nome;
      private String descricao;
      private Date dtcriacao;
-     private Serializable dtalteracao;
+     private Date dtalteracao;
      private Set atividades = new HashSet(0);
 
     public Sprint() {
@@ -30,7 +30,7 @@ public class Sprint  implements java.io.Serializable {
         this.id = id;
         this.projeto = projeto;
     }
-    public Sprint(int id, Projeto projeto, Sitsprint sitsprint, String nome, String descricao, Date dtcriacao, Serializable dtalteracao, Set atividades) {
+    public Sprint(int id, Projeto projeto, Sitsprint sitsprint, String nome, String descricao, Date dtcriacao, Date dtalteracao, Set atividades) {
        this.id = id;
        this.projeto = projeto;
        this.sitsprint = sitsprint;
@@ -87,7 +87,7 @@ public class Sprint  implements java.io.Serializable {
         return this.dtalteracao;
     }
     
-    public void setDtalteracao(Serializable dtalteracao) {
+    public void setDtalteracao(Date dtalteracao) {
         this.dtalteracao = dtalteracao;
     }
     public Set getAtividades() {

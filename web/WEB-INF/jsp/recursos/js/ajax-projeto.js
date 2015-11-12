@@ -1,3 +1,5 @@
+
+
 function novoProjeto()
 {
     $.ajax({
@@ -78,13 +80,13 @@ function runAutocomplete() {
 }
 
 function salvarProjeto()
-{
+{   
     var dataForm = $("#frmCadProjeto").serialize();
-
+debugger;
     $.ajax({
         type: "POST",
         url: "salvar-projeto",
-        data: dataForm,
+        data: objeto,
         dataType: "json",
         success: function (dados) {
             if (dados.sucesso) {

@@ -23,8 +23,8 @@
         <property name="dtcriacao" type="date">
             <column name="DTCRIACAO" length="10" />
         </property>
-        <property name="dtalteracao" type="serializable">
-            <column name="DTALTERACAO" />
+        <property name="dtalteracao" type="date">
+            <column name="DTALTERACAO" length="10" />
         </property>
         <set name="atividades" table="ATIVIDADE" inverse="true" lazy="true" fetch="join">
             <key>

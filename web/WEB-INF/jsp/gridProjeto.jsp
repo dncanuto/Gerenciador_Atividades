@@ -18,6 +18,8 @@
             <td>${p.nome}</td>            
             <td>
                 <a href="javascript:alterarProjeto(${p.id})">Alterar</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="javascript:novoSprint(${p.id})">Adicionar Sprint</a>
             </td>
         </tr>
     </c:forEach>

@@ -49,7 +49,7 @@ public class FuncionarioDAO {
         try {
             Session sessao = HibernateUtility.getSession();
             Criteria cri = sessao.createCriteria(Funcionario.class).add(Restrictions.eq("id", id));
-
+            
             return (Funcionario) cri.uniqueResult();
         } catch (Exception erro) {
             return null;

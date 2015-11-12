@@ -5,11 +5,13 @@
  */
 package DAO.Model;
 
+import VO.Model.Sitsprint;
 import VO.Model.Tpcargo;
 import br.com.configuration.HibernateUtility;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -34,5 +36,14 @@ public class DicionarioDAO {
         cri.add(Restrictions.eq("id", id));
 
         return (Tpcargo)cri.uniqueResult();
-    }    
+    } 
+    
+    public static List<Sitsprint> listarSituacoesSprint() throws Exception{
+        Session sessao = HibernateUtility.getSession();
+        Criteria cri = sessao.createCriteria(Sitsprint.class);
+        cri.add(Restrictions.eq("isAtivo", Boolean.TRUE));
+        //cri.addOrder(Order.asc("Sitsprint.order"));
+
+        return cri.list();
+    }
 }
