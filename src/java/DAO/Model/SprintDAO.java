@@ -36,11 +36,12 @@ public class SprintDAO {
             sessao.saveOrUpdate(s);
             transaction.commit();
         }
-        catch(HibernateException hbErro){
+        catch(HibernateException erro){
             transaction.rollback();
+            erro.printStackTrace();
         }
         catch(Exception erro){
-            System.out.printf(erro.getMessage());
+            erro.printStackTrace();
         }
         finally{
             sessao.close();

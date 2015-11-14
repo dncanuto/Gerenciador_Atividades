@@ -5,18 +5,19 @@
  */
 package Controladores;
 
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  *
  * @author William
  */
-public class AutorizadorAcesso extends HandlerInterceptorAdapter {
-
-   public boolean preHandle(
+public class AutorizadorAcesso extends  HandlerInterceptorAdapter{
+    
+     @Override
+    public boolean preHandle(
             HttpServletRequest request, 
             HttpServletResponse response,
             Object controller) throws Exception {
@@ -41,6 +42,6 @@ public class AutorizadorAcesso extends HandlerInterceptorAdapter {
         }
         return true;
     } 
-        
+    
     
 }

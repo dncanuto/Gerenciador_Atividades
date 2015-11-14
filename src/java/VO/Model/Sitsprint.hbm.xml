@@ -17,7 +17,7 @@
         <property name="isAtivo" type="java.lang.Boolean">
             <column name="IS_ATIVO" />
         </property>
-        <set name="sprints" table="SPRINT" inverse="true" lazy="true" fetch="join">
+        <set name="sprints" table="SPRINT" lazy="true" fetch="join">
             <key>
                 <column name="SITSPRINTID" />
             </key>

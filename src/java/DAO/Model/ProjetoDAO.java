@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -30,35 +30,40 @@ public class ProjetoDAO {
     public static void salvarProjeto(Projeto p, ArrayList<Tag> tagFuncionarios, String operacao) {
 
         Transaction transaction = null;
+        Session sessao = null;
 
         try {
-            Session sessao = HibernateUtility.getSession();
+            sessao = HibernateUtility.getSession();
             transaction = sessao.beginTransaction();
 
-            HashSet<Funcionarioprojeto> funcionarios = tagToFuncionario(sessao, tagFuncionarios, p, operacao);
-
+            HashSet<Funcionarioprojeto> funcionarios = tagToFuncionario(tagFuncionarios, p, operacao);
             p.setFuncionarioprojetos(funcionarios);
-
             Sitprojeto sitP = new Sitprojeto();
             sitP.setId(1);
             p.setSitprojeto(sitP);
 
-            if (operacao.equalsIgnoreCase("A")) {
-                sessao.merge(p);
-            } else {
-                sessao.saveOrUpdate(p);
+            sessao.saveOrUpdate(p);
+
+            for (Funcionarioprojeto f : funcionarios) {
+                sessao.saveOrUpdate(f);
             }
 
             transaction.commit();
-            sessao.close();
-        } catch (Exception erro) {
+
+        } catch (HibernateException erro) {
             transaction.rollback();
+            erro.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
+        } finally {
+            sessao.close();
         }
     }
 
     private static HashSet<Funcionarioprojeto> tagToFuncionario(
-            Session sessao, ArrayList<Tag> tags, Projeto p, String operacao) throws Exception {
-
+            ArrayList<Tag> tags, Projeto p, String operacao) throws Exception {
+        
+        Session sessao = HibernateUtility.getSession();
         HashSet<Funcionarioprojeto> funcionarios = new HashSet<Funcionarioprojeto>();
 
         Funcionarioprojeto funcProjeto;
@@ -67,30 +72,22 @@ public class ProjetoDAO {
             Criteria criteria = sessao.createCriteria(Funcionario.class).add(Restrictions.eq("id", tag.getTagId()));
 
             Funcionario funcionario = (Funcionario) criteria.uniqueResult();
-
-            if (operacao.equalsIgnoreCase("A")) {
-                funcProjeto = funcionarioProjetoSalvo(sessao, funcionario, p);
-            } else {
-                funcProjeto = null;
-            }
+            funcProjeto = funcionarioProjetoSalvo(sessao, funcionario, p);
 
             if (funcProjeto != null) {
                 if (!funcProjeto.getIsAtivo()) {
                     funcProjeto.setIsAtivo(Boolean.TRUE);
                     funcProjeto.setDtalteracao(new Date());
                 }
-
-                funcProjeto.setProjeto(p);
-                funcionarios.add(funcProjeto);
             } else {
                 funcProjeto = new Funcionarioprojeto();
                 funcProjeto.setFuncionario(funcionario);
                 funcProjeto.setProjeto(p);
                 funcProjeto.setDtcriacao(new Date());
                 funcProjeto.setIsAtivo(Boolean.TRUE);
-
-                funcionarios.add(funcProjeto);
             }
+
+            funcionarios.add(funcProjeto);
         }
 
         return funcionarios;
@@ -118,19 +115,30 @@ public class ProjetoDAO {
 
     public static void desabilitaFuncionarioProjeto(Funcionario f, Projeto p) {
 
-        Session sessao = HibernateUtility.getSession();
+        Session sessao = null;
+        Transaction transaction = null;
 
-        Funcionarioprojeto fprojeto = funcionarioProjetoSalvo(sessao, f, p);
+        try {
+            sessao = HibernateUtility.getSession();
 
-        Transaction transaction = sessao.beginTransaction();
+            Funcionarioprojeto fprojeto = funcionarioProjetoSalvo(sessao, f, p);
 
-        fprojeto.setDtalteracao(new Date());
-        fprojeto.setIsAtivo(Boolean.FALSE);
+            transaction = sessao.beginTransaction();
 
-        sessao.update(fprojeto);
+            fprojeto.setDtalteracao(new Date());
+            fprojeto.setIsAtivo(Boolean.FALSE);
 
-        transaction.commit();
-        sessao.close();
+            sessao.update(fprojeto);
+
+            transaction.commit();
+        } catch (HibernateException erro) {
+            transaction.rollback();
+            erro.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
+        } finally {
+            sessao.close();
+        }
     }
 
     private static Funcionarioprojeto funcionarioProjetoSalvo(Session sessao, Funcionario f, Projeto p) {
@@ -139,7 +147,13 @@ public class ProjetoDAO {
         cri.add(Restrictions.eq("funcionario", f));
         cri.add(Restrictions.eq("projeto", p));
 
-        return (Funcionarioprojeto) cri.uniqueResult();
+        Object obj = cri.uniqueResult();
+
+        if (obj != null) {
+            return (Funcionarioprojeto) obj;
+        } else {
+            return null;
+        }
     }
 
     public static ArrayList<Tag> getFuncSalvoToTag(Projeto p) throws Exception {

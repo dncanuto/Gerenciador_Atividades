@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -24,10 +25,11 @@ public class FuncionarioDAO {
 
     public static void salvarFuncionario(Funcionario funcionario, String operacao) {
 
+        Session sessao = null;
         Transaction transaction = null;
 
         try {
-            Session sessao = HibernateUtility.getSession();
+            sessao = HibernateUtility.getSession();
             transaction = sessao.beginTransaction();
 
             //Se o usuário não existe, seta data de criação e isAtivo...
@@ -40,8 +42,13 @@ public class FuncionarioDAO {
 
             transaction.commit();
             sessao.close();
-        } catch (Exception erro) {
+        } catch (HibernateException erro) {
             transaction.rollback();
+            erro.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
+        } finally {
+            sessao.close();
         }
     }
 
@@ -49,59 +56,52 @@ public class FuncionarioDAO {
         try {
             Session sessao = HibernateUtility.getSession();
             Criteria cri = sessao.createCriteria(Funcionario.class).add(Restrictions.eq("id", id));
-            
+
             return (Funcionario) cri.uniqueResult();
         } catch (Exception erro) {
             return null;
         }
     }
-    
-    public static Funcionario autenticacaoLogin(String email, String senha){
-        try{
-            Session sessao = HibernateUtility.getSession();
-            Criteria cri = sessao.createCriteria(Funcionario.class).add(Restrictions.eq("email", email));
-            
-            cri.add(Restrictions.eq("password", senha));
-            
-            return (Funcionario) cri.uniqueResult();
-        }catch(Exception erro){
-            return null;
-        }
+
+    public static Funcionario autenticacaoLogin(String email, String senha) {
+
+        Session sessao = HibernateUtility.getSession();
+        Criteria cri = sessao.createCriteria(Funcionario.class).add(Restrictions.eq("email", email));
+
+        cri.add(Restrictions.eq("password", senha));
+
+        return (Funcionario) cri.uniqueResult();
     }
 
     public static List<Funcionario> listarFuncionarios() {
-        List<Funcionario> lista = new ArrayList<Funcionario>();
-        try {
-            Session sessao = HibernateUtility.getSession();
-            Criteria cri = sessao.createCriteria(Funcionario.class);
 
-            return cri.list();
-        } catch (Exception erro) {
-            return lista;
-        }
+        Session sessao = HibernateUtility.getSession();
+        Criteria cri = sessao.createCriteria(Funcionario.class);
+
+        return cri.list();
     }
 
     public static List<Tag> getFuncionarios(String dados) {
-        
+
         List<Tag> lista = new ArrayList<Tag>();
 
         Session sessao = HibernateUtility.getSession();
         Criteria cri = sessao.createCriteria(Funcionario.class);
 
         List<Funcionario> data = cri.list();
-        
+
         String aux = "";
-        
+
         for (Funcionario f : data) {
-            
+
             aux = f.getNome() + " " + f.getSobrenome();
-            
+
             if (aux.contains(dados)) {
-                
+
                 lista.add(new Tag(f.getId(), aux));
             }
         }
-        
+
         return lista;
     }
 }

@@ -30,6 +30,7 @@
         <header>
             <%@include file="header.jsp" %>  
         </header>
+        
         <div style="width: auto; margin-top: 100px;">
             <a href="javascript:novoFuncionario()">Novo Funcionario</a>
             <br>

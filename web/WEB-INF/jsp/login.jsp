@@ -10,9 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-        <script src="recursos/js/jquery-1.11.2.js" type="text/javascript"></script>
-        <script src="recursos/js/funcoes-ajax.js" type="text/javascript"></script>
-        <script src="recursos/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+        
+        <script src="recursos/js/jquery-2.1.1.js" type="text/javascript"></script>
+        <script src="recursos/bootstrap/js/bootstrap.js" type="text/javascript"></script>       
+        
+        
         <link href="recursos/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="recursos/bootstrap/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>  
         <link href="recursos/bootstrap/css/estilos.css" rel="stylesheet" type="text/css"/>

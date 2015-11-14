@@ -23,13 +23,15 @@
         <property name="dtalteracao" type="date">
             <column name="DTALTERACAO" length="10" />
         </property>
-        <set name="funcionarioprojetos" table="FUNCIONARIOPROJETO" fetch="select" cascade="all">
+        
+        <set name="funcionarioprojetos" table="FUNCIONARIOPROJETO" inverse="true" fetch="select" cascade="none">
             <key>
                 <column name="PROJETOID" not-null="true" />
             </key>
             <one-to-many class="VO.Model.Funcionarioprojeto" />
         </set>
-        <set name="sprints" table="SPRINT">
+       
+        <set name="sprints" table="SPRINT" inverse="true" fetch="select" cascade="none">
             <key>
                 <column name="PROJETOID" not-null="true" />
             </key>
