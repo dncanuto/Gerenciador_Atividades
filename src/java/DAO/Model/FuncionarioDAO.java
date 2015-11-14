@@ -40,8 +40,7 @@ public class FuncionarioDAO {
 
             sessao.saveOrUpdate(funcionario);
 
-            transaction.commit();
-            sessao.close();
+            transaction.commit();            
         } catch (HibernateException erro) {
             transaction.rollback();
             erro.printStackTrace();

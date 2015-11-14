@@ -64,9 +64,8 @@ function salvarFuncionario()
         complete: function () {
             $('#btnSalvar').attr("disabled", false);
             $("#status").html("");
-
-            refreshFuncionarioGrid();
            
+            refreshFuncionarioGrid();          
         }
 
     });
