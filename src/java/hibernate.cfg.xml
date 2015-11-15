@@ -19,6 +19,7 @@
     <property name="hibernate.generate_statistics">true</property>
     <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
     <!-- Mapeamentos -->
+    <mapping resource="VO/Model/Tptempo.hbm.xml"/>
     <mapping resource="VO/Model/Projeto.hbm.xml"/>
     <mapping resource="VO/Model/Funcionarioprojeto.hbm.xml"/>
     <mapping resource="VO/Model/Sitsprint.hbm.xml"/>
@@ -28,7 +29,6 @@
     <mapping resource="VO/Model/Atividade.hbm.xml"/>
     <mapping resource="VO/Model/Sitatividade.hbm.xml"/>
     <mapping resource="VO/Model/Sprint.hbm.xml"/>
-    <mapping resource="VO/Model/Atividadehistorico.hbm.xml"/>
     <mapping resource="VO/Model/Tpcargo.hbm.xml"/>
     <mapping resource="VO/Model/Sitprojeto.hbm.xml"/>
   </session-factory>

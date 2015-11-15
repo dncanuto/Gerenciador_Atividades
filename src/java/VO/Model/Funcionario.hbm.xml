@@ -1,51 +1,47 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10/11/2015 14:22:57 by Hibernate Tools 4.3.1 -->
+<!-- Generated 15/11/2015 13:30:59 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="VO.Model.Funcionario" table="FUNCIONARIO" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="tpcargo" class="VO.Model.Tpcargo" fetch="join">
+        
+        <many-to-one name="tpcargo" class="VO.Model.Tpcargo" fetch="select">
             <column name="TPCARGOID" />
         </many-to-one>
+        
         <property name="nome" type="string">
             <column name="NOME" length="200" />
         </property>
+        
         <property name="sobrenome" type="string">
             <column name="SOBRENOME" length="200" />
         </property>
+        
         <property name="email" type="string">
             <column name="EMAIL" length="200" />
         </property>
+        
         <property name="password" type="string">
             <column name="PASSWORD" length="10" />
         </property>
+        
         <property name="dtcriacao" type="date">
             <column name="DTCRIACAO" length="10" />
         </property>
+       
         <property name="isAtivo" type="java.lang.Boolean">
             <column name="IS_ATIVO" />
         </property>
-        <set name="atividadehistoricos" table="ATIVIDADEHISTORICO" inverse="true" lazy="true" fetch="join">
-            <key>
-                <column name="USERALTERACAOID" />
-            </key>
-            <one-to-many class="VO.Model.Atividadehistorico" />
-        </set>
-        <set name="funcionarioprojetos" table="FUNCIONARIOPROJETO" inverse="true" lazy="true" fetch="join">
+        
+        <set name="funcionarioprojetos" table="FUNCIONARIOPROJETO" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="FUNCIONARIOID" not-null="true" />
             </key>
             <one-to-many class="VO.Model.Funcionarioprojeto" />
-        </set>
-        <set name="atividadefuncionarios" table="ATIVIDADEFUNCIONARIO" inverse="true" lazy="true" fetch="join">
-            <key>
-                <column name="FUNCIONARIOID" />
-            </key>
-            <one-to-many class="VO.Model.Atividadefuncionario" />
         </set>
     </class>
 </hibernate-mapping>

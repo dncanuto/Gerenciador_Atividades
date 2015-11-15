@@ -36,7 +36,7 @@ public class ProjetoDAO {
             sessao = HibernateUtility.getSession();
             transaction = sessao.beginTransaction();
 
-            HashSet<Funcionarioprojeto> funcionarios = tagToFuncionario(tagFuncionarios, p, operacao);
+            HashSet<Funcionarioprojeto> funcionarios = tagToFuncionario(sessao, tagFuncionarios, p, operacao);
             p.setFuncionarioprojetos(funcionarios);
             Sitprojeto sitP = new Sitprojeto();
             sitP.setId(1);
@@ -61,18 +61,15 @@ public class ProjetoDAO {
     }
 
     private static HashSet<Funcionarioprojeto> tagToFuncionario(
-            ArrayList<Tag> tags, Projeto p, String operacao) throws Exception {
-        
-        Session sessao = HibernateUtility.getSession();
-        HashSet<Funcionarioprojeto> funcionarios = new HashSet<Funcionarioprojeto>();
+            Session sessao, ArrayList<Tag> tags, Projeto p, String operacao) throws Exception {
 
-        Funcionarioprojeto funcProjeto;
+        HashSet<Funcionarioprojeto> funcionarios = new HashSet<Funcionarioprojeto>();
 
         for (Tag tag : tags) {
             Criteria criteria = sessao.createCriteria(Funcionario.class).add(Restrictions.eq("id", tag.getTagId()));
 
             Funcionario funcionario = (Funcionario) criteria.uniqueResult();
-            funcProjeto = funcionarioProjetoSalvo(sessao, funcionario, p);
+            Funcionarioprojeto funcProjeto = funcionarioProjetoSalvo(sessao, funcionario, p);
 
             if (funcProjeto != null) {
                 if (!funcProjeto.getIsAtivo()) {
@@ -143,17 +140,15 @@ public class ProjetoDAO {
 
     private static Funcionarioprojeto funcionarioProjetoSalvo(Session sessao, Funcionario f, Projeto p) {
 
-        Criteria cri = sessao.createCriteria(Funcionarioprojeto.class);
-        cri.add(Restrictions.eq("funcionario", f));
-        cri.add(Restrictions.eq("projeto", p));
+        if (p.getId() > 0) {
+            Criteria cri = sessao.createCriteria(Funcionarioprojeto.class);
+            cri.add(Restrictions.eq("funcionario", f));
+            cri.add(Restrictions.eq("projeto", p));
 
-        Object obj = cri.uniqueResult();
-
-        if (obj != null) {
-            return (Funcionarioprojeto) obj;
-        } else {
-            return null;
+            return (Funcionarioprojeto) cri.uniqueResult();
         }
+
+        return null;
     }
 
     public static ArrayList<Tag> getFuncSalvoToTag(Projeto p) throws Exception {

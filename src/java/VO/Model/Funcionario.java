@@ -1,5 +1,5 @@
 package VO.Model;
-// Generated 10/11/2015 14:22:55 by Hibernate Tools 4.3.1
+// Generated 15/11/2015 13:30:57 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -20,9 +20,7 @@ public class Funcionario  implements java.io.Serializable {
      private String password;
      private Date dtcriacao;
      private Boolean isAtivo;
-     private Set atividadehistoricos = new HashSet(0);
      private Set funcionarioprojetos = new HashSet(0);
-     private Set atividadefuncionarios = new HashSet(0);
 
     public Funcionario() {
     }
@@ -31,7 +29,7 @@ public class Funcionario  implements java.io.Serializable {
     public Funcionario(int id) {
         this.id = id;
     }
-    public Funcionario(int id, Tpcargo tpcargo, String nome, String sobrenome, String email, String password, Date dtcriacao, Boolean isAtivo, Set atividadehistoricos, Set funcionarioprojetos, Set atividadefuncionarios) {
+    public Funcionario(int id, Tpcargo tpcargo, String nome, String sobrenome, String email, String password, Date dtcriacao, Boolean isAtivo, Set funcionarioprojetos) {
        this.id = id;
        this.tpcargo = tpcargo;
        this.nome = nome;
@@ -40,9 +38,7 @@ public class Funcionario  implements java.io.Serializable {
        this.password = password;
        this.dtcriacao = dtcriacao;
        this.isAtivo = isAtivo;
-       this.atividadehistoricos = atividadehistoricos;
        this.funcionarioprojetos = funcionarioprojetos;
-       this.atividadefuncionarios = atividadefuncionarios;
     }
    
     public int getId() {
@@ -101,26 +97,12 @@ public class Funcionario  implements java.io.Serializable {
     public void setIsAtivo(Boolean isAtivo) {
         this.isAtivo = isAtivo;
     }
-    public Set getAtividadehistoricos() {
-        return this.atividadehistoricos;
-    }
-    
-    public void setAtividadehistoricos(Set atividadehistoricos) {
-        this.atividadehistoricos = atividadehistoricos;
-    }
     public Set getFuncionarioprojetos() {
         return this.funcionarioprojetos;
     }
     
     public void setFuncionarioprojetos(Set funcionarioprojetos) {
         this.funcionarioprojetos = funcionarioprojetos;
-    }
-    public Set getAtividadefuncionarios() {
-        return this.atividadefuncionarios;
-    }
-    
-    public void setAtividadefuncionarios(Set atividadefuncionarios) {
-        this.atividadefuncionarios = atividadefuncionarios;
     }
 
 

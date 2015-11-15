@@ -8,17 +8,19 @@ package DAO.Model;
 import VO.Model.Sitsprint;
 import VO.Model.Tpcargo;
 import br.com.configuration.HibernateUtility;
+import java.util.Collection;
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
+
 import org.hibernate.criterion.Restrictions;
 
 /**
  *
  * @author Daniel
  */
-public class DicionarioDAO {
+public class DicionarioDAO{
 
     public static List<Tpcargo> listarCargos() throws Exception{
 
@@ -44,6 +46,13 @@ public class DicionarioDAO {
         cri.add(Restrictions.eq("isAtivo", Boolean.TRUE));
         //cri.addOrder(Order.asc("Sitsprint.order"));
 
+        return cri.list();
+    }
+    
+    public static List<Object> listarDadosEntidade(Class name) {
+        Session sessao = HibernateUtility.getSession();
+        Criteria cri = sessao.createCriteria(name);
+        cri.add(Restrictions.eq("isAtivo", Boolean.TRUE));
         return cri.list();
     }
 }

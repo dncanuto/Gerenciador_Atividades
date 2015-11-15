@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 15/11/2015 13:30:59 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="VO.Model.Sitatividade" table="SITATIVIDADE" schema="dbo" catalog="ADS5" optimistic-lock="version">
+    <class name="VO.Model.Tptempo" table="TPTEMPO" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="identity" />
@@ -21,9 +21,16 @@
             <column name="IS_ATIVO" />
         </property>
         
-        <set name="atividades" table="ATIVIDADE" inverse="true" lazy="true" fetch="select">
+        <set name="atividadesForTptempoconclusaoid" table="ATIVIDADE" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="SITATIVIDADEID" />
+                <column name="TPTEMPOCONCLUSAOID" />
+            </key>
+            <one-to-many class="VO.Model.Atividade" />
+        </set>
+        
+        <set name="atividadesForTptempoestimadoid" table="ATIVIDADE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TPTEMPOESTIMADOID" />
             </key>
             <one-to-many class="VO.Model.Atividade" />
         </set>

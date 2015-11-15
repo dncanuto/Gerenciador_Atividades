@@ -1,5 +1,5 @@
 package VO.Model;
-// Generated 10/11/2015 14:22:55 by Hibernate Tools 4.3.1
+// Generated 15/11/2015 13:30:57 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;

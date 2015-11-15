@@ -1,5 +1,5 @@
 package VO.Model;
-// Generated 10/11/2015 14:22:55 by Hibernate Tools 4.3.1
+// Generated 15/11/2015 13:30:57 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,11 +13,16 @@ public class Atividade  implements java.io.Serializable {
 
 
      private int id;
-     private Sprint sprint;
-     private Tpprioridade tpprioridade;
+     private Sitatividade sitatividade = new Sitatividade();
+     private Sprint sprint = new Sprint();
+     private Tpprioridade tpprioridade = new Tpprioridade();
+     private Tptempo tptempoByTptempoconclusaoid = new Tptempo();
+     private Tptempo tptempoByTptempoestimadoid = new Tptempo();
      private String nome;
      private Date dtcriacao;
-     private Set atividadehistoricos = new HashSet(0);
+     private String descricao;
+     private Date dtalteracao;
+     private String descconclusao;
      private Set atividadefuncionarios = new HashSet(0);
 
     public Atividade() {
@@ -28,13 +33,18 @@ public class Atividade  implements java.io.Serializable {
         this.id = id;
         this.sprint = sprint;
     }
-    public Atividade(int id, Sprint sprint, Tpprioridade tpprioridade, String nome, Date dtcriacao, Set atividadehistoricos, Set atividadefuncionarios) {
+    public Atividade(int id, Sitatividade sitatividade, Sprint sprint, Tpprioridade tpprioridade, Tptempo tptempoByTptempoconclusaoid, Tptempo tptempoByTptempoestimadoid, String nome, Date dtcriacao, String descricao, Date dtalteracao, String descconclusao, Set atividadefuncionarios) {
        this.id = id;
+       this.sitatividade = sitatividade;
        this.sprint = sprint;
        this.tpprioridade = tpprioridade;
+       this.tptempoByTptempoconclusaoid = tptempoByTptempoconclusaoid;
+       this.tptempoByTptempoestimadoid = tptempoByTptempoestimadoid;
        this.nome = nome;
        this.dtcriacao = dtcriacao;
-       this.atividadehistoricos = atividadehistoricos;
+       this.descricao = descricao;
+       this.dtalteracao = dtalteracao;
+       this.descconclusao = descconclusao;
        this.atividadefuncionarios = atividadefuncionarios;
     }
    
@@ -44,6 +54,13 @@ public class Atividade  implements java.io.Serializable {
     
     public void setId(int id) {
         this.id = id;
+    }
+    public Sitatividade getSitatividade() {
+        return this.sitatividade;
+    }
+    
+    public void setSitatividade(Sitatividade sitatividade) {
+        this.sitatividade = sitatividade;
     }
     public Sprint getSprint() {
         return this.sprint;
@@ -59,6 +76,20 @@ public class Atividade  implements java.io.Serializable {
     public void setTpprioridade(Tpprioridade tpprioridade) {
         this.tpprioridade = tpprioridade;
     }
+    public Tptempo getTptempoByTptempoconclusaoid() {
+        return this.tptempoByTptempoconclusaoid;
+    }
+    
+    public void setTptempoByTptempoconclusaoid(Tptempo tptempoByTptempoconclusaoid) {
+        this.tptempoByTptempoconclusaoid = tptempoByTptempoconclusaoid;
+    }
+    public Tptempo getTptempoByTptempoestimadoid() {
+        return this.tptempoByTptempoestimadoid;
+    }
+    
+    public void setTptempoByTptempoestimadoid(Tptempo tptempoByTptempoestimadoid) {
+        this.tptempoByTptempoestimadoid = tptempoByTptempoestimadoid;
+    }
     public String getNome() {
         return this.nome;
     }
@@ -73,12 +104,26 @@ public class Atividade  implements java.io.Serializable {
     public void setDtcriacao(Date dtcriacao) {
         this.dtcriacao = dtcriacao;
     }
-    public Set getAtividadehistoricos() {
-        return this.atividadehistoricos;
+    public String getDescricao() {
+        return this.descricao;
     }
     
-    public void setAtividadehistoricos(Set atividadehistoricos) {
-        this.atividadehistoricos = atividadehistoricos;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    public Date getDtalteracao() {
+        return this.dtalteracao;
+    }
+    
+    public void setDtalteracao(Date dtalteracao) {
+        this.dtalteracao = dtalteracao;
+    }
+    public String getDescconclusao() {
+        return this.descconclusao;
+    }
+    
+    public void setDescconclusao(String descconclusao) {
+        this.descconclusao = descconclusao;
     }
     public Set getAtividadefuncionarios() {
         return this.atividadefuncionarios;

@@ -2,16 +2,16 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="ADS5" match-schema="dbo"/>
-  <table-filter match-name="TPCARGO"/>  
+  <table-filter match-name="PROJETO"/>
+  <table-filter match-name="ATIVIDADEFUNCIONARIO"/>
   <table-filter match-name="FUNCIONARIOPROJETO"/>
-  <table-filter match-name="SITATIVIDADE"/>
-  <table-filter match-name="ATIVIDADEFUNCIONARIO"/>  
+  <table-filter match-name="SPRINT"/>
+  <table-filter match-name="TPCARGO"/>
   <table-filter match-name="ATIVIDADE"/>
-  <table-filter match-name="SITPROJETO"/>
-  <table-filter match-name="SITSPRINT"/>
   <table-filter match-name="FUNCIONARIO"/>
   <table-filter match-name="TPPRIORIDADE"/>
-  <table-filter match-name="PROJETO"/>
-  <table-filter match-name="ATIVIDADEHISTORICO"/>
-  <table-filter match-name="SPRINT"/>
+  <table-filter match-name="SITSPRINT"/>
+  <table-filter match-name="TPTEMPO"/>
+  <table-filter match-name="SITATIVIDADE"/>
+  <table-filter match-name="SITPROJETO"/>
 </hibernate-reverse-engineering>

@@ -8,18 +8,23 @@
             <column name="ID" />
             <generator class="identity" />
         </id>
+        
         <many-to-one name="sitprojeto" class="VO.Model.Sitprojeto" fetch="join">
             <column name="SITPROJETOID" />
         </many-to-one>
+        
         <property name="nome" type="string">
             <column name="NOME" length="200" />
         </property>
+        
         <property name="descricao" type="string">
             <column name="DESCRICAO" length="1000" />
         </property>
+        
         <property name="dtcriacao" type="date">
             <column name="DTCRIACAO" length="10" />
         </property>
+        
         <property name="dtalteracao" type="date">
             <column name="DTALTERACAO" length="10" />
         </property>

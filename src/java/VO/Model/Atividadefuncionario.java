@@ -1,5 +1,5 @@
 package VO.Model;
-// Generated 10/11/2015 14:22:55 by Hibernate Tools 4.3.1
+// Generated 15/11/2015 13:30:57 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -12,7 +12,7 @@ public class Atividadefuncionario  implements java.io.Serializable {
 
      private int id;
      private Atividade atividade;
-     private Funcionario funcionario;
+     private Funcionarioprojeto funcionarioprojeto;
      private Date dtcriacao;
      private Boolean isAtivo;
 
@@ -23,10 +23,10 @@ public class Atividadefuncionario  implements java.io.Serializable {
     public Atividadefuncionario(int id) {
         this.id = id;
     }
-    public Atividadefuncionario(int id, Atividade atividade, Funcionario funcionario, Date dtcriacao, Boolean isAtivo) {
+    public Atividadefuncionario(int id, Atividade atividade, Funcionarioprojeto funcionarioprojeto, Date dtcriacao, Boolean isAtivo) {
        this.id = id;
        this.atividade = atividade;
-       this.funcionario = funcionario;
+       this.funcionarioprojeto = funcionarioprojeto;
        this.dtcriacao = dtcriacao;
        this.isAtivo = isAtivo;
     }
@@ -45,12 +45,12 @@ public class Atividadefuncionario  implements java.io.Serializable {
     public void setAtividade(Atividade atividade) {
         this.atividade = atividade;
     }
-    public Funcionario getFuncionario() {
-        return this.funcionario;
+    public Funcionarioprojeto getFuncionarioprojeto() {
+        return this.funcionarioprojeto;
     }
     
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public void setFuncionarioprojeto(Funcionarioprojeto funcionarioprojeto) {
+        this.funcionarioprojeto = funcionarioprojeto;
     }
     public Date getDtcriacao() {
         return this.dtcriacao;

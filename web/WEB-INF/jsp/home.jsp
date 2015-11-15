@@ -20,6 +20,7 @@
         <script src="recursos/js/ajax-funcionario.js" type="text/javascript"></script>
         <script src="recursos/js/ajax-projeto.js" type="text/javascript"></script>   
         <script src="recursos/js/ajax-sprint.js" type="text/javascript"></script>
+        <script src="recursos/js/ajax-atividade.js" type="text/javascript"></script>
 
         <link href="recursos/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="recursos/bootstrap/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
@@ -50,6 +51,7 @@
                 <%@include file="gridSprint.jsp" %>  
             </div>
             <br>
+            <a href="javascript:novaAtividade()">Nova Atividade</a>
         </div>
 
         <div id="div-modal-sprint">            
@@ -64,8 +66,11 @@
 
         <div id="div-modal-projeto">            
             <%@include file="modal/cad-projeto.jsp" %>        
-        </div>
+        </div>       
 
+        <div id="div-modal-atividade">            
+            <%@include file="modal/cad-atividade.jsp" %>        
+        </div>
 
     </body>
 </html>

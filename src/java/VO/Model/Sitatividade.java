@@ -1,5 +1,5 @@
 package VO.Model;
-// Generated 10/11/2015 14:22:55 by Hibernate Tools 4.3.1
+// Generated 15/11/2015 13:30:57 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -15,7 +15,7 @@ public class Sitatividade  implements java.io.Serializable {
      private String label;
      private Integer order;
      private Boolean isAtivo;
-     private Set atividadehistoricos = new HashSet(0);
+     private Set atividades = new HashSet(0);
 
     public Sitatividade() {
     }
@@ -24,12 +24,12 @@ public class Sitatividade  implements java.io.Serializable {
     public Sitatividade(int id) {
         this.id = id;
     }
-    public Sitatividade(int id, String label, Integer order, Boolean isAtivo, Set atividadehistoricos) {
+    public Sitatividade(int id, String label, Integer order, Boolean isAtivo, Set atividades) {
        this.id = id;
        this.label = label;
        this.order = order;
        this.isAtivo = isAtivo;
-       this.atividadehistoricos = atividadehistoricos;
+       this.atividades = atividades;
     }
    
     public int getId() {
@@ -60,12 +60,12 @@ public class Sitatividade  implements java.io.Serializable {
     public void setIsAtivo(Boolean isAtivo) {
         this.isAtivo = isAtivo;
     }
-    public Set getAtividadehistoricos() {
-        return this.atividadehistoricos;
+    public Set getAtividades() {
+        return this.atividades;
     }
     
-    public void setAtividadehistoricos(Set atividadehistoricos) {
-        this.atividadehistoricos = atividadehistoricos;
+    public void setAtividades(Set atividades) {
+        this.atividades = atividades;
     }
 
 

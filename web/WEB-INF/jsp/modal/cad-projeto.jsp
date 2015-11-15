@@ -28,7 +28,7 @@
 
                     <div class="form-group">
                         <label class="control-label" for="descricao">Descrição</label>
-                        <textarea id="descricao" name="descricao" class="form-control" rows="5" maxlength="1000">
+                        <textarea id="descricao" name="descricao" class="form-control" rows="5" maxlength="500">
                             ${projeto.descricao}
                         </textarea>
                     </div>

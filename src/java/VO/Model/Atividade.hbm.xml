@@ -1,32 +1,55 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10/11/2015 14:22:57 by Hibernate Tools 4.3.1 -->
+<!-- Generated 15/11/2015 13:30:59 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="VO.Model.Atividade" table="ATIVIDADE" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="identity" />
         </id>
+        
+        <many-to-one name="sitatividade" class="VO.Model.Sitatividade" fetch="select">
+            <column name="SITATIVIDADEID" />
+        </many-to-one>
+        
         <many-to-one name="sprint" class="VO.Model.Sprint" fetch="select">
             <column name="SPRINTID" not-null="true" />
         </many-to-one>
-        <many-to-one name="tpprioridade" class="VO.Model.Tpprioridade" fetch="join">
+       
+        <many-to-one name="tpprioridade" class="VO.Model.Tpprioridade" fetch="select">
             <column name="TPPRIORIDADE" />
         </many-to-one>
+        
+        <many-to-one name="tptempoByTptempoconclusaoid" class="VO.Model.Tptempo" fetch="select">
+            <column name="TPTEMPOCONCLUSAOID" />
+        </many-to-one>
+        
+        <many-to-one name="tptempoByTptempoestimadoid" class="VO.Model.Tptempo" fetch="select">
+            <column name="TPTEMPOESTIMADOID" />
+        </many-to-one>
+        
         <property name="nome" type="string">
             <column name="NOME" length="200" />
         </property>
+       
         <property name="dtcriacao" type="date">
             <column name="DTCRIACAO" length="10" />
         </property>
-        <set name="atividadehistoricos" table="ATIVIDADEHISTORICO" inverse="true" lazy="true" fetch="join">
-            <key>
-                <column name="ATIVIDADEID" />
-            </key>
-            <one-to-many class="VO.Model.Atividadehistorico" />
-        </set>
-        <set name="atividadefuncionarios" table="ATIVIDADEFUNCIONARIO" inverse="true" lazy="true" fetch="join">
+        
+        <property name="descricao" type="string">
+            <column name="DESCRICAO" length="1000" />
+        </property>
+       
+        <property name="dtalteracao" type="date">
+            <column name="DTALTERACAO" length="10" />
+        </property>
+        
+        <property name="descconclusao" type="string">
+            <column name="DESCCONCLUSAO" length="1000" />
+        </property>
+        
+        <set name="atividadefuncionarios" table="ATIVIDADEFUNCIONARIO" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="ATIVIDADEID" />
             </key>

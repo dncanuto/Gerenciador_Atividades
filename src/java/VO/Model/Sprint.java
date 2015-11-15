@@ -1,8 +1,7 @@
 package VO.Model;
-// Generated 10/11/2015 14:22:55 by Hibernate Tools 4.3.1
+// Generated 15/11/2015 13:30:57 by Hibernate Tools 4.3.1
 
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -83,7 +82,7 @@ public class Sprint  implements java.io.Serializable {
     public void setDtcriacao(Date dtcriacao) {
         this.dtcriacao = dtcriacao;
     }
-    public Serializable getDtalteracao() {
+    public Date getDtalteracao() {
         return this.dtalteracao;
     }
     

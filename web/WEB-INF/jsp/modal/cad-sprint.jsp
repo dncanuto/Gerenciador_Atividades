@@ -7,7 +7,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">${operacao == "I" ? "Cadastrar Novo Sprint " : "Editar Sprint "}(${projeto.nome})</h4>
+                <h4 class="modal-title">${operacao == "I" ? "Cadastrar Novo Sprint " : "Editar Sprint "}<small>(${projeto.nome})</small></h4>
             </div>
             <div class="modal-body">
                 <form id="frmCadSprint" class="" name="frmCad" method="post" action="salva-funcionario">
@@ -24,7 +24,7 @@
 
                     <div class="form-group">
                         <label class="control-label" for="descricao">Descrição</label>
-                        <textarea id="descricao" name="descricao" class="form-control" rows="5" maxlength="1000">
+                        <textarea id="descricao" name="descricao" class="form-control" rows="5" maxlength="500">
                             ${sprint.descricao}
                         </textarea>
                     </div>
