@@ -44,12 +44,20 @@ public class controladorAtividade {
         return mv;
     }
 
-    @RequestMapping(value="salvar-atividade", method=RequestMethod.POST, consumes="application/json", produces = "text/html; charset=UTF-8")     
-    public @ResponseBody String salvarAtividade(@ModelAttribute Atividade atividade) {
+    @RequestMapping(value="salvar-atividade", produces = "text/html; charset=UTF-8")     
+    @ResponseBody
+    public String salvarAtividade(String obj) {
 
-        String myObj = new Gson().toJson(atividade);               
-
-        return myObj;
+        try{
+            Atividade atividade = new Gson().fromJson(obj, Atividade.class);
+            
+            if(atividade.getNome().trim().length() == 0)
+                return null;
+        }catch(Exception erro){
+            erro.printStackTrace();            
+        }
+        
+        return null;
     }
 
 }

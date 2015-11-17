@@ -54,7 +54,7 @@ function Tptempo()
 }
 
 function preparaObjeto()
-{
+{debugger
     //inicializa objetos...
     var _atividade = new Atividade();
     var _sprint = new Sprint();
@@ -64,25 +64,25 @@ function preparaObjeto()
     var _tpTempoConclusao = new Tptempo();
 
     //popula objetos relacionados...
-    _sprint.id = $("#sprintId").val();
-    _tpPrioridade.id = $("#tpprioridade").val();
-    _sitAtividade.id = $("#sitatividade").val();
-    _tpTempoEstimado.id = $("#tptempoByTptempoestimadoid").val();
-    _tpTempoConclusao.id = $("#tptempoByTptempoconclusaoid").val();
+    _sprint.id = parseInt($("#sprintId").val());
+    _tpPrioridade.id = parseInt($("#tpprioridade").val());
+    _sitAtividade.id = parseInt($("#sitatividade").val());
+    _tpTempoEstimado.id = parseInt($("#tptempoByTptempoestimadoid").val());
+    _tpTempoConclusao.id = parseInt($("#tptempoByTptempoconclusaoid").val());
 
     //popula objeto principal..
+    _atividade.id = parseInt($("#id").val());
+    _atividade.nome = $("#atividadeNome").val();
+    _atividade.descricao = $("#atividadeDescricao").val().trim();
+    _atividade.descconclusao = $("#descconclusao").val().trim();
+    _atividade.dtcriacao = $("#dtcriacao").val();
+    _atividade.dtalteracao = $("#dtalteracao").val();
+    
     _atividade.sprint = _sprint;
     _atividade.tpprioridade = _tpPrioridade;
     _atividade.sitatividade = _sitAtividade;
     _atividade.tptempoByTptempoestimadoid = _tpTempoEstimado;
-    _atividade.tptempoByTptempoconclusaoid = _tpTempoConclusao;
-
-    _atividade.id = 1;//$("#id").val();
-    _atividade.nome = "teste";//$("#AtividadeNome").val();
-    _atividade.descricao = "teste";//$("#atividadeDescricao").val();
-    _atividade.descconclusao = "teste";//$("#descconclusao").val();
-    _atividade.dtcriacao = "2015/07/21";//$("#dtcriacao").val();
-    _atividade.dtalteracao = "2015/07/21";//$("#dtalteracao").val();
+    _atividade.tptempoByTptempoconclusaoid = _tpTempoConclusao;    
 
     return _atividade;
 }
@@ -102,44 +102,13 @@ function novaAtividade()
 }
 
 function salvarAtividade()
-{
-    debugger
-    var _atividade = new Atividade();
-    var _sprint = new Sprint();
-    var _tpPrioridade = new Tpprioridade();
-    var _sitAtividade = new Sitatividade();
-    var _tpTempoEstimado = new Tptempo();
-    var _tpTempoConclusao = new Tptempo();
-
-    //popula objetos relacionados...
-    _sprint.id = $("#sprintId").val();
-    _tpPrioridade.id = $("#tpprioridade").val();
-    _sitAtividade.id = $("#sitatividade").val();
-    _tpTempoEstimado.id = $("#tptempoByTptempoestimadoid").val();
-    _tpTempoConclusao.id = $("#tptempoByTptempoconclusaoid").val();
-
-    //popula objeto principal..
-    _atividade.sprint = _sprint;
-    _atividade.tpprioridade = _tpPrioridade;
-    _atividade.sitatividade = _sitAtividade;
-    _atividade.tptempoByTptempoestimadoid = _tpTempoEstimado;
-    _atividade.tptempoByTptempoconclusaoid = _tpTempoConclusao;
-
-    _atividade.id = 1;//$("#id").val();
-    _atividade.nome = "teste";//$("#AtividadeNome").val();
-    _atividade.descricao = "teste";//$("#atividadeDescricao").val();
-    _atividade.descconclusao = "teste";//$("#descconclusao").val();
-    _atividade.dtcriacao = "2015/07/21";//$("#dtcriacao").val();
-    _atividade.dtalteracao = "2015/07/21";//$("#dtalteracao").val();
-
+{  
+    var obj = JSON.stringify(preparaObjeto());
+    
     $.ajax({
-        url: "salvar-atividade",
-        contentType: 'application/json',
-        type: 'POST',
-        dataType: 'json',
-        cache: false,
-        processData: false,
-        data: _atividade,
+        url: "salvar-atividade",        
+        type: 'POST',        
+        data: "obj="+obj,
         success: function (data) {
 
         }

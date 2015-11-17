@@ -23,7 +23,7 @@
 
                     <div class="form-group">
                         <label for="atividadeNome">Nome da Atividade</label>
-                        <input type="text" id="atividadeNome" name="nome" class="form-control" value="${atividade.nome}">
+                        <input type="text" id="atividadeNome" name="atividadeNome" class="form-control" value="${atividade.nome}">
                     </div>
                     <br>
 
