@@ -54,7 +54,7 @@ function Tptempo()
 }
 
 function preparaObjeto()
-{debugger
+{
     //inicializa objetos...
     var _atividade = new Atividade();
     var _sprint = new Sprint();
@@ -114,4 +114,6 @@ function salvarAtividade()
         }
     });
 }
+
+
 

@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import DAO.Model.AtividadeDAO;
 import DAO.Model.DicionarioDAO;
 import VO.Model.Atividade;
 import VO.Model.Sitatividade;
@@ -13,6 +14,7 @@ import VO.Model.Tptempo;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import java.util.HashMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,8 +53,37 @@ public class controladorAtividade {
         try{
             Atividade atividade = new Gson().fromJson(obj, Atividade.class);
             
+            HashMap<String, String> erros = new HashMap<String, String>();            
+            
             if(atividade.getNome().trim().length() == 0)
-                return null;
+                erros.put("erroNome","Informe um nome para a atividade!");
+            
+            if(atividade.getDescricao().trim().length() == 0)
+                erros.put("erroDescricao","Informe uma descrição para a atividade!");     
+            
+            if(atividade.getTpprioridade().getId() == 0)
+                erros.put("erroTpPrioridade","Selecione uma prioridade para a atividade!");
+            
+            if(atividade.getSitatividade().getId() == 0)
+                erros.put("erroSitAtividade","Selecione uma situação para a atividade!");
+            
+            if(atividade.getTpprioridade().getId() == 0)
+                erros.put("erroTpPrioridade","Selecione uma prioridade para a atividade!");
+            
+            if(atividade.getTptempoByTptempoestimadoid().getId() == 0)
+                erros.put("erroTempoEstimado","Selecione o tempo estimado de conclusção da atividade!");
+            
+            if(erros.isEmpty()){
+                AtividadeDAO.salvarAtividade(atividade);
+            }
+            
+            Gson gson = new Gson();
+            JsonObject myObj = new JsonObject();
+
+            myObj.addProperty("sucesso", erros.isEmpty());
+            JsonElement objetoErrosEmJson = gson.toJsonTree(erros);
+            myObj.add("erros", objetoErrosEmJson);
+            
         }catch(Exception erro){
             erro.printStackTrace();            
         }
