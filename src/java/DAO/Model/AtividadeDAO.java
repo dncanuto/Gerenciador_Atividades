@@ -7,6 +7,8 @@ package DAO.Model;
 
 import VO.Model.Atividade;
 import br.com.configuration.HibernateUtility;
+import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -26,6 +28,7 @@ public class AtividadeDAO {
             transaction = sessao.beginTransaction();
             
             sessao.saveOrUpdate(atividade);
+            transaction.commit();
         }catch(HibernateException erro){
             transaction.rollback();
             erro.printStackTrace();
@@ -34,5 +37,13 @@ public class AtividadeDAO {
         }finally{
             sessao.close();
         }
+    }
+    
+    public static List<Atividade> listarAtividades(){
+        Session sessao = HibernateUtility.getSession();
+        
+        Criteria cri = sessao.createCriteria(Atividade.class);        
+        
+        return cri.list();
     }
 }

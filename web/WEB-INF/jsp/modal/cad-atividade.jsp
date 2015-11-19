@@ -11,12 +11,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">${operacao == "I" ? "Cadastrar Nova Atividade " : "Editar Atividade "}<small>(${projeto.nome})</small></h4>
+                <h4 class="modal-title">${operacao == "I" ? "Cadastrar Nova Atividade " : "Editar Atividade "}<small>(${sprint.nome})</small></h4>
             </div>
             <div class="modal-body">
                 <form id="frmCadAtividade" name="frmCadAtividade" method="post" action="salva-atividade">
                     <div>        
-                        <input type="hidden" name="operacao" value="${operacao}">
+                        <input type="hidden" id="operacao" name="operacao" value="${operacao}">
                         <input type="hidden" id="id" name="id" value="${atividade.id}">
                         <input type="hidden" id="sprintId" name="sprintId" value="${sprint.id}">
                     </div>

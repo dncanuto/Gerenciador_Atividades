@@ -51,7 +51,11 @@
                 <%@include file="gridSprint.jsp" %>  
             </div>
             <br>
-            <a href="javascript:novaAtividade()">Nova Atividade</a>
+            
+            <div id="tbAtividade">
+                <%@include file="gridAtividade.jsp" %>  
+            </div>
+            <br>
         </div>
 
         <div id="div-modal-sprint">            

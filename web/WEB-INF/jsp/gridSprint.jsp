@@ -22,7 +22,9 @@
             <td>${s.sitsprint.label}</td>
             <td>${s.projeto.nome}</td>
             <td>
-                <a href="javascript:alterarSprint(${s.id}, ${s.projeto.id})"><span class="glyphicon-edit"></span></a>                
+                <a href="javascript:alterarSprint(${s.id}, ${s.projeto.id})"><span class="glyphicon-edit"></span></a>      
+                &nbsp;&nbsp;&nbsp;
+                <a href="javascript:novaAtividade(${s.id})"><span class="glyphicon-save-file"></span></a>
             </td>
         </tr>
     </c:forEach>

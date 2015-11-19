@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import DAO.Model.AtividadeDAO;
 import DAO.Model.DicionarioDAO;
 import DAO.Model.FuncionarioDAO;
 import DAO.Model.ProjetoDAO;
@@ -48,6 +49,7 @@ public class controladorFuncionario {
             mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
             mv.addObject("listaProjeto", ProjetoDAO.listarProjetos());
             mv.addObject("listaSprint", SprintDAO.listarSprints());
+            mv.addObject("listaAtividade", AtividadeDAO.listarAtividades());
             return mv;
         }
     }

@@ -19,7 +19,7 @@
             <td>
                 <a href="javascript:alterarProjeto(${p.id})"><span class="glyphicon-edit"></span>
                 &nbsp;&nbsp;&nbsp;
-                <a href="javascript:novoSprint(${p.id})"><span class="glyphicon-save-file"></span></a>
+                <a href="javascript:novoSprint(${p.id})"><span class="glyphicon-save-file"></span></a>                
             </td>
         </tr>
     </c:forEach>

@@ -77,22 +77,22 @@ function preparaObjeto()
     _atividade.descconclusao = $("#descconclusao").val().trim();
     _atividade.dtcriacao = $("#dtcriacao").val();
     _atividade.dtalteracao = $("#dtalteracao").val();
-    
+
     _atividade.sprint = _sprint;
     _atividade.tpprioridade = _tpPrioridade;
     _atividade.sitatividade = _sitAtividade;
     _atividade.tptempoByTptempoestimadoid = _tpTempoEstimado;
-    _atividade.tptempoByTptempoconclusaoid = _tpTempoConclusao;    
+    _atividade.tptempoByTptempoconclusaoid = _tpTempoConclusao;
 
     return _atividade;
 }
 
 //funções da atividade
 
-function novaAtividade()
+function novaAtividade(sprintId)
 {
     $.ajax({
-        url: "nova-atividade-restrito",
+        url: "nova-atividade-restrito?sprintId=" + sprintId,
         type: "POST",
         success: function (data) {
             $("#div-modal-atividade").html(data);
@@ -102,15 +102,48 @@ function novaAtividade()
 }
 
 function salvarAtividade()
-{  
+{
     var obj = JSON.stringify(preparaObjeto());
-    
-    $.ajax({
-        url: "salvar-atividade",        
-        type: 'POST',        
-        data: "obj="+obj,
-        success: function (data) {
 
+    $.ajax({
+        url: "salvar-atividade",
+        type: 'POST',
+        data: "obj=" + obj,
+        success: function (dados) {
+            if (dados.sucesso) {
+                $("#modalCadAtividade").modal("hide");
+            }
+            else {
+                //limpa os erros    
+                limpaErros();
+                //preenche automaticamente os erros com os dados retorndos pelo controller    
+                exibeErros(dados);
+            }
+        },
+        error: function () {
+            $("#status").html("Ocorreu um erro na gravação.");
+        },
+        beforeSend: function () {
+            $('#btnSalvar').attr("disabled", true);
+            $("#status").html("<b><i>Aguarde....</i></b>");
+        },
+        complete: function () {
+            $('#btnSalvar').attr("disabled", false);
+            $("#status").html("");
+
+            refreshGridAtividade();
+        }
+    });
+}
+
+function refreshGridAtividade()
+{
+    $.ajax({
+        type: "POST",
+        url: "lista-atividade-restrito",
+        success: function (data) {
+            var div = $("#tbAtividade");
+            div.html(data);
         }
     });
 }

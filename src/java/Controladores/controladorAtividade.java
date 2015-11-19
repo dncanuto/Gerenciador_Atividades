@@ -7,6 +7,7 @@ package Controladores;
 
 import DAO.Model.AtividadeDAO;
 import DAO.Model.DicionarioDAO;
+import DAO.Model.SprintDAO;
 import VO.Model.Atividade;
 import VO.Model.Sitatividade;
 import VO.Model.Tpprioridade;
@@ -14,12 +15,10 @@ import VO.Model.Tptempo;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import java.util.Date;
 import java.util.HashMap;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,17 +31,25 @@ import org.springframework.web.servlet.ModelAndView;
 public class controladorAtividade {
 
     @RequestMapping("nova-atividade-restrito")
-    public ModelAndView novaAtividade() {
-        return montaCadAtividade(new Atividade(), "I");
+    public ModelAndView novaAtividade(int sprintId) {
+        return montaCadAtividade(new Atividade(), sprintId, "I");
     }
 
-    private ModelAndView montaCadAtividade(Atividade a, String operacao) {
+    private ModelAndView montaCadAtividade(Atividade a, int sprintId, String operacao) {
         ModelAndView mv = new ModelAndView("modal/cad-atividade");
         mv.addObject("atividade", a);
+        mv.addObject("sprint", SprintDAO.pesquisaSprint(sprintId));
         mv.addObject("operacao", operacao);
         mv.addObject("listaPrioridade", DicionarioDAO.listarDadosEntidade(Tpprioridade.class));
         mv.addObject("listaTempo", DicionarioDAO.listarDadosEntidade(Tptempo.class));
         mv.addObject("listaSituacao", DicionarioDAO.listarDadosEntidade(Sitatividade.class));
+        return mv;
+    }
+    
+    @RequestMapping("lista-atividade-restrito")
+    public ModelAndView listarAtividade(){
+        ModelAndView mv = new ModelAndView("gridAtividade");
+        mv.addObject("listaAtividade", AtividadeDAO.listarAtividades());
         return mv;
     }
 
@@ -73,7 +80,8 @@ public class controladorAtividade {
             if(atividade.getTptempoByTptempoestimadoid().getId() == 0)
                 erros.put("erroTempoEstimado","Selecione o tempo estimado de conclusção da atividade!");
             
-            if(erros.isEmpty()){
+            if(erros.isEmpty()){               
+                
                 AtividadeDAO.salvarAtividade(atividade);
             }
             
