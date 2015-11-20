@@ -10,6 +10,7 @@ import DAO.Model.DicionarioDAO;
 import DAO.Model.SprintDAO;
 import VO.Model.Atividade;
 import VO.Model.Sitatividade;
+import VO.Model.Sprint;
 import VO.Model.Tpprioridade;
 import VO.Model.Tptempo;
 import com.google.gson.Gson;
@@ -18,6 +19,7 @@ import com.google.gson.JsonObject;
 import java.util.Date;
 import java.util.HashMap;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,13 +34,20 @@ public class controladorAtividade {
 
     @RequestMapping("nova-atividade-restrito")
     public ModelAndView novaAtividade(int sprintId) {
-        return montaCadAtividade(new Atividade(), sprintId, "I");
+        Sprint s = SprintDAO.pesquisaSprint(sprintId);
+        return montaCadAtividade(new Atividade(), s, "I");
+    }
+    
+    @RequestMapping("alterar-atividade-restrito")
+    public ModelAndView alterarAtividade(int atividadeId){
+        Atividade a = AtividadeDAO.pesquisaAtividade(atividadeId);
+        return montaCadAtividade(a, a.getSprint(), "A");
     }
 
-    private ModelAndView montaCadAtividade(Atividade a, int sprintId, String operacao) {
+    private ModelAndView montaCadAtividade(Atividade a, Sprint sprint, String operacao) {
         ModelAndView mv = new ModelAndView("modal/cad-atividade");
         mv.addObject("atividade", a);
-        mv.addObject("sprint", SprintDAO.pesquisaSprint(sprintId));
+        mv.addObject("sprint", sprint);
         mv.addObject("operacao", operacao);
         mv.addObject("listaPrioridade", DicionarioDAO.listarDadosEntidade(Tpprioridade.class));
         mv.addObject("listaTempo", DicionarioDAO.listarDadosEntidade(Tptempo.class));
@@ -80,8 +89,7 @@ public class controladorAtividade {
             if(atividade.getTptempoByTptempoestimadoid().getId() == 0)
                 erros.put("erroTempoEstimado","Selecione o tempo estimado de conclusção da atividade!");
             
-            if(erros.isEmpty()){               
-                
+            if(erros.isEmpty()){  
                 AtividadeDAO.salvarAtividade(atividade);
             }
             
@@ -92,11 +100,12 @@ public class controladorAtividade {
             JsonElement objetoErrosEmJson = gson.toJsonTree(erros);
             myObj.add("erros", objetoErrosEmJson);
             
+            return myObj.toString();
+            
         }catch(Exception erro){
-            erro.printStackTrace();            
-        }
-        
-        return null;
+            erro.printStackTrace();  
+            return null;
+        }       
     }
 
 }

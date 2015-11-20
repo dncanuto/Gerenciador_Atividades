@@ -17,7 +17,7 @@
                 <form id="frmCadAtividade" name="frmCadAtividade" method="post" action="salva-atividade">
                     <div>        
                         <input type="hidden" id="operacao" name="operacao" value="${operacao}">
-                        <input type="hidden" id="id" name="id" value="${atividade.id}">
+                        <input type="hidden" id="atividadeId" name="id" value="${atividade.id}">
                         <input type="hidden" id="sprintId" name="sprintId" value="${sprint.id}">
                     </div>
 

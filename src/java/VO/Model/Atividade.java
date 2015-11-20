@@ -13,11 +13,11 @@ public class Atividade  implements java.io.Serializable {
 
 
      private int id;
-     private Sitatividade sitatividade = new Sitatividade();
-     private Sprint sprint = new Sprint();
-     private Tpprioridade tpprioridade = new Tpprioridade();
-     private Tptempo tptempoByTptempoconclusaoid = new Tptempo();
-     private Tptempo tptempoByTptempoestimadoid = new Tptempo();
+     private Sitatividade sitatividade;
+     private Sprint sprint;
+     private Tpprioridade tpprioridade;
+     private Tptempo tptempoByTptempoconclusaoid;
+     private Tptempo tptempoByTptempoestimadoid;
      private String nome;
      private Date dtcriacao;
      private String descricao;

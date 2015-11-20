@@ -21,7 +21,7 @@
             <column name="TPPRIORIDADE" />
         </many-to-one>
         
-        <many-to-one name="tptempoByTptempoconclusaoid" class="VO.Model.Tptempo" fetch="select">
+        <many-to-one name="tptempoByTptempoconclusaoid" class="VO.Model.Tptempo" fetch="select" cascade="none">
             <column name="TPTEMPOCONCLUSAOID" />
         </many-to-one>
         
@@ -49,7 +49,7 @@
             <column name="DESCCONCLUSAO" length="1000" />
         </property>
         
-        <set name="atividadefuncionarios" table="ATIVIDADEFUNCIONARIO" inverse="true" lazy="true" fetch="select">
+        <set name="atividadefuncionarios" table="ATIVIDADEFUNCIONARIO" inverse="true" lazy="true" fetch="select" cascade="none">
             <key>
                 <column name="ATIVIDADEID" />
             </key>

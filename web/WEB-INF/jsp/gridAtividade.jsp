@@ -22,7 +22,7 @@
             <td>${a.tpprioridade.label}</td>
             <td>${a.sitatividade.label}</td>
             <td>
-                <a href="#"><span class="glyphicon-edit"></span></a>   
+                <a href="javascript:alterarAtividade(${a.id})"><span class="glyphicon-edit"></span></a>   
             </td>
         </tr>
     </c:forEach>

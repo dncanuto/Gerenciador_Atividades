@@ -71,7 +71,7 @@ function preparaObjeto()
     _tpTempoConclusao.id = parseInt($("#tptempoByTptempoconclusaoid").val());
 
     //popula objeto principal..
-    _atividade.id = parseInt($("#id").val());
+    _atividade.id = parseInt($("#atividadeId").val());
     _atividade.nome = $("#atividadeNome").val();
     _atividade.descricao = $("#atividadeDescricao").val().trim();
     _atividade.descconclusao = $("#descconclusao").val().trim();
@@ -82,7 +82,7 @@ function preparaObjeto()
     _atividade.tpprioridade = _tpPrioridade;
     _atividade.sitatividade = _sitAtividade;
     _atividade.tptempoByTptempoestimadoid = _tpTempoEstimado;
-    _atividade.tptempoByTptempoconclusaoid = _tpTempoConclusao;
+    //_atividade.tptempoByTptempoconclusaoid = _tpTempoConclusao;
 
     return _atividade;
 }
@@ -101,6 +101,18 @@ function novaAtividade(sprintId)
     });
 }
 
+function alterarAtividade(atividadeId)
+{
+    $.ajax({
+        url: "alterar-atividade-restrito?atividadeId="+atividadeId,
+        type: "POST",
+        success: function (data) {
+            $("#div-modal-atividade").html(data);
+            $("#modalCadAtividade").modal("show");
+        }
+    });
+}
+
 function salvarAtividade()
 {
     var obj = JSON.stringify(preparaObjeto());
@@ -109,14 +121,13 @@ function salvarAtividade()
         url: "salvar-atividade",
         type: 'POST',
         data: "obj=" + obj,
+        dataType: 'json',
         success: function (dados) {
             if (dados.sucesso) {
                 $("#modalCadAtividade").modal("hide");
             }
-            else {
-                //limpa os erros    
-                limpaErros();
-                //preenche automaticamente os erros com os dados retorndos pelo controller    
+            else {                    
+                limpaErros();                 
                 exibeErros(dados);
             }
         },
