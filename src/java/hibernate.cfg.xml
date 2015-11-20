@@ -25,7 +25,6 @@
     <mapping resource="VO/Model/Sitsprint.hbm.xml"/>
     <mapping resource="VO/Model/Funcionario.hbm.xml"/>
     <mapping resource="VO/Model/Tpprioridade.hbm.xml"/>
-    <mapping resource="VO/Model/Atividadefuncionario.hbm.xml"/>
     <mapping resource="VO/Model/Atividade.hbm.xml"/>
     <mapping resource="VO/Model/Sitatividade.hbm.xml"/>
     <mapping resource="VO/Model/Sprint.hbm.xml"/>

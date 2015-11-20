@@ -8,20 +8,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:choose>
-    <c:when test="${funcionario == null}">
+    <c:when test="${f == null}">
         <div id="autocomplete">                       
-            <div class="form-group">
+            <div>
                 <input id="tagId" type="hidden" value="">
-                <label class="control-label" for="w-input-search">Funcionário responsável</label>
-                <input type="text" id="w-input-search" name="tagName" class="form-control" placeholder="Digite o nome do funcionário">                
+                <label class="control-label" for="search-funcionarios">Funcionário responsável</label>
+                <input type="text" id="search-funcionarios" name="funcName" class="form-control" placeholder="Digite o nome do funcionário" >                
             </div>
         </div>
     </c:when>
     <c:otherwise>
         <div class="BoxWhite">
-            <input type="hidden" id="funcionarioId" name="funcionarioId" value="${funcionario.id}">
-            <div>${funcionario.nome + " " + funcionario.sobrenome}</div>
-            <div><small>${funcionario.email}</small></div>    
+            <input type="hidden" id="funcionarioId" name="funcionarioId" value="${f.id}">
+            <div>${f.nome}</div>
+            <div><small>${f.email}</small></div>    
         </div>
     </c:otherwise>
 </c:choose>

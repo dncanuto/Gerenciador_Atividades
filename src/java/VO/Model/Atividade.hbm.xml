@@ -1,13 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 15/11/2015 13:30:59 by Hibernate Tools 4.3.1 -->
+<!-- Generated 20/11/2015 17:23:36 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="VO.Model.Atividade" table="ATIVIDADE" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="identity" />
         </id>
+        
+        <many-to-one name="funcionarioprojeto" class="VO.Model.Funcionarioprojeto" fetch="select">
+            <column name="FUNCIONARIOPROJETOID" />
+        </many-to-one>
         
         <many-to-one name="sitatividade" class="VO.Model.Sitatividade" fetch="select">
             <column name="SITATIVIDADEID" />
@@ -16,12 +20,12 @@
         <many-to-one name="sprint" class="VO.Model.Sprint" fetch="select">
             <column name="SPRINTID" not-null="true" />
         </many-to-one>
-       
+        
         <many-to-one name="tpprioridade" class="VO.Model.Tpprioridade" fetch="select">
             <column name="TPPRIORIDADE" />
         </many-to-one>
         
-        <many-to-one name="tptempoByTptempoconclusaoid" class="VO.Model.Tptempo" fetch="select" cascade="none">
+        <many-to-one name="tptempoByTptempoconclusaoid" class="VO.Model.Tptempo" fetch="select">
             <column name="TPTEMPOCONCLUSAOID" />
         </many-to-one>
         
@@ -32,7 +36,7 @@
         <property name="nome" type="string">
             <column name="NOME" length="200" />
         </property>
-       
+        
         <property name="dtcriacao" type="date">
             <column name="DTCRIACAO" length="10" />
         </property>
@@ -40,7 +44,7 @@
         <property name="descricao" type="string">
             <column name="DESCRICAO" length="1000" />
         </property>
-       
+        
         <property name="dtalteracao" type="date">
             <column name="DTALTERACAO" length="10" />
         </property>
@@ -48,12 +52,5 @@
         <property name="descconclusao" type="string">
             <column name="DESCCONCLUSAO" length="1000" />
         </property>
-        
-        <set name="atividadefuncionarios" table="ATIVIDADEFUNCIONARIO" inverse="true" lazy="true" fetch="select" cascade="none">
-            <key>
-                <column name="ATIVIDADEID" />
-            </key>
-            <one-to-many class="VO.Model.Atividadefuncionario" />
-        </set>
     </class>
 </hibernate-mapping>

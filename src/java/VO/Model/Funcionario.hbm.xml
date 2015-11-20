@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 15/11/2015 13:30:59 by Hibernate Tools 4.3.1 -->
+<!-- Generated 20/11/2015 17:23:36 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="VO.Model.Funcionario" table="FUNCIONARIO" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
@@ -32,7 +32,7 @@
         <property name="dtcriacao" type="date">
             <column name="DTCRIACAO" length="10" />
         </property>
-       
+        
         <property name="isAtivo" type="java.lang.Boolean">
             <column name="IS_ATIVO" />
         </property>

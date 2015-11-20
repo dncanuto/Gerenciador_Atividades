@@ -54,7 +54,7 @@ function Tptempo()
 }
 
 function preparaObjeto()
-{debugger
+{
     //inicializa objetos...
     var _atividade = new Atividade();
     var _sprint = new Sprint();
@@ -102,6 +102,8 @@ function novaAtividade(sprintId)
             $("#modalCadAtividade").modal("show");
         }
     });
+    
+    //runAutocompleteAtividade();
 }
 
 function alterarAtividade(atividadeId)
@@ -177,4 +179,35 @@ function setConclusao(situacao)
     $("#modalCadAtividade").resize();
 }
 
+function runAutocompleteAtividade() {debugger
+   
+    $('#search-funcionarios').autocomplete({         
+        source: function(request, response) {
+            $.ajax({
+                url: "get-funcionarios-projeto?funcName="+"Dan"+"&projetoId="+"15",
+                dataType: "json",
+                /*data: {
+                    term : request,
+                    country_id : $("#country_id").val()
+                },*/
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },        
+        minChars: 3,
+        delimiter: ",",
+        transformResult: function (response) {debugger
+
+            return {
+                suggestions: $.map($.parseJSON(response), function (item) {
+                    return {value: item.tagName, data: item.tagId};
+                })
+            };
+        },
+        onSelect: function (suggestion) {
+            $("#tagId").val(suggestion.data);            
+        }
+    });
+}
 

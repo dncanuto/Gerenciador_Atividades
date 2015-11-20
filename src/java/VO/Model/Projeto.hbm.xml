@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10/11/2015 14:22:57 by Hibernate Tools 4.3.1 -->
+<!-- Generated 20/11/2015 17:23:36 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="VO.Model.Projeto" table="PROJETO" schema="dbo" catalog="ADS5" optimistic-lock="version">
         <id name="id" type="int">
@@ -35,7 +35,7 @@
             </key>
             <one-to-many class="VO.Model.Funcionarioprojeto" />
         </set>
-       
+        
         <set name="sprints" table="SPRINT" inverse="true" fetch="select" cascade="none">
             <key>
                 <column name="PROJETOID" not-null="true" />

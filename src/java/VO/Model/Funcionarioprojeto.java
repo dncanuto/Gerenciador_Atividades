@@ -1,5 +1,5 @@
 package VO.Model;
-// Generated 15/11/2015 13:30:57 by Hibernate Tools 4.3.1
+// Generated 20/11/2015 17:23:36 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -19,7 +19,7 @@ public class Funcionarioprojeto  implements java.io.Serializable {
      private Date dtcriacao;
      private Date dtalteracao;
      private Boolean isAtivo;
-     private Set atividadefuncionarios = new HashSet(0);
+     private Set atividades = new HashSet(0);
 
     public Funcionarioprojeto() {
     }
@@ -30,7 +30,7 @@ public class Funcionarioprojeto  implements java.io.Serializable {
         this.funcionario = funcionario;
         this.projeto = projeto;
     }
-    public Funcionarioprojeto(int id, Funcionario funcionario, Projeto projeto, Boolean isAdm, Date dtcriacao, Date dtalteracao, Boolean isAtivo, Set atividadefuncionarios) {
+    public Funcionarioprojeto(int id, Funcionario funcionario, Projeto projeto, Boolean isAdm, Date dtcriacao, Date dtalteracao, Boolean isAtivo, Set atividades) {
        this.id = id;
        this.funcionario = funcionario;
        this.projeto = projeto;
@@ -38,7 +38,7 @@ public class Funcionarioprojeto  implements java.io.Serializable {
        this.dtcriacao = dtcriacao;
        this.dtalteracao = dtalteracao;
        this.isAtivo = isAtivo;
-       this.atividadefuncionarios = atividadefuncionarios;
+       this.atividades = atividades;
     }
    
     public int getId() {
@@ -90,12 +90,12 @@ public class Funcionarioprojeto  implements java.io.Serializable {
     public void setIsAtivo(Boolean isAtivo) {
         this.isAtivo = isAtivo;
     }
-    public Set getAtividadefuncionarios() {
-        return this.atividadefuncionarios;
+    public Set getAtividades() {
+        return this.atividades;
     }
     
-    public void setAtividadefuncionarios(Set atividadefuncionarios) {
-        this.atividadefuncionarios = atividadefuncionarios;
+    public void setAtividades(Set atividades) {
+        this.atividades = atividades;
     }
 
 

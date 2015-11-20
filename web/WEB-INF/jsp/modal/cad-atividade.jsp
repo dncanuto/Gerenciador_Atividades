@@ -24,6 +24,7 @@
                         <input type="hidden" id="operacao" name="operacao" value="${operacao}">
                         <input type="hidden" id="atividadeId" name="id" value="${atividade.id}">
                         <input type="hidden" id="sprintId" name="sprintId" value="${sprint.id}">
+                        <input type="hidden" id="projetoId" name="projetoId" value="${sprint.projeto.id}">
                     </div>
 
                     <div class="form-group col-lg-12">
@@ -60,7 +61,7 @@
                         </textarea>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="form-group col-lg-12">
                         <%@include file="funcionarioAtividade.jsp" %>
                     </div>
 
