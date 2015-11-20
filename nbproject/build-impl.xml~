@@ -1003,6 +1003,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.GSON.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.Sql.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.hibernate4-persistence.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.SQL SERVER - MICROSOFT.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
@@ -1011,8 +1012,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.jstl.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.jsf20.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.GSON.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.Sql.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+
         <copyfiles files="${libs.hibernate4-persistence.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+
     </target>
     <target depends="init" if="dist.ear.dir" name="-clean-webinf-lib">
         <delete dir="${build.web.dir}/WEB-INF/lib"/>
@@ -1160,7 +1162,7 @@ exists or setup the property manually. For example like this:
                 DEBUGGING SECTION
             -->
     <target depends="init,-init-cos,compile,compile-jsps,-do-compile-single-jsp,-pre-dist,-do-tmp-dist-with-manifest,-do-tmp-dist-without-manifest" description="Debug project in IDE." if="netbeans.home" name="debug">
-        <nbstartserver debugmode="false"/>
+        <nbstartserver debugmode="true"/>
         <antcall target="connect-debugger"/>
         <nbdeploy clientUrlPart="${client.urlPart}" debugmode="true" forceRedeploy="true"/>
         <antcall target="debug-display-browser-old"/>
