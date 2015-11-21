@@ -9,6 +9,7 @@ import DAO.Model.AtividadeDAO;
 import DAO.Model.DicionarioDAO;
 import DAO.Model.SprintDAO;
 import VO.Model.Atividade;
+import VO.Model.Funcionarioprojeto;
 import VO.Model.Sitatividade;
 import VO.Model.Sprint;
 import VO.Model.Tpprioridade;
@@ -19,7 +20,6 @@ import com.google.gson.JsonObject;
 import java.util.Date;
 import java.util.HashMap;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +50,7 @@ public class controladorAtividade {
         mv.addObject("atividade", a);
         mv.addObject("sprint", sprint);
         mv.addObject("operacao", operacao);
+        mv.addObject("funcProjeto", a.getFuncionarioprojeto());
         mv.addObject("listaPrioridade", DicionarioDAO.listarDadosEntidade(Tpprioridade.class));
         mv.addObject("listaTempo", DicionarioDAO.listarDadosEntidade(Tptempo.class));
         mv.addObject("listaSituacao", DicionarioDAO.listarDadosEntidade(Sitatividade.class));
@@ -70,6 +71,20 @@ public class controladorAtividade {
         String searchList = new Gson().toJson(AtividadeDAO.getFuncionarios(projetoId, funcName));
         return searchList;
     }   
+    
+    @RequestMapping("get-funcionario-atividade-restrito")
+    public ModelAndView getFuncAtividadeSelecionado(int funcionarioProjetoId){        
+        ModelAndView mv = new ModelAndView("modal/funcionarioAtividade");
+        mv.addObject("funcProjeto", AtividadeDAO.getFuncAtividadeSelecionado(funcionarioProjetoId));
+        return mv;
+    }
+    
+    @RequestMapping("remove-funcionario-atividade-restrito")
+    public ModelAndView removeFuncAtividadeSelecionado(){        
+        ModelAndView mv = new ModelAndView("modal/funcionarioAtividade");
+        mv.addObject("funcProjeto", null);
+        return mv;
+    }
 
     @RequestMapping(value="salvar-atividade", produces = "text/html; charset=UTF-8")     
     @ResponseBody

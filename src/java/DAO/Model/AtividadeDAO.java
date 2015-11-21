@@ -73,6 +73,7 @@ public class AtividadeDAO {
         Session sessao = HibernateUtility.getSession();
         Criteria cri = sessao.createCriteria(Funcionarioprojeto.class);
         cri.add(Restrictions.eq("projeto", p));
+        cri.add(Restrictions.eq("isAtivo", Boolean.TRUE));
 
         List<Funcionarioprojeto> data = cri.list();
 
@@ -87,5 +88,13 @@ public class AtividadeDAO {
         }
 
         return lista;
+    }
+    
+    public static Funcionarioprojeto getFuncAtividadeSelecionado(int funcionarioprojetoId){
+        Session sessao = HibernateUtility.getSession();
+        Criteria cri = sessao.createCriteria(Funcionarioprojeto.class);
+        cri.add(Restrictions.eq("id", funcionarioprojetoId));
+        
+        return (Funcionarioprojeto) cri.uniqueResult();
     }
 }

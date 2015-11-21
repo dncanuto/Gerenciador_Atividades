@@ -12,7 +12,7 @@ function Atividade()
     Atividade.descricao;
     Atividade.dtalteracao;
     Atividade.descconclusao;
-    Atividade.atividadefuncionarios;
+    Atividade.funcionarioprojeto;
 }
 
 function Sprint()
@@ -53,6 +53,18 @@ function Tptempo()
     Tptempo.isAtivo;
 }
 
+function Funcionarioprojeto()
+{
+    Funcionarioprojeto.id;
+    Funcionarioprojeto.funcionario;
+    Funcionarioprojeto.projeto;
+    Funcionarioprojeto.isAdm;
+    Funcionarioprojeto.dtcriacao;
+    Funcionarioprojeto.dtalteracao;
+    Funcionarioprojeto.isAtivo;
+    Funcionarioprojeto.atividades;
+}
+
 function preparaObjeto()
 {
     //inicializa objetos...
@@ -62,6 +74,7 @@ function preparaObjeto()
     var _sitAtividade = new Sitatividade();
     var _tpTempoEstimado = new Tptempo();
     var _tpTempoConclusao = new Tptempo();
+    var _funcionarioProjeto = new Funcionarioprojeto();
 
     //popula objetos relacionados...
     _sprint.id = parseInt($("#sprintId").val());
@@ -69,6 +82,7 @@ function preparaObjeto()
     _sitAtividade.id = parseInt($("#sitatividade").val());
     _tpTempoEstimado.id = parseInt($("#tptempoByTptempoestimadoid").val());
     _tpTempoConclusao.id = parseInt($("#tptempoByTptempoconclusaoid").val());
+    _funcionarioProjeto.id = parseInt($("#funcionarioProjetoId").val());
 
     //popula objeto principal..
     _atividade.id = parseInt($("#atividadeId").val());
@@ -81,6 +95,7 @@ function preparaObjeto()
     _atividade.tpprioridade = _tpPrioridade;
     _atividade.sitatividade = _sitAtividade;
     _atividade.tptempoByTptempoestimadoid = _tpTempoEstimado;
+    _atividade.funcionarioprojeto = _funcionarioProjeto;
 
     if (_sitAtividade.id === 3) {
         _atividade.tptempoByTptempoconclusaoid = _tpTempoConclusao;
@@ -101,10 +116,10 @@ function novaAtividade(sprintId)
         success: function (data) {
             $("#div-modal-atividade").html(data);
             $("#modalCadAtividade").modal("show");
+
+            runAutocompleteAtividade();
         }
     });
-
-    runAutocompleteAtividade();
 }
 
 function alterarAtividade(atividadeId)
@@ -115,6 +130,8 @@ function alterarAtividade(atividadeId)
         success: function (data) {
             $("#div-modal-atividade").html(data);
             $("#modalCadAtividade").modal("show");
+            
+            runAutocompleteAtividade();
         }
     });
 }
@@ -183,7 +200,7 @@ function setConclusao(situacao)
 function runAutocompleteAtividade() {
 
     $('#search-funcionarios').autocomplete({
-        serviceUrl: "get-funcionarios-projeto",        
+        serviceUrl: "get-funcionarios-projeto",
         minChars: 3,
         delimiter: ",",
         params: {projetoId: "15"},
@@ -197,8 +214,28 @@ function runAutocompleteAtividade() {
             };
         },
         onSelect: function (suggestion) {
-            $("#func-projeto-id").val(suggestion.data);            
+            //$("#func-projeto-id").val(suggestion.data); 
+
+            $.ajax({
+                url: "get-funcionario-atividade-restrito?funcionarioProjetoId=" + suggestion.data,
+                type: "POST",
+                success: function (data) {
+                    $("#funcionario-atividade").html(data);
+                }
+            });
         }
     });
 }
 
+function removeFuncionarioAtividade()
+{
+    $.ajax({
+        url: "remove-funcionario-atividade-restrito",
+        type: "POST",
+        success: function (data) {
+            $("#funcionario-atividade").html(data);
+
+            runAutocompleteAtividade();
+        }
+    });
+}

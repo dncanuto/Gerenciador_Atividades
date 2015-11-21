@@ -61,7 +61,7 @@
                         </textarea>
                     </div>
 
-                    <div class="form-group col-lg-12">
+                    <div id="funcionario-atividade" class="form-group col-lg-12">
                         <%@include file="funcionarioAtividade.jsp" %>
                     </div>
 

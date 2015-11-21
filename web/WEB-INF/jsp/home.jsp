@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
 
-        <script src="recursos/js/jquery-2.1.1.js" type="text/javascript"></script>        
+        <script src="recursos/js/jquery-2.1.1.js" type="text/javascript"></script>            
         <script src="recursos/autocomplete/jquery.autocomplete.js" type="text/javascript"></script>        
         <script src="recursos/bootstrap/js/bootstrap.js" type="text/javascript"></script>        
 
