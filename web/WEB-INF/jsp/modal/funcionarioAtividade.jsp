@@ -9,9 +9,9 @@
 
 <c:choose>
     <c:when test="${f == null}">
-        <div id="autocomplete">                       
+        <div id="autocomplete-funcionario">                       
             <div>
-                <input id="tagId" type="hidden" value="">
+                <input id="func-projeto-id" type="hidden" value="">
                 <label class="control-label" for="search-funcionarios">Funcionário responsável</label>
                 <input type="text" id="search-funcionarios" name="funcName" class="form-control" placeholder="Digite o nome do funcionário" >                
             </div>

@@ -65,9 +65,9 @@ public class controladorAtividade {
     
     @RequestMapping(value = "get-funcionarios-projeto", method = RequestMethod.GET, headers = "Accept=*/*", produces = "text/html; charset=UTF-8")
     public @ResponseBody
-    String getTags(String funcName, int projetoId) {
+    String getFuncionariosProjeto(int projetoId,@RequestParam String funcName) {
 
-        String searchList = new Gson().toJson(AtividadeDAO.getFuncionarios(funcName, projetoId));
+        String searchList = new Gson().toJson(AtividadeDAO.getFuncionarios(projetoId, funcName));
         return searchList;
     }   
 

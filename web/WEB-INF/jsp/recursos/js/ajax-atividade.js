@@ -73,7 +73,7 @@ function preparaObjeto()
     //popula objeto principal..
     _atividade.id = parseInt($("#atividadeId").val());
     _atividade.nome = $("#atividadeNome").val();
-    _atividade.descricao = $("#atividadeDescricao").val().trim();    
+    _atividade.descricao = $("#atividadeDescricao").val().trim();
     _atividade.dtcriacao = $("#dtcriacao").val();
     _atividade.dtalteracao = $("#dtalteracao").val();
 
@@ -81,14 +81,15 @@ function preparaObjeto()
     _atividade.tpprioridade = _tpPrioridade;
     _atividade.sitatividade = _sitAtividade;
     _atividade.tptempoByTptempoestimadoid = _tpTempoEstimado;
-    
-    if(_sitAtividade.id === 3){
+
+    if (_sitAtividade.id === 3) {
         _atividade.tptempoByTptempoconclusaoid = _tpTempoConclusao;
         _atividade.descconclusao = $("#descconclusao").val().trim();
     }
 
     return _atividade;
 }
+
 
 //funções da atividade
 
@@ -102,14 +103,14 @@ function novaAtividade(sprintId)
             $("#modalCadAtividade").modal("show");
         }
     });
-    
-    //runAutocompleteAtividade();
+
+    runAutocompleteAtividade();
 }
 
 function alterarAtividade(atividadeId)
 {
     $.ajax({
-        url: "alterar-atividade-restrito?atividadeId="+atividadeId,
+        url: "alterar-atividade-restrito?atividadeId=" + atividadeId,
         type: "POST",
         success: function (data) {
             $("#div-modal-atividade").html(data);
@@ -131,8 +132,8 @@ function salvarAtividade()
             if (dados.sucesso) {
                 $("#modalCadAtividade").modal("hide");
             }
-            else {                    
-                limpaErros();                 
+            else {
+                limpaErros();
                 exibeErros(dados);
             }
         },
@@ -166,38 +167,28 @@ function refreshGridAtividade()
 
 function setConclusao(situacao)
 {
-    if(situacao.value === "3")
+    if (situacao.value === "3")
         $("#aConcluida").removeClass("hidden");
-    else{
-        if(!$("#aConcluida").hasClass("hidden")){
+    else {
+        if (!$("#aConcluida").hasClass("hidden")) {
             $("#aConcluida").addClass("hidden");
             $("#tptempoByTptempoconclusaoid").val("");
             $("#descconclusao").val("");
         }
     }
-    
+
     $("#modalCadAtividade").resize();
 }
 
-function runAutocompleteAtividade() {debugger
-   
-    $('#search-funcionarios').autocomplete({         
-        source: function(request, response) {
-            $.ajax({
-                url: "get-funcionarios-projeto?funcName="+"Dan"+"&projetoId="+"15",
-                dataType: "json",
-                /*data: {
-                    term : request,
-                    country_id : $("#country_id").val()
-                },*/
-                success: function(data) {
-                    response(data);
-                }
-            });
-        },        
+function runAutocompleteAtividade() {
+
+    $('#search-funcionarios').autocomplete({
+        serviceUrl: "get-funcionarios-projeto",        
         minChars: 3,
         delimiter: ",",
-        transformResult: function (response) {debugger
+        params: {projetoId: "15"},
+        paramName: "funcName",
+        transformResult: function (response) {
 
             return {
                 suggestions: $.map($.parseJSON(response), function (item) {
@@ -206,7 +197,7 @@ function runAutocompleteAtividade() {debugger
             };
         },
         onSelect: function (suggestion) {
-            $("#tagId").val(suggestion.data);            
+            $("#func-projeto-id").val(suggestion.data);            
         }
     });
 }
