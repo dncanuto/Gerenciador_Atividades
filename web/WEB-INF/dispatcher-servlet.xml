@@ -22,7 +22,7 @@
                 <prop key="index">indexController</prop>
             </props>
         </property>
-    </bean>  
+    </bean>     
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"

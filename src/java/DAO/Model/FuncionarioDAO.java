@@ -9,7 +9,6 @@ import VO.Model.Funcionario;
 import VO.Model.Tag;
 import br.com.configuration.HibernateUtility;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -23,7 +22,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class FuncionarioDAO {
 
-    public static void salvarFuncionario(Funcionario funcionario, String operacao) {
+    public static void salvarFuncionario(Funcionario funcionario) {
 
         Session sessao = null;
         Transaction transaction = null;
@@ -31,12 +30,6 @@ public class FuncionarioDAO {
         try {
             sessao = HibernateUtility.getSession();
             transaction = sessao.beginTransaction();
-
-            //Se o usuário não existe, seta data de criação e isAtivo...
-            if (operacao.equalsIgnoreCase("I")) {
-                funcionario.setDtcriacao(new Date());
-                funcionario.setIsAtivo(Boolean.TRUE);
-            }
 
             sessao.saveOrUpdate(funcionario);
 

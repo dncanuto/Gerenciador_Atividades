@@ -152,6 +152,13 @@ body{
     width: 100%;
 }
 
+.ValidaErro{
+    color: red;    
+    display: none;
+}
 
+.ExibeErro{
+    display: inline-block;
+}
 
 

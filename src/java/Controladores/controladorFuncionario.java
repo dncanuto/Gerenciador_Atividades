@@ -11,14 +11,13 @@ import DAO.Model.FuncionarioDAO;
 import DAO.Model.ProjetoDAO;
 import DAO.Model.SprintDAO;
 import VO.Model.Funcionario;
-import VO.Model.Tpcargo;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,9 +34,9 @@ public class controladorFuncionario {
     @RequestMapping("/index")
     public ModelAndView minhaHome(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, Exception {
-        
+
         ModelAndView mv;
-        
+
         if (request.getSession().getAttribute("logado") == null
                 || (boolean) request.getSession().getAttribute("logado") == false) {
 
@@ -69,7 +68,7 @@ public class controladorFuncionario {
     @RequestMapping("altera-funcionario-restrito")
     public ModelAndView alterarFuncionario(int id) {
         try {
-            Funcionario f = FuncionarioDAO.pesquisaFuncionario(id);
+            Funcionario f = FuncionarioDAO.pesquisaFuncionario(id);            
             return modalCadFuncionario(f, "A");
         } catch (Exception erro) {
             return null;
@@ -81,7 +80,7 @@ public class controladorFuncionario {
         try {
             ModelAndView mv = new ModelAndView("modal/cad-funcionario");
             mv.addObject("funcionario", f);
-            mv.addObject("operacao", operacao);
+            mv.addObject("funcionarioOperacao", operacao);
             mv.addObject("Cargos", DicionarioDAO.listarCargos());
             return mv;
         } catch (Exception erro) {
@@ -91,42 +90,48 @@ public class controladorFuncionario {
 
     @RequestMapping(value = "salva-funcionario-restrito", produces = "text/html; charset=UTF-8")
     @ResponseBody
-    public String salvaFuncionario(
-            Funcionario funcionario,
-            BindingResult result,
-            HttpServletRequest request,
-            String operacao) {
+    public String salvaFuncionario(String funcionarioJson, String operacao, String img) {
 
         try {
             HashMap<String, String> erros = new HashMap<String, String>();
 
+            Date date = new Date();
+            
+            Funcionario funcionario = new Gson().fromJson(funcionarioJson, Funcionario.class);
+            //String operacao = request.getParameter("funcionarioOperacao");
+            funcionario.setImgperfil(img);
+
             if (funcionario.getNome().trim().length() == 0) {
-                erros.put("erronome", null);
+                erros.put("erroNome", "Informe o nome");
             }
 
             if (funcionario.getSobrenome().trim().length() == 0) {
-                erros.put("errosobrenome", null);
+                erros.put("erroSobrenome", "Informe o sobrenome");
             }
 
             if (funcionario.getEmail().trim().length() == 0) {
-                erros.put("erroemail", null);
+                erros.put("erroEmail", "Informe um email válido");
             }
 
-            if (funcionario.getPassword().trim().length() == 0) {
-                erros.put("erropassword", null);
+            if (funcionario.getPassword().trim().length() < 6) {
+                erros.put("erroPassword", "Informe uma senha com pelo menos 6 caracteres");
             }
 
-            String cargoSelecionado = request.getParameter("tpcargo");
-            funcionario.setTpcargo(new Tpcargo());
-
-            if (cargoSelecionado.equalsIgnoreCase("")) {
-                erros.put("erropassword", null);
-            } else {
-                funcionario.getTpcargo().setId(Integer.parseInt(cargoSelecionado));
+            if (funcionario.getTpcargo().getId() == 0) {
+                erros.put("erroTpCargo", "Selecione o cargo");
             }
+            
+            if(img == null){
+                erros.put("erroImg", "Selecione uma imagem");
+            }
+
+            if (operacao.equalsIgnoreCase("I")) {
+                funcionario.setDtcriacao(new Date());
+                funcionario.setIsAtivo(Boolean.TRUE);
+            } 
 
             if (erros.isEmpty()) {
-                FuncionarioDAO.salvarFuncionario(funcionario, operacao);
+                FuncionarioDAO.salvarFuncionario(funcionario);
             }
 
             Gson gson = new Gson();
@@ -135,21 +140,9 @@ public class controladorFuncionario {
             myObj.addProperty("sucesso", erros.isEmpty());
             JsonElement objetoErrosEmJson = gson.toJsonTree(erros);
             myObj.add("erros", objetoErrosEmJson);
-
-            /*JsonElement listaFuncionariosEmJson = gson.toJsonTree(FuncionarioDAO.listarFuncionarios());
-             myObj.add("lista", listaFuncionariosEmJson);*/
+            
             return myObj.toString();
         } catch (Exception erro) {
-            return null;
-        }
-    }
-    
-    @RequestMapping("tabela-funcionarios-restrito")
-    public ModelAndView tabelaFuncionario() {
-        try{
-            ModelAndView mv = new ModelAndView("usuarios");
-            return mv;
-        }catch(Exception erro) {
             return null;
         }
     }

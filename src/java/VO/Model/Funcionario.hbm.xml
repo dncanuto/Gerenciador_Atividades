@@ -29,6 +29,10 @@
             <column name="PASSWORD" length="10" />
         </property>
         
+        <property name="imgperfil" type="text">
+            <column name="IMGPERFIL"/>
+        </property>
+        
         <property name="dtcriacao" type="date">
             <column name="DTCRIACAO" length="10" />
         </property>
