@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import org.springframework.stereotype.Controller;
@@ -67,9 +68,9 @@ public class controladorFuncionario {
 
     @RequestMapping("altera-funcionario-restrito")
     public ModelAndView alterarFuncionario(int id) {
-        try {
-            Funcionario f = FuncionarioDAO.pesquisaFuncionario(id);            
-            return modalCadFuncionario(f, "A");
+        try {            
+            Funcionario f = FuncionarioDAO.pesquisaFuncionario(id);
+            return modalCadFuncionario(f, "A"); 
         } catch (Exception erro) {
             return null;
         }
@@ -87,7 +88,7 @@ public class controladorFuncionario {
             return null;
         }
     }
-
+    
     @RequestMapping(value = "salva-funcionario-restrito", produces = "text/html; charset=UTF-8")
     @ResponseBody
     public String salvaFuncionario(String funcionarioJson, String operacao, String img) {
@@ -95,10 +96,8 @@ public class controladorFuncionario {
         try {
             HashMap<String, String> erros = new HashMap<String, String>();
 
-            Date date = new Date();
-            
             Funcionario funcionario = new Gson().fromJson(funcionarioJson, Funcionario.class);
-            //String operacao = request.getParameter("funcionarioOperacao");
+            
             funcionario.setImgperfil(img);
 
             if (funcionario.getNome().trim().length() == 0) {
@@ -120,15 +119,15 @@ public class controladorFuncionario {
             if (funcionario.getTpcargo().getId() == 0) {
                 erros.put("erroTpCargo", "Selecione o cargo");
             }
-            
-            if(img == null){
+
+            if (img == null) {
                 erros.put("erroImg", "Selecione uma imagem");
             }
 
             if (operacao.equalsIgnoreCase("I")) {
                 funcionario.setDtcriacao(new Date());
                 funcionario.setIsAtivo(Boolean.TRUE);
-            } 
+            }
 
             if (erros.isEmpty()) {
                 FuncionarioDAO.salvarFuncionario(funcionario);
@@ -140,7 +139,7 @@ public class controladorFuncionario {
             myObj.addProperty("sucesso", erros.isEmpty());
             JsonElement objetoErrosEmJson = gson.toJsonTree(erros);
             myObj.add("erros", objetoErrosEmJson);
-            
+
             return myObj.toString();
         } catch (Exception erro) {
             return null;

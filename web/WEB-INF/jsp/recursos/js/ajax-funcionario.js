@@ -32,14 +32,17 @@ function preencheFuncionario()
     _funcionario.nome = $("#funcionarioNome").val();
     _funcionario.sobrenome = $("#funcionarioSobrenome").val();
     _funcionario.email = $("#funcionarioEmail").val();
-    _funcionario.password = $("#funcionarioPassword").val();
-    //_funcionario.imgperfil = imagemPerfil;    
+    _funcionario.password = $("#funcionarioPassword").val();      
     //_funcionario.dtcriacao = $("#funcionarioDtCriacao").val();
     _funcionario.isAtivo = $("#funcionarioIsAtivo").val();
     _funcionario.tpcargo = _tpCargo;
     
     if($("#funcionarioDtCriacao").val()){
         _funcionario.dtcriacao = $("#funcionarioDtCriacao").val();
+    }
+    debugger
+    if(!imagemPerfil){
+        imagemPerfil = $("#imgPreview").attr("src");
     }
 
     return _funcionario;
@@ -93,32 +96,26 @@ function salvarFuncionario()
         data: {
             funcionarioJson: JSON.stringify(funcionarioJson),
             operacao: funcionarioOperacao,
-            img: JSON.stringify(imagemPerfil)
+            img: imagemPerfil
         },
         dataType: "json",
         success: function (dados) {
             if (dados.sucesso) {
                 $("#modalCadFuncionario").modal("hide");
+                
+                refreshFuncionarioGrid();
             }
             else {
                 limpaErros();
                 exibeErros(dados);
             }
-        },
-        error: function () {
-            $("#status").html("Ocorreu um erro na gravação.");
-        },
+        },        
         beforeSend: function () {
-            $('#btnSalvar').attr("disabled", true);
-            $("#status").html("<b><i>Aguarde....</i></b>");
+            $('#btnSalvar').attr("disabled", true);            
         },
         complete: function () {
-            $('#btnSalvar').attr("disabled", false);
-            $("#status").html("");
-
-            refreshFuncionarioGrid();
+            $('#btnSalvar').attr("disabled", false);            
         }
-
     });
 }
 

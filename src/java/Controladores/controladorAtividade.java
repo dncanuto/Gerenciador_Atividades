@@ -9,7 +9,6 @@ import DAO.Model.AtividadeDAO;
 import DAO.Model.DicionarioDAO;
 import DAO.Model.SprintDAO;
 import VO.Model.Atividade;
-import VO.Model.Funcionarioprojeto;
 import VO.Model.Sitatividade;
 import VO.Model.Sprint;
 import VO.Model.Tpprioridade;
@@ -88,32 +87,35 @@ public class controladorAtividade {
 
     @RequestMapping(value="salvar-atividade", produces = "text/html; charset=UTF-8")     
     @ResponseBody
-    public String salvarAtividade(String obj) {
+    public String salvarAtividade(String atividadeJson, String operacao) {
 
         try{
-            Atividade atividade = new Gson().fromJson(obj, Atividade.class);
+            Atividade atividade = new Gson().fromJson(atividadeJson, Atividade.class);
             
             HashMap<String, String> erros = new HashMap<String, String>();            
             
             if(atividade.getNome().trim().length() == 0)
-                erros.put("erroNome","Informe um nome para a atividade!");
+                erros.put("erroAtividadeNome","Informe um nome para a atividade!");
             
             if(atividade.getDescricao().trim().length() == 0)
-                erros.put("erroDescricao","Informe uma descrição para a atividade!");     
+                erros.put("erroAtividadeDescricao","Informe uma descrição para a atividade!");     
             
             if(atividade.getTpprioridade().getId() == 0)
                 erros.put("erroTpPrioridade","Selecione uma prioridade para a atividade!");
             
             if(atividade.getSitatividade().getId() == 0)
-                erros.put("erroSitAtividade","Selecione uma situação para a atividade!");
-            
-            if(atividade.getTpprioridade().getId() == 0)
-                erros.put("erroTpPrioridade","Selecione uma prioridade para a atividade!");
+                erros.put("erroSitAtividade","Selecione uma situação para a atividade!");     
             
             if(atividade.getTptempoByTptempoestimadoid().getId() == 0)
                 erros.put("erroTempoEstimado","Selecione o tempo estimado de conclusção da atividade!");
             
             if(erros.isEmpty()){  
+                
+                if(operacao.equalsIgnoreCase("I"))
+                    atividade.setDtcriacao(new Date());
+                else
+                    atividade.setDtalteracao(new Date());
+                
                 AtividadeDAO.salvarAtividade(atividade);
             }
             

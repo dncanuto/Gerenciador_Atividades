@@ -103,24 +103,18 @@ function salvarProjeto()
         success: function (dados) {
             if (dados.sucesso) {
                 $("#modalCadProjeto").modal("hide");
-                //redirecionaPagProjeto();
+                refreshListaProjeto();
             }
             else {                   
                 limpaErros();                  
                 exibeErros(dados);
             }
-        },
-        error: function () {
-            $("#status").html("Ocorreu um erro na gravação.");
-        },
+        },        
         beforeSend: function () {
-            $('#btnSalvar').attr("disabled", true);
-            $("#status").html("<b><i>Aguarde....</i></b>");
+            $('#btnSalvar').attr("disabled", true);            
         },
         complete: function () {
-            $('#btnSalvar').attr("disabled", false);
-            $("#status").html("");
-            refreshListaProjeto();
+            $('#btnSalvar').attr("disabled", false);            
         }
     });
 }

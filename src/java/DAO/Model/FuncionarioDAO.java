@@ -53,7 +53,7 @@ public class FuncionarioDAO {
         } catch (Exception erro) {
             return null;
         }
-    }
+    }   
 
     public static Funcionario autenticacaoLogin(String email, String senha) {
 

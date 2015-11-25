@@ -24,11 +24,11 @@
                         <fmt:formatDate pattern="dd/mm/yyyy" value="${dataConvertida}" var="dataFormatada" type="date"/>
                         <input type="hidden" id="funcionarioDtCriacao" value="${funcionario.dtcriacao}">
                     </div>
-
+                    
                     <div class="col-lg-12">
 
-                        <div class="col-lg-4 text-center">
-                            <img id="imgPreview" src="${funcionario.imgperfil}" alt="" class="img-responsive img-rounded" >                            
+                        <div class="col-lg-4 text-center">                            
+                            <img id="imgPreview" src="${funcionario.imgperfil}" alt="" class="img-responsive img-rounded">                            
                             <span id="erroImg"></span>
                             <br>
                             <a href="javascript:selecionaImg()">Adicionar imagem</a>

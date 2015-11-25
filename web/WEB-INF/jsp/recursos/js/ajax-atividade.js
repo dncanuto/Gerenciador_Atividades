@@ -77,7 +77,7 @@ function preparaObjeto()
     var _funcionarioProjeto = new Funcionarioprojeto();
 
     //popula objetos relacionados...
-    _sprint.id = parseInt($("#sprintId").val());
+    _sprint.id = parseInt($("#atividadeSprintId").val());
     _tpPrioridade.id = parseInt($("#tpprioridade").val());
     _sitAtividade.id = parseInt($("#sitatividade").val());
     _tpTempoEstimado.id = parseInt($("#tptempoByTptempoestimadoid").val());
@@ -88,8 +88,10 @@ function preparaObjeto()
     _atividade.id = parseInt($("#atividadeId").val());
     _atividade.nome = $("#atividadeNome").val();
     _atividade.descricao = $("#atividadeDescricao").val().trim();
-    _atividade.dtcriacao = $("#dtcriacao").val();
-    _atividade.dtalteracao = $("#dtalteracao").val();
+
+    if ($("#dtcriacao").val()) {
+        _atividade.dtcriacao = $("#dtcriacao").val();
+    }
 
     _atividade.sprint = _sprint;
     _atividade.tpprioridade = _tpPrioridade;
@@ -130,7 +132,7 @@ function alterarAtividade(atividadeId)
         success: function (data) {
             $("#div-modal-atividade").html(data);
             $("#modalCadAtividade").modal("show");
-            
+
             runAutocompleteAtividade();
         }
     });
@@ -138,12 +140,16 @@ function alterarAtividade(atividadeId)
 
 function salvarAtividade()
 {
-    var obj = JSON.stringify(preparaObjeto());
+    var atividadeJson = JSON.stringify(preparaObjeto());
+    var operacaoJson = $("#operacaoAtividade").val();
 
     $.ajax({
         url: "salvar-atividade",
         type: 'POST',
-        data: "obj=" + obj,
+        data: {
+            atividadeJson: atividadeJson,
+            operacao: operacaoJson
+        },
         dataType: 'json',
         success: function (dados) {
             if (dados.sucesso) {
@@ -203,7 +209,9 @@ function runAutocompleteAtividade() {
         serviceUrl: "get-funcionarios-projeto",
         minChars: 3,
         delimiter: ",",
-        params: {projetoId: "15"},
+        params: {
+            projetoId: $("#atividadeProjetoId").val()
+        },
         paramName: "funcName",
         transformResult: function (response) {
 
@@ -214,7 +222,6 @@ function runAutocompleteAtividade() {
             };
         },
         onSelect: function (suggestion) {
-            //$("#func-projeto-id").val(suggestion.data); 
 
             $.ajax({
                 url: "get-funcionario-atividade-restrito?funcionarioProjetoId=" + suggestion.data,

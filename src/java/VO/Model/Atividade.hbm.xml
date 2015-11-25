@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         
-        <many-to-one name="funcionarioprojeto" class="VO.Model.Funcionarioprojeto" fetch="select">
+        <many-to-one name="funcionarioprojeto" class="VO.Model.Funcionarioprojeto" fetch="join">
             <column name="FUNCIONARIOPROJETOID" />
         </many-to-one>
         

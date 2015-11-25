@@ -28,7 +28,7 @@
 
             <div class="row">
                 <div class="col-xs-3 col-md-3">                    
-                    <img style="max-height: 50px" class="img-responsive img-rounded" src="recursos/img/Triumph-Thunderbird-Nightstorm-6598.jpg" alt="...">
+                    <img style="max-height: 50px" class="img-responsive img-rounded" src="${funcProjeto.funcionario.imgperfil}" alt="...">
                 </div>  
 
                 <div>${funcProjeto.funcionario.nome} ${funcProjeto.funcionario.sobrenome}</div>
