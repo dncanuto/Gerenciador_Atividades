@@ -1,6 +1,6 @@
 <%-- 
-    Document   : home
-    Created on : 31/10/2015, 14:21:09
+    Document   : cad-projeto
+    Created on : 25/11/2015, 12:15:08
     Author     : Daniel
 --%>
 
@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home</title>
+        <title>Gerenciador de Atividades - Projeto</title>
 
         <script src="recursos/js/jquery-2.1.1.js" type="text/javascript"></script>            
         <script src="recursos/autocomplete/jquery.autocomplete.js" type="text/javascript"></script>        
@@ -27,30 +27,27 @@
         <link href="recursos/autocomplete/main.css" rel="stylesheet" type="text/css"/>
         <link href="recursos/bootstrap/css/estilos.css" rel="stylesheet" type="text/css"/>
     </head>
+    
     <body>
-        <header>
-            <%@include file="header.jsp" %>  
-        </header>
-        
-        <div style="width: auto; margin-top: 100px;">
-            <a href="javascript:novoFuncionario()">Novo Funcionario</a>
-            <br>
-            <section id="tbFuncionario">
-                <%@include file="gridFuncionario.jsp"%>
-            </section>
-            <br>
-
-            <a href="dados-projeto-restrito?projetoId=0">Novo Projeto</a>
-            <br>
-            <div id="tbProjeto">
-                <%@include file="gridProjeto.jsp" %>  
-            </div>
-            <br>            
-        </div>        
-        
-        <div id="div-modal-funcionario">
-            <%@include file="modal/cad-funcionario.jsp" %>      
+        <div class="page-header">
+            <h1>Dados do Projeto</h1>
         </div>
-        <br>     
+        
+        <div id="dadosProjeto">
+            <%@include file="dados-projeto.jsp" %>
+        </div>
+        
+        <br>
+        
+        <div id="sprints-projeto">
+            <%@include file="sprints-projeto.jsp" %>
+        </div>
+        
+        <br>
+        
+        <div id="atividades-sprint">
+            <%@include file="atividades-projeto.jsp" %>
+        </div>
+        
     </body>
 </html>

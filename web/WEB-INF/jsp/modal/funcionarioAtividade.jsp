@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:choose>
-    <c:when test="${funcProjeto == null}">
+    <c:when test="${funcAtividadeProjeto == null}">
         <div id="autocomplete-funcionario">                       
             <div>                
                 <label class="control-label" for="search-funcionarios">Funcionário responsável</label>
@@ -24,16 +24,16 @@
                 </a>
             </div>
 
-            <input type="hidden" id="funcionarioProjetoId" name="funcionarioProjetoId" value="${funcProjeto.id}">
+            <input type="hidden" id="funcionarioProjetoId" name="funcionarioProjetoId" value="${funcAtividadeProjeto.id}">
 
             <div class="row">
                 <div class="col-xs-3 col-md-3">                    
-                    <img style="max-height: 50px" class="img-responsive img-rounded" src="${funcProjeto.funcionario.imgperfil}" alt="...">
+                    <img style="max-height: 50px" class="img-responsive img-rounded" src="${funcAtividadeProjeto.funcionario.imgperfil}" alt="...">
                 </div>  
 
-                <div>${funcProjeto.funcionario.nome} ${funcProjeto.funcionario.sobrenome}</div>
+                <div>${funcAtividadeProjeto.funcionario.nome} ${funcAtividadeProjeto.funcionario.sobrenome}</div>
 
-                <div><small>${funcProjeto.funcionario.email}</small></div> 
+                <div><small>${funcAtividadeProjeto.funcionario.email}</small></div> 
             </div>
         </div>
     </c:otherwise>

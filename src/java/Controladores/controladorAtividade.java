@@ -49,7 +49,7 @@ public class controladorAtividade {
         mv.addObject("atividade", a);
         mv.addObject("sprint", sprint);
         mv.addObject("operacao", operacao);
-        mv.addObject("funcProjeto", a.getFuncionarioprojeto());
+        mv.addObject("funcAtividadeProjeto", a.getFuncionarioprojeto());
         mv.addObject("listaPrioridade", DicionarioDAO.listarDadosEntidade(Tpprioridade.class));
         mv.addObject("listaTempo", DicionarioDAO.listarDadosEntidade(Tptempo.class));
         mv.addObject("listaSituacao", DicionarioDAO.listarDadosEntidade(Sitatividade.class));
@@ -57,9 +57,12 @@ public class controladorAtividade {
     }
     
     @RequestMapping("lista-atividade-restrito")
-    public ModelAndView listarAtividade(){
-        ModelAndView mv = new ModelAndView("gridAtividade");
-        mv.addObject("listaAtividade", AtividadeDAO.listarAtividades());
+    public ModelAndView listarAtividade(int sprintId){
+        
+        Sprint s = SprintDAO.pesquisaSprint(sprintId);
+        
+        ModelAndView mv = new ModelAndView("gridAtividade");        
+        mv.addObject("listaAtividade", AtividadeDAO.listarAtividades(s));
         return mv;
     }
     
@@ -74,14 +77,14 @@ public class controladorAtividade {
     @RequestMapping("get-funcionario-atividade-restrito")
     public ModelAndView getFuncAtividadeSelecionado(int funcionarioProjetoId){        
         ModelAndView mv = new ModelAndView("modal/funcionarioAtividade");
-        mv.addObject("funcProjeto", AtividadeDAO.getFuncAtividadeSelecionado(funcionarioProjetoId));
+        mv.addObject("funcAtividadeProjeto", AtividadeDAO.getFuncAtividadeSelecionado(funcionarioProjetoId));
         return mv;
     }
     
     @RequestMapping("remove-funcionario-atividade-restrito")
     public ModelAndView removeFuncAtividadeSelecionado(){        
         ModelAndView mv = new ModelAndView("modal/funcionarioAtividade");
-        mv.addObject("funcProjeto", null);
+        mv.addObject("funcAtividadeProjeto", null);
         return mv;
     }
 
@@ -108,6 +111,15 @@ public class controladorAtividade {
             
             if(atividade.getTptempoByTptempoestimadoid().getId() == 0)
                 erros.put("erroTempoEstimado","Selecione o tempo estimado de conclusção da atividade!");
+            
+            if(atividade.getSitatividade().getId() == 3){
+                
+                if(atividade.getTptempoByTptempoconclusaoid().getId() == 0)
+                    erros.put("erroTempoConclusao","Selecione o tempo de conclusão!");
+                
+                if(atividade.getDescconclusao().length() == 0)
+                    erros.put("erroDescricaoConclusao","Informe a descricao da conclusao!");
+            }
             
             if(erros.isEmpty()){  
                 

@@ -10,18 +10,18 @@ function novoProjeto()
             div.html(data);
             $("#modalCadProjeto").modal("show");
 
-            runAutocomplete();
+            runAutocomplete();            
         }
     });
 }
 
-function refreshListaProjeto()
+function refreshProjeto(projetoId)
 {
     $.ajax({
         type: "POST",
-        url: "lista-projeto-restrito",
+        url: "get-projeto?projetoId="+projetoId,
         success: function (data) {
-            var div = $("#tbProjeto");
+            var div = $("#dadosProjeto");
             div.html(data);
         }
     });
@@ -37,7 +37,8 @@ function alterarProjeto(id)
             div.html(data);
             $("#modalCadProjeto").modal("show");
 
-            runAutocomplete();
+            runAutocomplete();       
+            showTooltip();
         }
     });
 }
@@ -52,7 +53,10 @@ function addFuncToProjeto()
         success: function (data) {
             $("#list-funcionario-projeto").html(data);
             $("#autocomplete input:text").val("");
-            $('#addFunc').attr("disabled", true);            
+            $('#addFunc').attr("disabled", true); 
+            
+            $("#modalCadProjeto").resize();
+            showTooltip();
         }
     });
 }
@@ -66,6 +70,8 @@ function removeFuncDoProjeto(funcionarioId, projetoId)
             $("#list-funcionario-projeto").html(data);
             $("#autocomplete input:text").val("");
             $('#addFunc').attr("disabled", true);
+            
+            showTooltip();
         }
     });
 }
@@ -94,16 +100,23 @@ function runAutocomplete() {
 function salvarProjeto()
 {   
     var dataForm = $("#frmCadProjeto").serialize();
+    var projetoId = $("#projetoId").val();
 
     $.ajax({
         type: "POST",
         url: "salvar-projeto-restrito",
         data: dataForm,
         dataType: "json",
-        success: function (dados) {
+        success: function (dados) {debugger
             if (dados.sucesso) {
                 $("#modalCadProjeto").modal("hide");
-                refreshListaProjeto();
+                
+                if(dados.projetoId){
+                    projetoId = dados.projetoId;
+                }
+                
+                refreshProjeto(projetoId);   
+                refreshDivSprint(projetoId);
             }
             else {                   
                 limpaErros();                  
@@ -115,6 +128,17 @@ function salvarProjeto()
         },
         complete: function () {
             $('#btnSalvar').attr("disabled", false);            
+        }
+    });
+}
+
+function refreshDivSprint(projetoId)
+{
+    $.ajax({
+        type: "POST",
+        url: "get-sprints-projeto-restrito?projetoId="+projetoId,
+        success: function (data) {
+            $("#sprints-projeto").html(data);
         }
     });
 }

@@ -36,13 +36,13 @@
 
                         <div class="col-lg-8">
                             <div class="form-group">
-                                <label for="funcionarioNome">Nome</label>
+                                <label class="control-label" for="funcionarioNome">Nome</label>
                                 <span id="erroNome" class="glyphicon glyphicon-alert ValidaErro" data-toggle="tooltip" data-placement="right" title=""></span>
                                 <input type="text" id="funcionarioNome" name="funcionarioNome" class="form-control" value="${funcionario.nome}">                                
                             </div>
 
                             <div class="form-group">
-                                <label for="funcionarioSobrenome">Sobrenome</label>
+                                <label class="control-label" for="funcionarioSobrenome">Sobrenome</label>
                                 <span id="erroSobrenome" class="glyphicon glyphicon-alert ValidaErro" data-toggle="tooltip" data-placement="right" title=""></span>
                                 <input type="text" id="funcionarioSobrenome" name="funcionarioSobrenome" class="form-control" value="${funcionario.sobrenome}">                                
                             </div>
@@ -50,21 +50,21 @@
                     </div>
 
                     <div class="form-group col-lg-12">
-                        <label for="funcionarioEmail">E-mail</label>
+                        <label class="control-label" for="funcionarioEmail">E-mail</label>
                         <span id="erroEmail" class="glyphicon glyphicon-alert ValidaErro" data-toggle="tooltip" data-placement="right" title=""></span>
                         <input type="email" id="funcionarioEmail" name="funcionarioEmail" class="form-control" value="${funcionario.email}" autocomplete="off">                        
                     </div>
 
 
                     <div class="form-group col-lg-12">
-                        <label for="funcionarioPassword">Senha de acesso</label>
+                        <label class="control-label" for="funcionarioPassword">Senha de acesso</label>
                         <span id="erroPassword" class="glyphicon glyphicon-alert ValidaErro" data-toggle="tooltip" data-placement="right" title=""></span>
                         <input type="password" id="funcionarioPassword" name="funcionarioPassword" class="form-control" value="${funcionario.password}" autocomplete="off">
                     </div>
 
 
                     <div class="form-group col-lg-12">
-                        <label for="funcionarioTpcargo">Cargo</label>
+                        <label class="control-label" for="funcionarioTpcargo">Cargo</label>
                         <span id="erroTpCargo" class="glyphicon glyphicon-alert ValidaErro" data-toggle="tooltip" data-placement="right" title=""></span>
                         <select name="funcionarioTpcargo" class="form-control" id="funcionarioTpcargo">
                             <option></option>

@@ -9,6 +9,7 @@ import VO.Model.Atividade;
 import VO.Model.Funcionario;
 import VO.Model.Funcionarioprojeto;
 import VO.Model.Projeto;
+import VO.Model.Sprint;
 import VO.Model.Tag;
 import VO.Model.Tptempo;
 import br.com.configuration.HibernateUtility;
@@ -59,6 +60,15 @@ public class AtividadeDAO {
         Session sessao = HibernateUtility.getSession();
 
         Criteria cri = sessao.createCriteria(Atividade.class);
+
+        return cri.list();
+    }
+    
+    public static List<Atividade> listarAtividades(Sprint s) {
+        Session sessao = HibernateUtility.getSession();
+
+        Criteria cri = sessao.createCriteria(Atividade.class);
+        cri.add(Restrictions.eq("sprint", s));
 
         return cri.list();
     }

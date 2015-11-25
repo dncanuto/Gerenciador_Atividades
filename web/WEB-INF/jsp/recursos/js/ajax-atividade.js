@@ -140,7 +140,8 @@ function alterarAtividade(atividadeId)
 
 function salvarAtividade()
 {
-    var atividadeJson = JSON.stringify(preparaObjeto());
+    var obj = preparaObjeto();
+    var atividadeJson = JSON.stringify(obj);
     var operacaoJson = $("#operacaoAtividade").val();
 
     $.ajax({
@@ -154,6 +155,7 @@ function salvarAtividade()
         success: function (dados) {
             if (dados.sucesso) {
                 $("#modalCadAtividade").modal("hide");
+                refreshGridAtividade(obj.sprint.id);
             }
             else {
                 limpaErros();
@@ -169,20 +171,18 @@ function salvarAtividade()
         },
         complete: function () {
             $('#btnSalvar').attr("disabled", false);
-            $("#status").html("");
-
-            refreshGridAtividade();
+            $("#status").html("");            
         }
     });
 }
 
-function refreshGridAtividade()
+function refreshGridAtividade(sprintId)
 {
     $.ajax({
         type: "POST",
-        url: "lista-atividade-restrito",
+        url: "lista-atividade-restrito?sprintId="+sprintId,
         success: function (data) {
-            var div = $("#tbAtividade");
+            var div = $("#tb-atividades-projeto");
             div.html(data);
         }
     });

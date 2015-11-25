@@ -5,6 +5,7 @@
  */
 package DAO.Model;
 
+import VO.Model.Projeto;
 import VO.Model.Sitsprint;
 import VO.Model.Sprint;
 import br.com.configuration.HibernateUtility;
@@ -61,6 +62,15 @@ public class SprintDAO {
         Session sessao = HibernateUtility.getSession();
         
         Criteria cri = sessao.createCriteria(Sprint.class);        
+        
+        return cri.list();
+    }
+    
+    public static List<Sprint> listarSprints(Projeto p){
+        Session sessao = HibernateUtility.getSession();
+        
+        Criteria cri = sessao.createCriteria(Sprint.class);
+        cri.add(Restrictions.eq("projeto", p));
         
         return cri.list();
     }

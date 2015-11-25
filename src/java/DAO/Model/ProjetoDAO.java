@@ -27,10 +27,12 @@ import org.hibernate.criterion.Restrictions;
  */
 public class ProjetoDAO {
 
-    public static void salvarProjeto(Projeto p, ArrayList<Tag> tagFuncionarios, String operacao) {
+    public static int salvarProjeto(Projeto p, ArrayList<Tag> tagFuncionarios, String operacao) {
 
         Transaction transaction = null;
         Session sessao = null;
+
+        int projetoId = 0;
 
         try {
             sessao = HibernateUtility.getSession();
@@ -48,7 +50,9 @@ public class ProjetoDAO {
                 sessao.saveOrUpdate(f);
             }
 
-            transaction.commit();
+            projetoId = p.getId();
+
+            transaction.commit();           
 
         } catch (HibernateException erro) {
             transaction.rollback();
@@ -58,6 +62,8 @@ public class ProjetoDAO {
         } finally {
             sessao.close();
         }
+        
+        return projetoId;
     }
 
     private static HashSet<Funcionarioprojeto> tagToFuncionario(

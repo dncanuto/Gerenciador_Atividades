@@ -2,9 +2,9 @@
     <nav class="nav">
         <ul>
             <li><a href="">Dashboard</a></li>
-            <li><a href="javascript:novoProjeto()">Projetos</a></li>
+            <li><a href="#">Projetos</a></li>
             <li><a href="#">Sprints</a></li>
-            <li><a href="javascript:novoFuncionario()">Funcionários</a></li>
+            <li><a href="#">Funcionários</a></li>
             <li><a href="#">Área Administrativa</a></li>
             <li><a href="efetua-logoff">Logoff</a></li>
         </ul>

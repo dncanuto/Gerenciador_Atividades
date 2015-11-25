@@ -7,6 +7,7 @@ package Controladores;
 
 import DAO.Model.FuncionarioDAO;
 import DAO.Model.ProjetoDAO;
+import DAO.Model.SprintDAO;
 import VO.Model.Funcionario;
 import VO.Model.Projeto;
 import VO.Model.Tag;
@@ -42,21 +43,48 @@ public class controladorProjeto {
 
     @RequestMapping("alterar-projeto-restrito")
     public ModelAndView alterarProjeto(int id, HttpServletRequest request) {
-        try {          
+        try {
             limpaSessaoFuncProjeto(request.getSession());
             Projeto p = ProjetoDAO.pesquisaProjeto(id);
             ArrayList<Tag> funcProjeto = ProjetoDAO.getFuncSalvoToTag(p);
             request.getSession().setAttribute("funcProjeto", funcProjeto);
-            ModelAndView mv = modalCadProjeto(p, "A");            
-            mv.addObject("listaFuncProjeto", funcProjeto);            
+            ModelAndView mv = modalCadProjeto(p, "A");
+            mv.addObject("listaFuncProjeto", funcProjeto);
             return mv;
         } catch (Exception erro) {
             return null;
         }
     }
+
+    @RequestMapping("dados-projeto-restrito")
+    public ModelAndView dadosProjeto(int projetoId) throws Exception {
+        ModelAndView mv = new ModelAndView("projeto");
+        Projeto p = ProjetoDAO.pesquisaProjeto(projetoId);
+        mv.addObject("projeto", p);
+        mv.addObject("listaSprint", SprintDAO.listarSprints(p));
+        return mv;
+    }  
     
+    @RequestMapping("get-sprints-projeto-restrito")
+    public ModelAndView getSprintsProjeto(int projetoId) throws Exception{
+        ModelAndView mv = new ModelAndView("sprints-projeto");
+        Projeto p = ProjetoDAO.pesquisaProjeto(projetoId);
+        mv.addObject("projeto", p);
+        mv.addObject("listaSprint", SprintDAO.listarSprints(p));
+        return mv;
+    }
+
+    @RequestMapping("get-projeto")
+    public ModelAndView getProjeto(int projetoId) throws Exception {
+        ModelAndView mv = new ModelAndView("dados-projeto");
+        Projeto p = ProjetoDAO.pesquisaProjeto(projetoId);
+        mv.addObject("projeto", p);
+        mv.addObject("listaSprint", SprintDAO.listarSprints(p));
+        return mv;
+    }
+
     @RequestMapping("lista-projeto-restrito")
-    public ModelAndView pagListaProjeto() throws Exception{
+    public ModelAndView pagListaProjeto() throws Exception {
         ModelAndView mv = new ModelAndView("gridProjeto");
         mv.addObject("listaProjeto", ProjetoDAO.listarProjetos());
         return mv;
@@ -66,9 +94,9 @@ public class controladorProjeto {
 
         try {
             ModelAndView mv = new ModelAndView("modal/cad-projeto");
-            mv.addObject("projeto", p);            
+            mv.addObject("projeto", p);
             mv.addObject("operacao", operacao);
-            
+
             return mv;
         } catch (Exception erro) {
             return null;
@@ -81,7 +109,7 @@ public class controladorProjeto {
 
         String searchList = new Gson().toJson(FuncionarioDAO.getFuncionarios(tagName));
         return searchList;
-    }   
+    }
 
     private ModelAndView listFuncProjeto(ArrayList<Tag> funcProjeto) {
         ModelAndView mv = new ModelAndView("modal/listFuncionarioProjeto");
@@ -142,13 +170,14 @@ public class controladorProjeto {
 
         ArrayList<Tag> funcProjeto = funcionariosProjeto(sessao);
         Tag g = pesquisaFuncionarioNoProjeto(id, funcProjeto);
-        
+
         Funcionario f = FuncionarioDAO.pesquisaFuncionario(id);
         Projeto p = ProjetoDAO.pesquisaProjeto(projetoId);
 
         if (g != null) {
-            if(g.isIsExisteBD())
+            if (g.isIsExisteBD()) {
                 ProjetoDAO.desabilitaFuncionarioProjeto(f, p);
+            }
             funcProjeto.remove(g);
         }
 
@@ -169,14 +198,16 @@ public class controladorProjeto {
             ArrayList<Tag> funcProjeto = funcionariosProjeto(sessao);
 
             if (projeto.getNome().trim().length() == 0) {
-                erros.put("", "");
+                erros.put("erroNomeProjeto", "Informe o nome do projeto");
             }
             if (projeto.getDescricao().trim().length() == 0) {
-                erros.put("", "");
+                erros.put("erroDescricaoProjeto", "Informe a descrição do projeto");
             }
             if (funcProjeto.isEmpty()) {
-                erros.put("", "");
+                erros.put("erroFuncionariosProjeto", "Selecione ao menos um funcionário para o projeto");
             }
+            
+            int projetoId = 0;
 
             if (erros.isEmpty()) {
                 if (operacao.equalsIgnoreCase("I")) {
@@ -184,12 +215,16 @@ public class controladorProjeto {
                 } else {
                     projeto.setDtalteracao(new Date());
                 }
-                
-                ProjetoDAO.salvarProjeto(projeto, funcProjeto, operacao);
-            }
 
+                projetoId = ProjetoDAO.salvarProjeto(projeto, funcProjeto, operacao);
+            }
+            
             Gson gson = new Gson();
             JsonObject myObj = new JsonObject();
+            
+            if(operacao.equalsIgnoreCase("I")){
+                myObj.addProperty("projetoId", projetoId);
+            }
 
             myObj.addProperty("sucesso", erros.isEmpty());
             JsonElement objetoErrosEmJson = gson.toJsonTree(erros);
