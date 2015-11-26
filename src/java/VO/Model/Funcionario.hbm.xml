@@ -47,5 +47,12 @@
             </key>
             <one-to-many class="VO.Model.Funcionarioprojeto" />
         </set>
+        
+        <set name="projetos" table="PROJETO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FUNCIONARIOID" not-null="true" />
+            </key>
+            <one-to-many class="VO.Model.Projeto" />
+        </set>
     </class>
 </hibernate-mapping>

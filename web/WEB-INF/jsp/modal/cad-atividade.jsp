@@ -30,14 +30,14 @@
                     <div class="form-group col-lg-12">
                         <label class="control-label" for="atividadeNome">Nome da Atividade</label>
                         <span id="erroAtividadeNome" class="glyphicon glyphicon-alert ValidaErro" data-toggle="tooltip" data-placement="right" title=""></span>
-                        <input type="text" id="atividadeNome" name="atividadeNome" class="form-control" value="${atividade.nome}">
+                        <input type="text" id="atividadeNome" name="atividadeNome" class="form-control" value="${atividade.nome}" ${operacao eq "U"? "disabled" : ""}>
                     </div>
 
                     <div>
                         <div class="form-group col-lg-6">
                             <label class="control-label" for="tpprioridade">Tipo de Prioridade</label>
                             <span id="erroTpPrioridade" class="glyphicon glyphicon-alert ValidaErro" data-toggle="tooltip" data-placement="right" title=""></span>
-                            <select name="tpprioridade" class="form-control" id="tpprioridade">
+                            <select name="tpprioridade" class="form-control" id="tpprioridade" ${operacao eq "U"? "disabled" : ""}>
                                 <option></option>
                                 <c:forEach items="${listaPrioridade}" var="itemPrioridade">
                                     <option value="${itemPrioridade.id}" ${itemPrioridade.id == atividade.tpprioridade.id ? "selected" : ""}>${itemPrioridade.label}</option>
@@ -48,7 +48,7 @@
                         <div class="form-group col-lg-6">
                             <label class="control-label" for="tptempoByTptempoestimadoid">Tempo estimado <small>(aproximado)</small></label>
                             <span id="erroTempoEstimado" class="glyphicon glyphicon-alert ValidaErro" data-toggle="tooltip" data-placement="right" title=""></span>
-                            <select name="tptempoByTptempoestimadoid" class="form-control" id="tptempoByTptempoestimadoid">
+                            <select name="tptempoByTptempoestimadoid" class="form-control" id="tptempoByTptempoestimadoid" ${operacao eq "U"? "disabled" : ""}>
                                 <option></option>
                                 <c:forEach items="${listaTempo}" var="tempo">
                                     <option value="${tempo.id}" ${tempo.id == atividade.tptempoByTptempoestimadoid.id ? "selected" : ""}>${tempo.label}</option>

@@ -22,6 +22,7 @@ public class Funcionario  implements java.io.Serializable {
      private Date dtcriacao;
      private Boolean isAtivo;
      private Set funcionarioprojetos = new HashSet(0);
+     private Set projetos = new HashSet(0);
 
     public Funcionario() {
     }
@@ -112,6 +113,14 @@ public class Funcionario  implements java.io.Serializable {
 
     public void setImgperfil(String imgperfil) {
         this.imgperfil = imgperfil;
+    }
+
+    public Set getProjetos() {
+        return projetos;
+    }
+
+    public void setProjetos(Set projetos) {
+        this.projetos = projetos;
     }
 
 

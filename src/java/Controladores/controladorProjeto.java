@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -63,10 +64,10 @@ public class controladorProjeto {
         mv.addObject("projeto", p);
         mv.addObject("listaSprint", SprintDAO.listarSprints(p));
         return mv;
-    }  
-    
+    }
+
     @RequestMapping("get-sprints-projeto-restrito")
-    public ModelAndView getSprintsProjeto(int projetoId) throws Exception{
+    public ModelAndView getSprintsProjeto(int projetoId) throws Exception {
         ModelAndView mv = new ModelAndView("sprints-projeto");
         Projeto p = ProjetoDAO.pesquisaProjeto(projetoId);
         mv.addObject("projeto", p);
@@ -84,9 +85,13 @@ public class controladorProjeto {
     }
 
     @RequestMapping("lista-projeto-restrito")
-    public ModelAndView pagListaProjeto() throws Exception {
+    public ModelAndView pagListaProjeto(HttpServletRequest request) throws Exception {
+
+        HttpSession sessao = request.getSession();
+        Funcionario f = (Funcionario) sessao.getAttribute("funcionario");
+
         ModelAndView mv = new ModelAndView("gridProjeto");
-        mv.addObject("listaProjeto", ProjetoDAO.listarProjetos());
+        mv.addObject("listaProjeto", ProjetoDAO.listarProjetos(f));
         return mv;
     }
 
@@ -106,9 +111,12 @@ public class controladorProjeto {
     @RequestMapping(value = "getTags", method = RequestMethod.GET, headers = "Accept=*/*", produces = "text/html; charset=UTF-8")
     public @ResponseBody
     String getTags(@RequestParam String tagName) {
-
-        String searchList = new Gson().toJson(FuncionarioDAO.getFuncionarios(tagName));
-        return searchList;
+        
+        RestTemplate template = new RestTemplate();
+                
+        String listaJson = template.getForObject("http://localhost:8088/Gerenciador_Atividades/get-autocomplete-funcionarios?tagName="+tagName, String.class);
+        
+        return listaJson;
     }
 
     private ModelAndView listFuncProjeto(ArrayList<Tag> funcProjeto) {
@@ -206,7 +214,7 @@ public class controladorProjeto {
             if (funcProjeto.isEmpty()) {
                 erros.put("erroFuncionariosProjeto", "Selecione ao menos um funcionário para o projeto");
             }
-            
+
             int projetoId = 0;
 
             if (erros.isEmpty()) {
@@ -216,13 +224,16 @@ public class controladorProjeto {
                     projeto.setDtalteracao(new Date());
                 }
 
+                Funcionario f = (Funcionario) sessao.getAttribute("funcionario");
+                projeto.setUsercriador(f);
+
                 projetoId = ProjetoDAO.salvarProjeto(projeto, funcProjeto, operacao);
             }
-            
+
             Gson gson = new Gson();
             JsonObject myObj = new JsonObject();
-            
-            if(operacao.equalsIgnoreCase("I")){
+
+            if (operacao.equalsIgnoreCase("I")) {
                 myObj.addProperty("projetoId", projetoId);
             }
 

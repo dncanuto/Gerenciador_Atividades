@@ -7,11 +7,14 @@ package DAO.Model;
 
 import VO.Model.Sitsprint;
 import VO.Model.Tpcargo;
+import VO.Model.Tpprioridade;
 import br.com.configuration.HibernateUtility;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import org.hibernate.criterion.Restrictions;

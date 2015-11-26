@@ -18,11 +18,13 @@
     </c:when>
     <c:otherwise>
         <div style="margin-top: 5px;" class="BoxWhite">
-            <div class="pull-right">
-                <a href="javascript:removeFuncionarioAtividade()" style="color: red;" data-toggle="tooltip" data-placement="top" title="Remover Funcionário!">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-            </div>
+            <c:if test="${operacao ne 'U'}">
+                <div class="pull-right">
+                    <a href="javascript:removeFuncionarioAtividade()" style="color: red;" data-toggle="tooltip" data-placement="top" title="Remover Funcionário!">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
+            </c:if>
 
             <input type="hidden" id="funcionarioProjetoId" name="funcionarioProjetoId" value="${funcAtividadeProjeto.id}">
 

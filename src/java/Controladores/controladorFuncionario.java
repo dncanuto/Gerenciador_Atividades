@@ -9,13 +9,11 @@ import DAO.Model.AtividadeDAO;
 import DAO.Model.DicionarioDAO;
 import DAO.Model.FuncionarioDAO;
 import DAO.Model.ProjetoDAO;
-import DAO.Model.SprintDAO;
 import VO.Model.Funcionario;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import org.springframework.stereotype.Controller;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,6 +34,9 @@ public class controladorFuncionario {
     @RequestMapping("/index")
     public ModelAndView minhaHome(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, Exception {
+        
+        HttpSession sessao = request.getSession();
+        Funcionario f = (Funcionario) sessao.getAttribute("funcionario");
 
         ModelAndView mv;
 
@@ -47,9 +49,9 @@ public class controladorFuncionario {
 
             mv = new ModelAndView("home");
             mv.addObject("lista", FuncionarioDAO.listarFuncionarios());
-            mv.addObject("listaProjeto", ProjetoDAO.listarProjetos());
-            mv.addObject("listaSprint", SprintDAO.listarSprints());
-            mv.addObject("listaAtividade", AtividadeDAO.listarAtividades());
+            mv.addObject("listaProjeto", ProjetoDAO.listarProjetos(f));
+            mv.addObject("listaAtividade", AtividadeDAO.listarAtividadesFuncionario(f));
+            
             return mv;
         }
     }

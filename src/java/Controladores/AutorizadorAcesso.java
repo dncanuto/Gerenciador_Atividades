@@ -14,34 +14,32 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  *
  * @author William
  */
-public class AutorizadorAcesso extends  HandlerInterceptorAdapter{
-    
-     @Override
+public class AutorizadorAcesso extends HandlerInterceptorAdapter {
+
+    @Override
     public boolean preHandle(
-            HttpServletRequest request, 
+            HttpServletRequest request,
             HttpServletResponse response,
             Object controller) throws Exception {
-        
+
         String uri = request.getRequestURI();
 
         if (uri.toUpperCase().contains("RESTRITO")) {
             if (request.getSession().getAttribute("logado") == null
                     || (boolean) request.getSession().getAttribute("logado") == false) {
 
-                
                 if (request.getQueryString() != null) {
                     uri += "?" + request.getQueryString();
                 }
-                
+
                 request.getSession().setAttribute("endereco", uri);
-                
+
                 RequestDispatcher dispacher = request.getRequestDispatcher("exibe-login");
                 dispacher.forward(request, response);
                 return false;
             }
         }
         return true;
-    } 
-    
-    
+    }
+
 }

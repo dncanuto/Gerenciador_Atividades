@@ -63,7 +63,7 @@ public class AtividadeDAO {
 
         return cri.list();
     }
-    
+
     public static List<Atividade> listarAtividades(Sprint s) {
         Session sessao = HibernateUtility.getSession();
 
@@ -71,6 +71,28 @@ public class AtividadeDAO {
         cri.add(Restrictions.eq("sprint", s));
 
         return cri.list();
+    }
+
+    public static List<Atividade> listarAtividadesFuncionario(Funcionario f) {
+        Session sessao = HibernateUtility.getSession();
+        
+        Criteria cri = sessao.createCriteria(Funcionarioprojeto.class);
+        cri.add(Restrictions.eq("funcionario", f));
+
+        return getAtividadesFuncionarioProjeto(cri.list());
+    }
+
+    private static List<Atividade> getAtividadesFuncionarioProjeto(List<Funcionarioprojeto> lista) {
+
+        Session sessao = HibernateUtility.getSession();
+        List<Atividade> atividades = new ArrayList<Atividade>();
+
+        for (Funcionarioprojeto f : lista) {
+
+            atividades.addAll(f.getAtividades());
+        }
+        
+        return atividades;
     }
 
     public static List<Tag> getFuncionarios(int projetoId, String funcionarioNome) {
@@ -93,18 +115,19 @@ public class AtividadeDAO {
 
             aux = f.getFuncionario().getNome() + " " + f.getFuncionario().getSobrenome();
 
-            if(aux.contains(funcionarioNome))
-               lista.add(new Tag(f.getId(), aux));
+            if (aux.contains(funcionarioNome)) {
+                lista.add(new Tag(f.getId(), aux));
+            }
         }
 
         return lista;
     }
-    
-    public static Funcionarioprojeto getFuncAtividadeSelecionado(int funcionarioprojetoId){
+
+    public static Funcionarioprojeto getFuncAtividadeSelecionado(int funcionarioprojetoId) {
         Session sessao = HibernateUtility.getSession();
         Criteria cri = sessao.createCriteria(Funcionarioprojeto.class);
         cri.add(Restrictions.eq("id", funcionarioprojetoId));
-        
+
         return (Funcionarioprojeto) cri.uniqueResult();
     }
 }

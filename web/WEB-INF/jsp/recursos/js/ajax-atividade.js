@@ -138,6 +138,20 @@ function alterarAtividade(atividadeId)
     });
 }
 
+function alterarAtividadeFuncionario(atividadeId)
+{
+    $.ajax({
+        url: "alterar-atividade-funcionario-restrito?atividadeId=" + atividadeId,
+        type: "POST",
+        success: function (data) {
+            $("#div-modal-atividade").html(data);
+            $("#modalCadAtividade").modal("show");
+
+            runAutocompleteAtividade();
+        }
+    });
+}
+
 function salvarAtividade()
 {
     var obj = preparaObjeto();
@@ -153,9 +167,13 @@ function salvarAtividade()
         },
         dataType: 'json',
         success: function (dados) {
-            if (dados.sucesso) {
+            if (dados.sucesso) {debugger
                 $("#modalCadAtividade").modal("hide");
-                refreshGridAtividade(obj.sprint.id);
+                
+                if(dados.isFuncionario)
+                    refreshGridAtividadeFuncionario();
+                else
+                    refreshGridAtividade(obj.sprint.id);
             }
             else {
                 limpaErros();
@@ -182,8 +200,18 @@ function refreshGridAtividade(sprintId)
         type: "POST",
         url: "lista-atividade-restrito?sprintId="+sprintId,
         success: function (data) {
-            var div = $("#tb-atividades-projeto");
-            div.html(data);
+            $("#tb-atividades-projeto").html(data);
+        }
+    });
+}
+
+function refreshGridAtividadeFuncionario()
+{
+    $.ajax({
+        type: "POST",
+        url: "get-atividades-funcionario-restrito",
+        success: function (data) {
+            $("#tbAtividades").html(data);
         }
     });
 }

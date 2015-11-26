@@ -10,13 +10,15 @@
     <table class="table table-bordered">
         <tr>
             <th>ID</th>
-            <th>Nome do Projeto</th>        
+            <th>Nome do Projeto</th>  
+            <th>Situação</th>
             <th>Opções</th>
         </tr>
         <c:forEach items="${listaProjeto}" var="p">
             <tr>
                 <td>${p.id}</td>
-                <td>${p.nome}</td>            
+                <td>${p.nome}</td>    
+                <td>${p.sitprojeto.label}</td>
                 <td>
                     <a href="dados-projeto-restrito?projetoId=${p.id}">
                         <span class="glyphicon-edit">

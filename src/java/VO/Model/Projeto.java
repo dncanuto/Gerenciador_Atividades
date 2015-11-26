@@ -18,6 +18,7 @@ public class Projeto  implements java.io.Serializable {
      private String descricao;
      private Date dtcriacao;
      private Date dtalteracao;
+     private Funcionario usercriador;
      private Set funcionarioprojetos = new HashSet(0);
      private Set sprints = new HashSet(0);
 
@@ -94,6 +95,14 @@ public class Projeto  implements java.io.Serializable {
     
     public void setSprints(Set sprints) {
         this.sprints = sprints;
+    }
+
+    public Funcionario getUsercriador() {
+        return usercriador;
+    }
+
+    public void setUsercriador(Funcionario usercriador) {
+        this.usercriador = usercriador;
     }
 
 

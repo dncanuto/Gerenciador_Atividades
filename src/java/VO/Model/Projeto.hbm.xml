@@ -13,6 +13,10 @@
             <column name="SITPROJETOID" />
         </many-to-one>
         
+        <many-to-one name="usercriador" class="VO.Model.Funcionario" fetch="select">
+            <column name="USERCRIADOR" />
+        </many-to-one>
+        
         <property name="nome" type="string">
             <column name="NOME" length="200" />
         </property>

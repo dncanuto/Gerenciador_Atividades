@@ -31,26 +31,34 @@
         <header>
             <%@include file="header.jsp" %>  
         </header>
-        
+
         <div style="width: auto; margin-top: 100px;">
-            <a href="javascript:novoFuncionario()">Novo Funcionario</a>
-            <br>
-            <section id="tbFuncionario">
-                <%@include file="gridFuncionario.jsp"%>
-            </section>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Meus Projetos
+
+                        <a href="dados-projeto-restrito?projetoId=0" class="linkProjeto pull-right">
+                            <span class="glyphicon glyphicon-pencil">Clique aqui para adicionar um novo projeto</span>
+                        </a>
+
+                    </h3>
+                </div>
+                <div id="tbProjeto">
+                    <%@include file="gridProjeto.jsp" %>  
+                </div>
+            </div>
             <br>
 
-            <a href="dados-projeto-restrito?projetoId=0">Novo Projeto</a>
-            <br>
-            <div id="tbProjeto">
-                <%@include file="gridProjeto.jsp" %>  
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Minhas Atividades</h3>
+                </div>
+                
+                <div id="tbAtividades">
+                    <%@include file="atividade-funcionario.jsp" %>  
+                </div>
             </div>
-            <br>            
-        </div>        
-        
-        <div id="div-modal-funcionario">
-            <%@include file="modal/cad-funcionario.jsp" %>      
-        </div>
-        <br>     
+        </div>                  
     </body>
 </html>

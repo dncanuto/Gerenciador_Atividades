@@ -107,10 +107,11 @@ public class ProjetoDAO {
 
     }
 
-    public static List<Projeto> listarProjetos() throws Exception {
+    public static List<Projeto> listarProjetos(Funcionario f) throws Exception {
 
         Session sessao = HibernateUtility.getSession();
         Criteria cri = sessao.createCriteria(Projeto.class);
+        cri.add(Restrictions.eq("usercriador", f));
 
         return cri.list();
 
@@ -155,7 +156,7 @@ public class ProjetoDAO {
         }
 
         return null;
-    }
+    }   
 
     public static ArrayList<Tag> getFuncSalvoToTag(Projeto p) throws Exception {
 
